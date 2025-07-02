@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обучение | UZTELECOM</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/window-manager.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>        <header class="header-fixed">
+            <div class="header-title">Обучение</div>
+            <!-- Кнопки редактирования (скрыты по умолчанию) -->
+            <div class="header-editor-controls" id="header-editor-controls" style="display: none;">
+                <button class="editor-btn save-btn" id="save-btn">
+                    <span class="material-icons">save</span>
+                    Сохранить
+                </button>
+                <button class="editor-btn cancel-btn" id="cancel-btn">
+                    <span class="material-icons">close</span>
+                    Отменить
+                </button>
+                <button class="editor-btn add-remove-btn" id="add-remove-btn">
+                    <span class="material-icons">add_box</span>
+                    Добавить/Убрать
+                </button>
+                <!-- Выпадающий список для добавления окон -->
+                <div class="window-selector-dropdown" id="window-selector-dropdown">
+                    <div class="window-selector-header">
+                        <span class="material-icons">widgets</span>
+                        <span>Доступные окна</span>
+                    </div>
+                    <div class="window-selector-list">
+                        <label class="window-selector-item">
+                            <input type="checkbox" data-window="operators-list" checked>
+                            <span class="checkmark"></span>
+                            <span class="window-name">Выявленные ошибки операторов</span>
+                        </label>
+                        <label class="window-selector-item">
+                            <input type="checkbox" data-window="operator-details">
+                            <span class="checkmark"></span>
+                            <span class="window-name">Подробная информация ошибок</span>
+                        </label>
+                        <label class="window-selector-item">
+                            <input type="checkbox" data-window="analytics-dashboard">
+                            <span class="checkmark"></span>
+                            <span class="window-name">Аналитика учебного процесса</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="header-group">
+                <div class="header-group-select">
+                    <span class="header-group-selected">Группа 1000</span>
+                    <span class="material-icons header-group-arrow">arrow_drop_down</span>
+                    <ul class="header-group-list">
+                        <li data-value="Группа 1000" class="active">Группа 1000</li>
+                        <li data-value="Группа 1242">Группа 1242</li>
+                        <li data-value="Группа 1093">Группа 1093</li>
+                        <li data-value="Группа 1170">Группа 1170</li>
+                        <li data-value="Группа ДОП">Группа ДОП</li>
+                    </ul>
+                </div>
+                <div class="header-user" id="header-user">
+                    <img src="assets/Аватар/Foto.jpg" alt="user" class="header-user-img">
+                    <span>Рискиев Б.</span>
+                    <div class="header-dropdown" id="header-dropdown">
+                        <a href="#" id="editor-toggle"><span class="material-icons">edit</span> Редактор</a>
+                        <a href="#"><span class="material-icons">language</span> Изменить язык</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="main-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar sidebar-figma collapsible-sidebar" onmouseenter="this.classList.add('open')" onmouseleave="this.classList.remove('open')">
+                <div class="sidebar-logo">
+                    <img src="assets/mini.png" alt="UZTELECOM Logo" class="sidebar-logo-img" id="sidebar-logo-img">
+                    <div class="sidebar-logo-text">
+                        <div class="sidebar-logo-title"></div>
+                        <div class="sidebar-logo-sub"></div>
+                    </div>
+                </div>
+                <nav class="sidebar-menu-figma">
+                    <a class="active"><span class="material-icons">school</span> <span class="sidebar-label">Обучение</span></a>
+                    <a href="http://192.168.42.172:5001/" target="_blank"><span class="material-icons">checklist</span> <span class="sidebar-label">Лист контроль</span></a>
+                    <a><span class="material-icons">notifications</span> <span class="sidebar-label">Уведомления</span> <span class="sidebar-badge">1</span></a>
+                    <a><span class="material-icons">groups</span> <span class="sidebar-label">Операторы</span></a>
+                    <a><span class="material-icons">assignment</span> <span class="sidebar-label">Отработки</span></a>
+                    <a><span class="material-icons">report_problem</span> <span class="sidebar-label">Технический сбой</span></a>
+                    <a><span class="material-icons">person_add</span> <span class="sidebar-label">Привлечение к работам</span></a>
+                    <a><span class="material-icons">bar_chart</span> <span class="sidebar-label">Статистика супервайзера</span></a>
+                    <a><span class="material-icons">settings</span> <span class="sidebar-label">Настройки</span></a>
+                </nav>
+                <a class="sidebar-exit" href="index.html"><span class="material-icons">logout</span> <span class="sidebar-label">Выйти</span></a>
+            </aside>
+            <!-- Main Content -->
+            <main class="main-content training-page">
+                <div class="training-layout">
+                    <!-- Окно "Выявленные ошибки операторов" -->
+                    <div class="training-window operators-errors-window" id="operators-errors-window">
+                        <div class="window-header">
+                            <div class="window-title-section">
+                                <span class="material-icons">person_search</span>
+                                <span>Выявленные ошибки операторов</span>
+                            </div>
+                            <div class="window-controls">
+                                <button class="window-control-btn minimize-btn" title="Свернуть">
+                                    <span class="material-icons">remove</span>
+                                </button>
+                                <button class="window-control-btn maximize-btn" title="Развернуть">
+                                    <span class="material-icons">crop_din</span>
+                                </button>
+                                <button class="window-control-btn close-btn" title="Закрыть" style="display: none;">
+                                    <span class="material-icons">close</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="window-content">
+                            <!-- Поиск и фильтры -->
+                            <div class="operators-search-section">
+                                <div class="search-input-container">
+                                    <span class="material-icons search-icon">search</span>
+                                    <input type="text" 
+                                           class="operators-search-input" 
+                                           id="operators-search-input"
+                                           placeholder="Поиск оператора">
+                                    <button class="refresh-operators-btn" 
+                                            id="refresh-operators-btn" 
+                                            title="Обновить список операторов">
+                                        <span class="material-icons">refresh</span>
+                                    </button>
+                                </div>
+                                <div class="operators-filters">
+                                    <label class="filter-toggle">
+                                        <input type="radio" name="operator-filter" value="all" checked>
+                                        <span class="filter-text">Все</span>
+                                    </label>
+                                    <label class="filter-toggle filter-toggle-blue">
+                                        <input type="radio" name="operator-filter" value="untrained">
+                                        <span class="filter-text">Необученные</span>
+                                    </label>
+                                    <label class="filter-toggle">
+                                        <input type="radio" name="operator-filter" value="training-date">
+                                        <span class="filter-text">Дата обучения</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Список операторов -->
+                            <div class="operators-list-container">
+                                <!-- Операторы будут добавляться динамически -->
+                            </div>
+                        </div>
+                        <div class="resize-handle"></div>
+                    </div>
+                    
+                    <!-- Окно "Подробная информация ошибок" -->
+                    <div class="training-window operator-details-window" id="operator-details-window" style="display: none; top: 20px; left: 450px; width: 800px; height: 600px;">
+                        <div class="window-header">
+                            <div class="window-title-section">
+                                <span class="material-icons">assignment</span>
+                                <span>Подробная информация ошибок</span>
+                                <span class="operator-name-indicator" id="operator-name-indicator">- Выберите оператора</span>
+                            </div>
+                            <div class="window-controls">
+                                <button class="window-control-btn minimize-btn" title="Свернуть">
+                                    <span class="material-icons">remove</span>
+                                </button>
+                                <button class="window-control-btn maximize-btn" title="Развернуть">
+                                    <span class="material-icons">crop_din</span>
+                                </button>
+                                <button class="window-control-btn close-btn" title="Закрыть" style="display: none;">
+                                    <span class="material-icons">close</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="window-content">
+                            <!-- Информация о выбранном операторе -->
+                            <div class="selected-operator-info" id="selected-operator-info" style="display: none;">
+                                <div class="operator-header">
+                                    <img src="" alt="Аватар оператора" class="operator-detail-avatar" id="operator-detail-avatar">
+                                    <div class="operator-detail-info">
+                                        <div class="operator-detail-name" id="operator-detail-name"></div>
+                                        <div class="operator-detail-stats">
+                                            <div class="stat-item">
+                                                <span class="material-icons">error</span>
+                                                <span id="operator-detail-errors">0</span> ошибок
+                                            </div>
+                                            <div class="stat-item">
+                                                <span class="material-icons">check_circle</span>
+                                                <span id="operator-detail-success">0</span> успешных
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="operator-actions">
+                                        <div class="toggle-group">
+                                            <span class="date-label">Дата и время обучения:</span>
+                                            <div class="switch">
+                                                <input type="checkbox" id="training-date-toggle">
+                                                <span class="slider"></span>
+                                            </div>
+                                            <span class="date-value">12.06.2024 / 10:40</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Список ошибок оператора -->
+                            <div class="operator-errors-list" id="operator-errors-list">
+                                <!-- Здесь будут отображаться ошибки выбранного оператора -->
+                            </div>
+                            
+                            <!-- Заглушка когда оператор не выбран -->
+                            <div class="no-operator-selected" id="no-operator-selected">
+                                <div class="empty-state">
+                                    <span class="material-icons">person_search</span>
+                                    <h3>Выберите оператора</h3>
+                                    <p>Для просмотра подробной информации об ошибках выберите оператора из списка слева</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="resize-handle"></div>
+                    </div>
+                    
+                    <!-- Временная заглушка для проверки функциональности -->
+                    <div class="training-placeholder">
+                        <h2>Режим обучения</h2>
+                        <p>Нажмите "Редактор" для настройки интерфейса</p>
+                        <div class="placeholder-info">
+                            <p><strong>Информация:</strong></p>
+                            <ul>
+                                <li>Изменение размера окон и кнопки свернуть/развернуть доступны всегда</li>
+                                <li>Перемещение окон доступно только в режиме редактирования</li>
+                                <li>Для входа в режим редактирования нажмите "Редактор" в правом верхнем углу</li>
+                                <li>В режиме редактирования окна будут выделены синей рамкой и станут доступны для перемещения</li>
+                                <li>Кнопка закрытия окон появляется только в режиме редактирования</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script src="script.js"></script>
+        <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Режим редактирования окон - объявляем в начале
+    let editMode = false;
+    
+    // Скрипт для кастомного select
+    const groupSelect = document.querySelector('.header-group-select');
+    const groupSelected = document.querySelector('.header-group-selected');
+    const groupList = document.querySelector('.header-group-list');
+    const groupItems = document.querySelectorAll('.header-group-list li');
+    groupSelect.onclick = function(e) {
+        groupList.classList.toggle('show');
+    };
+    groupItems.forEach(item => {
+        item.onclick = function(e) {
+            groupSelected.textContent = this.textContent;
+            groupItems.forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+            groupList.classList.remove('show');
+            e.stopPropagation();
+        };
+    });
+    document.addEventListener('click', function(e) {
+        if (!groupSelect.contains(e.target)) {
+            groupList.classList.remove('show');
+        }
+    });
+    // Меняем логотип при раскрытии/сжатии сайдбара и сдвигаем header-title
+    const sidebar = document.querySelector('.sidebar');
+    const logoImg = document.getElementById('sidebar-logo-img');
+    if (sidebar && logoImg) {
+        sidebar.addEventListener('mouseenter', () => {
+            logoImg.src = 'assets/logo.png';
+            sidebar.classList.add('open');
+            document.body.classList.add('sidebar-open');
+            // Обновляем размеры максимизированных окон
+            updateMaximizedWindowsSize();
+        });
+        sidebar.addEventListener('mouseleave', () => {
+            logoImg.src = 'assets/mini.png';
+            sidebar.classList.remove('open');
+            document.body.classList.remove('sidebar-open');
+            // Обновляем размеры максимизированных окон
+            updateMaximizedWindowsSize();
+        });
+    }
+    
+    // Функция для обновления размеров максимизированных окон при изменении sidebar
+    function updateMaximizedWindowsSize() {
+        // Теперь максимизированные окна позиционируются относительно training-layout,
+        // поэтому нам не нужно их перепозиционировать при изменении sidebar
+        // training-layout сам изменит свои размеры благодаря CSS transitions
+        console.log('Размеры training-layout автоматически обновились');
+    }
+    
+    const headerUserImg = document.querySelector('.header-user-img');
+    const headerDropdown = document.getElementById('header-dropdown');
+    if (headerUserImg && headerDropdown) {
+        headerUserImg.addEventListener('click', function(e) {
+            headerDropdown.classList.toggle('show');
+            e.stopPropagation();
+        });
+        document.addEventListener('click', function(e) {
+            if (!headerDropdown.contains(e.target) && e.target !== headerUserImg) {
+                headerDropdown.classList.remove('show');
+            }
+        });
+    }
+    
+    // Режим редактирования окон
+    const editorToggle = document.getElementById('editor-toggle');
+    const headerEditorControls = document.getElementById('header-editor-controls');
+    const saveBtn = document.getElementById('save-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+    const addRemoveBtn = document.getElementById('add-remove-btn');
+
+    // Функция для входа в режим редактирования
+    function enterEditMode() {
+        editMode = true;
+        document.body.classList.add('windows-edit-mode');
+        headerEditorControls.style.display = 'flex';
+        setTimeout(() => {
+            headerEditorControls.classList.add('show');
+        }, 10);
+        
+        // Показываем кнопки закрытия окон
+        document.querySelectorAll('.close-btn').forEach(btn => {
+            btn.style.display = 'block';
+        });
+        
+        // Включаем кнопки развертывания
+        document.querySelectorAll('.maximize-btn').forEach(btn => {
+            btn.classList.remove('disabled');
+            btn.style.cursor = 'pointer';
+            btn.title = 'Развернуть окно';
+        });
+        
+        // Включаем кнопки свертывания
+        document.querySelectorAll('.minimize-btn').forEach(btn => {
+            btn.classList.remove('disabled');
+            btn.style.cursor = 'pointer';
+            btn.title = 'Свернуть окно';
+        });
+        
+        // Закрываем dropdown
+        headerDropdown.classList.remove('show');
+        
+        // Показываем уведомление
+        showNotification('Режим редактирования активирован. Теперь можно перемещать окна.', 'info');
+        
+        console.log('Режим редактирования активирован');
+    }
+
+    // Функция для выхода из режима редактирования
+    function exitEditMode() {
+        editMode = false;
+        document.body.classList.remove('windows-edit-mode');
+        headerEditorControls.classList.remove('show');
+        
+        // Скрываем кнопки закрытия окон
+        document.querySelectorAll('.close-btn').forEach(btn => {
+            btn.style.display = 'none';
+        });
+        
+        // Отключаем кнопки развертывания
+        document.querySelectorAll('.maximize-btn').forEach(btn => {
+            btn.classList.add('disabled');
+            btn.style.cursor = 'not-allowed';
+            btn.title = 'Развертывание доступно только в режиме редактирования';
+        });
+        
+        // Отключаем кнопки свертывания
+        document.querySelectorAll('.minimize-btn').forEach(btn => {
+            btn.classList.add('disabled');
+            btn.style.cursor = 'not-allowed';
+            btn.title = 'Свертывание доступно только в режиме редактирования';
+        });
+        
+        // Скрываем dropdown окон при выходе из режима редактирования
+        const windowSelectorDropdown = document.getElementById('window-selector-dropdown');
+        if (windowSelectorDropdown) {
+            windowSelectorDropdown.classList.remove('show');
+        }
+        
+        setTimeout(() => {
+            headerEditorControls.style.display = 'none';
+        }, 300);
+        
+        console.log('Режим редактирования деактивирован');
+    }
+
+    // Обработчик для кнопки "Редактор"
+    if (editorToggle) {
+        editorToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            enterEditMode();
+        });
+    }
+
+    // Обработчики для кнопок редактирования
+    if (saveBtn) {
+        saveBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Здесь будет логика сохранения
+            console.log('Сохранение изменений...');
+            exitEditMode();
+        });
+    }
+
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Здесь будет логика отмены изменений
+            console.log('Отмена изменений...');
+            exitEditMode();
+        });
+    }
+
+    if (addRemoveBtn) {
+        addRemoveBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const dropdown = document.getElementById('window-selector-dropdown');
+            dropdown.classList.toggle('show');
+            
+            console.log('Открытие/закрытие списка окон...');
+        });
+    }
+
+    // Обработка выпадающего списка окон
+    const windowSelectorDropdown = document.getElementById('window-selector-dropdown');
+    
+    // Закрытие dropdown при клике вне его
+    document.addEventListener('click', function(e) {
+        if (windowSelectorDropdown && !windowSelectorDropdown.contains(e.target) && e.target !== addRemoveBtn) {
+            windowSelectorDropdown.classList.remove('show');
+        }
+    });
+    
+    // Обработка чекбоксов
+    const windowCheckboxes = document.querySelectorAll('.window-selector-item input[type="checkbox"]');
+    windowCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function(e) {
+            const windowType = this.getAttribute('data-window');
+            const isChecked = this.checked;
+            
+            console.log(`Окно "${windowType}" ${isChecked ? 'включено' : 'выключено'}`);
+            
+            // Здесь будет логика добавления/удаления окон
+            if (isChecked) {
+                addWindow(windowType);
+            } else {
+                removeWindow(windowType);
+            }
+        });
+    });
+    
+    // Функция для проверки видимых окон и управления заглушкой
+    function checkPlaceholderVisibility() {
+        const placeholder = document.querySelector('.training-placeholder');
+        
+        if (!placeholder) return;
+        
+        // Проверяем конкретные окна
+        const operatorsWindow = document.getElementById('operators-errors-window');
+        const detailsWindow = document.getElementById('operator-details-window');
+        
+        const operatorsVisible = operatorsWindow && 
+            operatorsWindow.style.display !== 'none' && 
+            getComputedStyle(operatorsWindow).display !== 'none';
+            
+        const detailsVisible = detailsWindow && 
+            detailsWindow.style.display !== 'none' && 
+            getComputedStyle(detailsWindow).display !== 'none';
+        
+        // Скрываем или показываем заглушку
+        if (operatorsVisible || detailsVisible) {
+            placeholder.style.display = 'none';
+        } else {
+            placeholder.style.display = 'block';
+        }
+    }
+
+    // Функция добавления окна
+    function addWindow(windowType) {
+        console.log(`Добавляем окно: ${windowType}`);
+        
+        if (windowType === 'operators-list') {
+            const operatorsWindow = document.getElementById('operators-errors-window');
+            if (operatorsWindow) {
+                operatorsWindow.style.display = 'flex';
+                initOperatorsList();
+            }
+        } else if (windowType === 'operator-details') {
+            const detailsWindow = document.getElementById('operator-details-window');
+            if (detailsWindow) {
+                detailsWindow.style.display = 'flex';
+            }
+        }
+        
+        // Проверяем нужно ли скрыть заглушку
+        checkPlaceholderVisibility();
+    }
+    
+    // Функция удаления окна
+    function removeWindow(windowType) {
+        console.log(`Удаляем окно: ${windowType}`);
+        
+        if (windowType === 'operators-list') {
+            const operatorsWindow = document.getElementById('operators-errors-window');
+            if (operatorsWindow) {
+                operatorsWindow.style.display = 'none';
+            }
+        } else if (windowType === 'operator-details') {
+            const detailsWindow = document.getElementById('operator-details-window');
+            if (detailsWindow) {
+                detailsWindow.style.display = 'none';
+            }
+        }
+        
+        // Проверяем нужно ли показать заглушку
+        checkPlaceholderVisibility();
+    }
+    
+    // Инициализация списка операторов
+    function initOperatorsList() {
+        // Список доступных аватаров
+        const avatars = [
+            "1P8A0085.jpg",
+            "1P8A0111.jpg", 
+            "1P8A0141.jpg",
+            "1P8A0193.jpg",
+            "1P8A0199.jpg",
+            "1P8A0276.jpg",
+            "1P8A0543.jpg",
+            "2Y0A0426.jpg",
+            "2Y0A9000.png",
+            "2Y0A9032.png",
+            "2Y0A9049.png",
+            "2Y0A9086.png",
+            "2Y0A9323.png",
+            "2Y0A9346.png",
+            "2Y0A9419.png",
+            "2Y0A9427.png",
+            "2Y0A9433.png",
+            "2Y0A9689.jpg",
+            "Adilova Arofat Faxriddin qizi.jpg",
+            "Foto.jpg",
+            "Fozilxonov Zoirxon Davron o'g'ли 0147.png",
+            "Пулатова Юлдуз.png"
+        ];
+        
+        // Список случайных имен для операторов
+        const names = [
+            "Алиев Шерзод Бахтиярович",
+            "Каримова Нилуфар Азимовна", 
+            "Рахимов Жасур Олимович",
+            "Умарова Дилдора Рустамовна",
+            "Носиров Азиз Фарходович",
+            "Исакова Мадина Шухратовна",
+            "Холиков Бахтиёр Мухаммадович",
+            "Турсунова Нигора Анваровна",
+            "Абдуллаев Отабек Камилович",
+            "Нурматова Севара Улугбековна",
+            "Мирзаев Фаррух Собирович",
+            "Жуманиязова Гульшан Рахматовна",
+            "Хашимов Санжар Тохирович",
+            "Файзуллаева Малика Нуриддиновна",
+            "Самадов Жавлон Икромович",
+            "Кодирова Шахноза Абдувахобовна",
+            "Эргашев Достон Мухтарович",
+            "Ибрагимова Дилноза Шавкатовна",
+            "Султанов Джахонгир Бахромович",
+            "Хамидова Наргиза Элмуродовна",
+            "Расулов Акмал Садиkович",
+            "Юсупова Нодира Хакимовна"
+        ];
+        
+        // Временные интервалы
+        const timeOptions = [
+            "15 мин. назад", "30 мин. назад", "45 мин. назад",
+            "1 час назад", "1.5 часа назад", "2 часа назад", 
+            "2.5 часа назад", "3 часа назад", "4 часа назад", "5 часов назад"
+        ];
+        
+        // Генерируем случайные данные операторов
+        function generateRandomOperators() {
+            const operators = [];
+            const usedAvatars = [];
+            const usedNames = [];
+            
+            // Создаем 15-20 операторов
+            const operatorCount = Math.floor(Math.random() * 6) + 15; // 15-20 операторов
+            
+            for (let i = 0; i < operatorCount; i++) {
+                // Выбираем случайный аватар (без повторов если возможно)
+                let avatar;
+                if (usedAvatars.length < avatars.length) {
+                    do {
+                        avatar = avatars[Math.floor(Math.random() * avatars.length)];
+                    } while (usedAvatars.includes(avatar));
+                    usedAvatars.push(avatar);
+                } else {
+                    avatar = avatars[Math.floor(Math.random() * avatars.length)];
+                }
+                
+                // Выбираем случайное имя (без повторов если возможно)
+                let name;
+                if (usedNames.length < names.length) {
+                    do {
+                        name = names[Math.floor(Math.random() * names.length)];
+                    } while (usedNames.includes(name));
+                    usedNames.push(name);
+                } else {
+                    name = names[Math.floor(Math.random() * names.length)];
+                }
+                
+                // Генерируем случайный номер сотрудника
+                const employeeNumber = String(Math.floor(Math.random() * 9000) + 1000);
+                
+                // Генерируем случайные показатели
+                const errors = Math.floor(Math.random() * 20); // Необученные ошибки
+                const success = Math.floor(Math.random() * 50) + 10; // Успешные обращения
+                const trainedErrors = Math.floor(Math.random() * 10); // Обученные ошибки
+                const totalErrors = errors + trainedErrors; // Общее количество ошибок (необученные + обученные)
+                
+                // Определяем статус на основе количества ошибок
+                const status = errors > 10 ? "error" : "success";
+                
+                // Генерируем дату последнего обучения для обученных операторов
+                let lastTrainingDate = null;
+                if (errors <= 10 && Math.random() < 0.7) { // 70% обученных операторов имеют дату обучения
+                    const daysAgo = Math.floor(Math.random() * 30) + 1; // от 1 до 30 дней назад
+                    lastTrainingDate = new Date(Date.now() - daysAgo * 24 * 60 * 60 * 1000);
+                }
+                
+                operators.push({
+                    id: i + 1,
+                    name: `${name} (${employeeNumber})`,
+                    avatar: `assets/Аватар/${avatar}`,
+                    errors: errors, // Необученные ошибки
+                    success: success, // Успешные обращения
+                    calendar: totalErrors, // Общее количество ошибок (используется поле calendar для обратной совместимости)
+                    time: timeOptions[Math.floor(Math.random() * timeOptions.length)],
+                    status: status,
+                    lastTrainingDate: lastTrainingDate
+                });
+            }
+            
+            return operators;
+        }
+        
+        const operatorsData = generateRandomOperators();
+        
+        // Сохраняем данные глобально для обновления
+        window.currentOperatorsData = operatorsData;
+        
+        // Применяем сортировку по умолчанию (все операторы, по убыванию ошибок)
+        const sortedOperators = applyOperatorFilter(operatorsData, 'all');
+        
+        renderOperatorsList(sortedOperators);
+        setupOperatorsSearch(operatorsData);
+        setupOperatorsFilters(operatorsData);
+        setupRefreshButton();
+    }
+    
+    // Функция для обновления списка операторов
+    function refreshOperatorsList() {
+        const avatars = [
+            "1P8A0085.jpg", "1P8A0111.jpg", "1P8A0141.jpg", "1P8A0193.jpg", "1P8A0199.jpg",
+            "1P8A0276.jpg", "1P8A0543.jpg", "2Y0A0426.jpg", "2Y0A9000.png", "2Y0A9032.png",
+            "2Y0A9049.png", "2Y0A9086.png", "2Y0A9323.png", "2Y0A9346.png", "2Y0A9419.png",
+            "2Y0A9427.png", "2Y0A9433.png", "2Y0A9689.jpg", "Adilova Arofat Faxriddin qizi.jpg",
+            "Foto.jpg", "Fozilxonov Zoirxon Davron o'g'ли 0147.png", "Пулатова Юлдуз.png"
+        ];
+        
+        const names = [
+            "Алиев Шерзод Бахтиярович", "Каримова Нилуфар Азимовна", "Рахимов Жасур Олимович",
+            "Умарова Дилдора Рустамовна", "Носиров Азиз Фарходович", "Исакова Мадина Шухратовна",
+            "Холиков Бахтиёр Мухаммадович", "Турсунова Нигора Анваровна", "Абдуллаев Отабек Камилович",
+            "Нурматова Севара Улугбековна", "Мирзаев Фаррух Собирович", "Жуманиязова Гульшан Рахматовна",
+            "Хашимов Санжар Тохирович", "Файзуллаева Малика Нуриддиновна", "Самадов Жавлон Икромович",
+            "Кодирова Шахноза Абдувахобовна", "Эргашев Достон Мухтарович", "Ибрагимова Дилноза Шавкатовна",
+            "Султанов Джахонгир Бахромович", "Хамидова Наргиза Элмуродовна", "Расулов Акмал Садикович",
+            "Юсупова Нодира Хакимовна"
+        ];
+        
+        const timeOptions = [
+            "15 мин. назад", "30 мин. назад", "45 мин. назад", "1 час назад", "1.5 часа назад", 
+            "2 часа назад", "2.5 часа назад", "3 часа назад", "4 часа назад", "5 часов назад"
+        ];
+        
+        // Генерируем новые данные
+        function generateRandomOperators() {
+            const operators = [];
+            const usedAvatars = [];
+            const usedNames = [];
+            const operatorCount = Math.floor(Math.random() * 6) + 15;
+            
+            for (let i = 0; i < operatorCount; i++) {
+                let avatar;
+                if (usedAvatars.length < avatars.length) {
+                    do {
+                        avatar = avatars[Math.floor(Math.random() * avatars.length)];
+                    } while (usedAvatars.includes(avatar));
+                    usedAvatars.push(avatar);
+                } else {
+                    avatar = avatars[Math.floor(Math.random() * avatars.length)];
+                }
+                
+                let name;
+                if (usedNames.length < names.length) {
+                    do {
+                        name = names[Math.floor(Math.random() * names.length)];
+                    } while (usedNames.includes(name));
+                    usedNames.push(name);
+                } else {
+                    name = names[Math.floor(Math.random() * names.length)];
+                }
+                
+                const employeeNumber = String(Math.floor(Math.random() * 9000) + 1000);
+                const errors = Math.floor(Math.random() * 20); // Необученные ошибки
+                const success = Math.floor(Math.random() * 50) + 10; // Успешные обращения
+                const trainedErrors = Math.floor(Math.random() * 10); // Обученные ошибки
+                const totalErrors = errors + trainedErrors; // Общее количество ошибок (необученные + обученные)
+                const status = errors > 10 ? "error" : "success";
+                
+                // Генерируем дату последнего обучения для обученных операторов
+                let lastTrainingDate = null;
+                if (errors <= 10 && Math.random() < 0.7) { // 70% обученных операторов имеют дату обучения
+                    const daysAgo = Math.floor(Math.random() * 30) + 1; // от 1 до 30 дней назад
+                    lastTrainingDate = new Date(Date.now() - daysAgo * 24 * 60 * 60 * 1000);
+                }
+                
+                operators.push({
+                    id: i + 1,
+                    name: `${name} (${employeeNumber})`,
+                    avatar: `assets/Аватар/${avatar}`,
+                    errors: errors, // Необученные ошибки
+                    success: success, // Успешные обращения  
+                    calendar: totalErrors, // Общее количество ошибок (используется поле calendar для обратной совместимости)
+                    time: timeOptions[Math.floor(Math.random() * timeOptions.length)],
+                    status: status,
+                    lastTrainingDate: lastTrainingDate
+                });
+            }
+            
+            return operators;
+        }
+        
+        const newOperatorsData = generateRandomOperators();
+        window.currentOperatorsData = newOperatorsData;
+        
+        // Применяем сортировку по умолчанию при обновлении
+        const sortedOperators = applyOperatorFilter(newOperatorsData, 'all');
+        
+        renderOperatorsList(sortedOperators);
+        setupOperatorsSearch(newOperatorsData);
+        setupOperatorsFilters(newOperatorsData);
+    }
+    
+    // Настройка кнопки обновления
+    function setupRefreshButton() {
+        const refreshBtn = document.getElementById('refresh-operators-btn');
+        if (!refreshBtn) return;
+        
+        refreshBtn.addEventListener('click', function() {
+            // Добавляем анимацию загрузки
+            this.classList.add('loading');
+            
+            // Имитируем небольшую задержку для плавности
+            setTimeout(() => {
+                refreshOperatorsList();
+                this.classList.remove('loading');
+                
+                // Сбрасываем поиск и фильтры
+                const searchInput = document.getElementById('operators-search-input');
+                if (searchInput) {
+                    searchInput.value = '';
+                }
+                
+                const allFilter = document.querySelector('input[name="operator-filter"][value="all"]');
+                if (allFilter) {
+                    allFilter.checked = true;
+                }
+                
+                console.log('Список операторов обновлён');
+            }, 500);
+        });
+    }
+    
+    // Рендеринг списка операторов
+    function renderOperatorsList(operators) {
+        const container = document.querySelector('.operators-list-container');
+        if (!container) return;
+        
+        container.innerHTML = operators.map(operator => `
+            <div class="operator-item" data-operator-id="${operator.id}">
+                <img src="${operator.avatar}" 
+                     alt="${operator.name}" 
+                     class="operator-avatar"
+                     onerror="this.src='assets/Аватар/Foto.jpg'; this.onerror=null;">
+                <div class="operator-info">
+                    <div class="operator-name">${operator.name}</div>
+                    <div class="operator-meta">
+                        <div class="meta-badge error" title="Необученные ошибки">
+                            <span class="material-icons" style="font-size: 12px;">error</span>
+                            ${operator.errors}
+                        </div>
+                        <div class="meta-badge success" title="Успешные обращения">
+                            <span class="material-icons" style="font-size: 12px;">check_circle</span>
+                            ${operator.success}
+                        </div>
+                        <!-- Общее количество ошибок (обученных и необученных) -->
+                        <div class="meta-badge calendar" title="Общее количество ошибок">
+                            <span class="material-icons" style="font-size: 12px;">assignment</span>
+                            ${operator.calendar}
+                        </div>
+                        <div class="meta-time">${operator.time}</div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        
+        // Добавляем обработчики клика для выбора оператора
+        container.querySelectorAll('.operator-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Убираем выделение с других элементов
+                container.querySelectorAll('.operator-item').forEach(el => el.classList.remove('selected'));
+                // Добавляем выделение к текущему элементу
+                this.classList.add('selected');
+                
+                const operatorId = this.getAttribute('data-operator-id');
+                console.log('Выбран оператор с ID:', operatorId);
+                
+                // Обновляем информацию в окне "Подробная информация ошибок"
+                updateOperatorDetails(operatorId);
+            });
+        });
+    }
+    
+    // Функция генерации ошибок для конкретного оператора
+    function generateOperatorErrors(operatorId, operatorName) {
+        const errorTypes = [
+            "Предупреждение об ожидании на линии: Не сообщил о том за ожидание на линии используется стандартную фразу «Спасибо за ожидание»",
+            "Оформление и обработка заявок: Не указал куда ранее обращался заявитель",
+            "Качество обслуживания: Недостаточно вежливое общение с клиентом",
+            "Техническая поддержка: Не предоставил полную информацию по услуге",
+            "Документооборот: Неправильно заполнил форму заявки",
+            "Соблюдение регламента: Превышение времени обслуживания клиента",
+            "Идентификация клиента: Не запросил дополнительные данные для верификации",
+            "Консультирование: Предоставил неактуальную информацию об услугах"
+        ];
+        
+        const services = ["1213_TV", "1000_ru", "1242_mob", "1093_int", "1170_cab"];
+        const lkOptions = ["True", "False"];
+        
+        const errors = [];
+        const errorCount = Math.floor(Math.random() * 8) + 3; // 3-10 ошибок
+        
+        for (let i = 0; i < errorCount; i++) {
+            const errorType = errorTypes[Math.floor(Math.random() * errorTypes.length)];
+            const service = services[Math.floor(Math.random() * services.length)];
+            const lk = lkOptions[Math.floor(Math.random() * lkOptions.length)];
+            
+            // Генерируем случайную дату и время в пределах последних 30 дней
+            const now = new Date();
+            const pastDate = new Date(now.getTime() - (Math.random() * 30 * 24 * 60 * 60 * 1000));
+            const dateStr = pastDate.toLocaleDateString('ru-RU');
+            const timeStr = pastDate.toLocaleTimeString('ru-RU', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            // Генерируем уникальный код ошибки
+            const code = `${Math.floor(Math.random() * 90000) + 10000}${String.fromCharCode(65 + Math.floor(Math.random() * 26))}`;
+            
+            // Случайно определяем, обучен ли оператор по этой ошибке
+            const isTrained = Math.random() < 0.3; // 30% шанс что уже обучен
+            
+            const error = {
+                id: i + 1,
+                code: code,
+                operatorId: operatorId,
+                description: errorType,
+                date: dateStr,
+                time: timeStr,
+                service: service,
+                lk: lk,
+                isTrained: isTrained,
+                trainingComments: []
+            };
+            
+            // Если ошибка уже обучена, добавляем комментарий
+            if (isTrained) {
+                const trainingDate = new Date(pastDate.getTime() + (Math.random() * 7 * 24 * 60 * 60 * 1000));
+                const trainingDateStr = trainingDate.toLocaleDateString('ru-RU');
+                const trainingTimeStr = trainingDate.toLocaleTimeString('ru-RU', { 
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                
+                const comments = [
+                    "Тушунтириш берилди.",
+                    "Операторга мазкур хато борасида тушунтириш берилди.",
+                    "Қайтаданланмаслиги учун огохлантирилди.",
+                    "Хизмат кўрсатиш сифатини яхшилаш бўйича кўрсатма берилди.",
+                    "Регламентга риоя қилиш зарурлиги тушунтирилди."
+                ];
+                
+                const comment = comments[Math.floor(Math.random() * comments.length)];
+                
+                error.trainingComments.push({
+                    id: 1,
+                    date: `${trainingDateStr} ${trainingTimeStr}`,
+                    text: comment,
+                    isOriginal: true
+                });
+                
+                // 20% шанс что комментарий был отредактирован
+                if (Math.random() < 0.2) {
+                    const editDate = new Date(trainingDate.getTime() + (Math.random() * 3 * 24 * 60 * 60 * 1000));
+                    const editDateStr = editDate.toLocaleDateString('ru-RU');
+                    const editTimeStr = editDate.toLocaleTimeString('ru-RU', { 
+                        hour: '2-digit', 
+                        minute: '2-digit',
+                        second: '2-digit'
+                    });
+                    
+                    const editComments = [
+                        "Масала хал булди",
+                        "Қўшимча тушунтириш берилди",
+                        "Амалда қўлланилди",
+                        "Назорат остида сақланди",
+                        "Сифат яхшиланди"
+                    ];
+                    
+                    const editComment = editComments[Math.floor(Math.random() * editComments.length)];
+                    
+                    error.trainingComments.push({
+                        id: 2,
+                        date: `${editDateStr} ${editTimeStr}`,
+                        text: editComment,
+                        isOriginal: false
+                    });
+                }
+            }
+            
+            errors.push(error);
+        }
+        
+        return errors;
+    }
+    
+    // Полная функция для обновления информации в окне "Подробная информация ошибок"
+    function updateOperatorDetails(operatorId) {
+        const operator = window.currentOperatorsData.find(op => op.id === Number(operatorId));
+        if (!operator) return;
+        
+        // Показываем информацию о выбранном операторе
+        const selectedOperatorInfo = document.getElementById('selected-operator-info');
+        const noOperatorSelected = document.getElementById('no-operator-selected');
+        const operatorNameIndicator = document.getElementById('operator-name-indicator');
+        
+        if (selectedOperatorInfo && noOperatorSelected && operatorNameIndicator) {
+            selectedOperatorInfo.style.display = 'block';
+            noOperatorSelected.style.display = 'none';
+            operatorNameIndicator.textContent = `- ${operator.name}`;
+        }
+        
+        // Обновляем аватар и имя оператора
+        const avatarImg = document.getElementById('operator-detail-avatar');
+        const nameDiv = document.getElementById('operator-detail-name');
+        if (avatarImg && nameDiv) {
+            avatarImg.src = operator.avatar;
+            avatarImg.onerror = () => {
+                avatarImg.src = 'assets/Аватар/Foto.jpg';
+                avatarImg.onerror = null;
+            };
+            nameDiv.textContent = operator.name;
+        }
+        
+        // Обновляем статистику
+        const errorsSpan = document.getElementById('operator-detail-errors');
+        const successSpan = document.getElementById('operator-detail-success');
+        if (errorsSpan && successSpan) {
+            errorsSpan.textContent = operator.errors;
+            successSpan.textContent = operator.success;
+        }
+        
+        // Генерируем и отображаем ошибки оператора
+        const operatorErrors = generateOperatorErrors(operatorId, operator.name);
+        window.currentOperatorErrors = operatorErrors; // Сохраняем глобально
+        
+        renderOperatorErrors(operatorErrors);
+        
+        console.log(`Загружены детали для оператора: ${operator.name}`);
+    }
+    
+    // Функция для рендеринга списка ошибок оператора
+    function renderOperatorErrors(errors) {
+        const container = document.getElementById('operator-errors-list');
+        if (!container) return;
+        
+        container.innerHTML = errors.map(error => `
+            <div class="error-item ${error.isTrained ? 'trained' : ''}" data-error-id="${error.id}">
+                <div class="error-header">
+                    <div class="error-info">
+                        <div class="error-code">${error.code}</div>
+                        <div class="error-details">
+                            <div class="error-detail-item">
+                                <span class="material-icons">schedule</span>
+                                <span>Дата/время: ${error.date} ${error.time}</span>
+                            </div>
+                            <div class="error-detail-item">
+                                <span class="material-icons">build</span>
+                                <span>Услуга: ${error.service}</span>
+                            </div>
+                            <div class="error-detail-item">
+                                <span class="material-icons">account_circle</span>
+                                <span>ЛК: ${error.lk}</span>
+                            </div>
+                        </div>
+                        <div class="error-description">${error.description}</div>
+                    </div>
+                    <div class="error-actions">
+                        <div class="error-status ${error.lk.toLowerCase()}">
+                            <span class="material-icons">${error.lk === 'True' ? 'check_circle' : 'cancel'}</span>
+                            ${error.lk === 'True' ? 'True' : 'False'}
+                        </div>
+                        ${!error.isTrained ? `
+                            <button class="train-error-btn" onclick="showTrainingForm(${error.id})">
+                                <span class="material-icons">school</span>
+                                Обучить
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+                
+                ${error.trainingComments.length > 0 ? `
+                    <div class="training-comments">
+                        ${error.trainingComments.map((comment, index) => `
+                            <div class="training-comment ${comment.isOriginal ? 'original' : 'edited'}">
+                                <div class="comment-date">
+                                    ${comment.isOriginal ? 'Дата обучения:' : 'Отредактировано:'} ${comment.date}
+                                </div>
+                                <div class="comment-text">${comment.text}</div>
+                                ${index === 0 && error.trainingComments.length > 1 ? `
+                                    <div class="comment-arrow">
+                                        <span class="material-icons">arrow_forward</span>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `).join('')}
+                        <button class="edit-comment-btn" onclick="editTrainingComment(${error.id})">
+                            <span class="material-icons">edit</span>
+                            Редактировать
+                        </button>
+                    </div>
+                ` : ''}
+                
+                <div class="add-comment-form" id="comment-form-${error.id}">
+                    <textarea class="comment-input" id="comment-input-${error.id}" 
+                              placeholder="Введите комментарий обучения..."></textarea>
+                    <div class="comment-form-actions">
+                        <button class="comment-btn comment-btn-save" onclick="saveTrainingComment(${error.id})">
+                            <span class="material-icons">check</span>
+                            Сохранить
+                        </button>
+                        <button class="comment-btn comment-btn-cancel" onclick="cancelTrainingComment(${error.id})">
+                            <span class="material-icons">close</span>
+                            Отменить
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    // Функция для показа формы обучения
+    function showTrainingForm(errorId) {
+        const form = document.getElementById(`comment-form-${errorId}`);
+        if (form) {
+            form.classList.add('show');
+            const input = document.getElementById(`comment-input-${errorId}`);
+            if (input) {
+                input.focus();
+            }
+        }
+    }
+    
+    // Функция для сохранения комментария обучения
+    function saveTrainingComment(errorId) {
+        const input = document.getElementById(`comment-input-${errorId}`);
+        const form = document.getElementById(`comment-form-${errorId}`);
+        
+        if (!input || !form) return;
+        
+        const commentText = input.value.trim();
+        if (!commentText) {
+            alert('Пожалуйста, введите комментарий');
+            return;
+        }
+        
+        // Находим ошибку в данных
+        const error = window.currentOperatorErrors.find(err => err.id === errorId);
+        if (!error) return;
+        
+        // Создаем новый комментарий
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('ru-RU');
+        const timeStr = now.toLocaleTimeString('ru-RU', { 
+            hour: '2-digit', 
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        
+        const newComment = {
+            id: error.trainingComments.length + 1,
+            date: `${dateStr} ${timeStr}`,
+            text: commentText,
+            isOriginal: error.trainingComments.length === 0
+        };
+        
+        // Добавляем комментарий и помечаем ошибку как обученную
+        error.trainingComments.push(newComment);
+        error.isTrained = true;
+        
+        // Перерендериваем список ошибок
+        renderOperatorErrors(window.currentOperatorErrors);
+        
+        console.log(`Добавлен комментарий для ошибки ${errorId}: ${commentText}`);
+    }
+    
+    // Функция для отмены добавления комментария
+    function cancelTrainingComment(errorId) {
+        const form = document.getElementById(`comment-form-${errorId}`);
+        const input = document.getElementById(`comment-input-${errorId}`);
+        
+        if (form && input) {
+            form.classList.remove('show');
+            input.value = '';
+        }
+    }
+    
+    // Функция для редактирования комментария обучения
+    function editTrainingComment(errorId) {
+        const error = window.currentOperatorErrors.find(err => err.id === errorId);
+        if (!error || error.trainingComments.length === 0) return;
+        
+        const lastComment = error.trainingComments[error.trainingComments.length - 1];
+        const newCommentText = prompt('Редактировать комментарий:', lastComment.text);
+        
+        if (newCommentText && newCommentText.trim() !== lastComment.text) {
+            // Создаем новый "отредактированный" комментарий
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('ru-RU');
+            const timeStr = now.toLocaleTimeString('ru-RU', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            const editedComment = {
+                id: error.trainingComments.length + 1,
+                date: `${dateStr} ${timeStr}`,
+                text: newCommentText.trim(),
+                isOriginal: false
+            };
+            
+            error.trainingComments.push(editedComment);
+            
+            // Перерендериваем список ошибок
+            renderOperatorErrors(window.currentOperatorErrors);
+            
+            console.log(`Отредактирован комментарий для ошибки ${errorId}`);
+        }
+    }
+    
+    // Настройка поиска операторов
+    function setupOperatorsSearch(allOperators) {
+        const searchInput = document.getElementById('operators-search-input');
+        if (!searchInput) return;
+        
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            
+            let filteredOperators = allOperators;
+            
+            // Применяем поиск
+            if (searchTerm) {
+                filteredOperators = filteredOperators.filter(operator => 
+                    operator.name.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // Применяем текущий фильтр
+            const activeFilter = document.querySelector('input[name="operator-filter"]:checked');
+            if (activeFilter) {
+                filteredOperators = applyOperatorFilter(filteredOperators, activeFilter.value);
+            }
+            
+            renderOperatorsList(filteredOperators);
+        });
+    }
+    
+    // Настройка фильтров операторов
+    function setupOperatorsFilters(allOperators) {
+        const filterRadios = document.querySelectorAll('input[name="operator-filter"]');
+        
+        filterRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.checked) {
+                    let filteredOperators = allOperators;
+                    
+                    // Применяем поиск если есть
+                    const searchInput = document.getElementById('operators-search-input');
+                    if (searchInput && searchInput.value.trim()) {
+                        const searchTerm = searchInput.value.toLowerCase().trim();
+                        filteredOperators = filteredOperators.filter(operator => 
+                            operator.name.toLowerCase().includes(searchTerm)
+                        );
+                    }
+                    
+                    // Применяем фильтр
+                    filteredOperators = applyOperatorFilter(filteredOperators, this.value);
+                    
+                    renderOperatorsList(filteredOperators);
+                }
+            });
+        });
+    }
+    
+    // Применение фильтра к операторам
+    function applyOperatorFilter(operators, filterValue) {
+        let filteredOperators = [...operators]; // Создаем копию массива
+        
+        switch (filterValue) {
+            case 'all':
+                // Режим "Все": показываем всех операторов, сортируем по убыванию количества ошибок
+                filteredOperators.sort((a, b) => b.errors - a.errors);
+                break;
+                
+            case 'untrained':
+                // Режим "Необученные": только операторы с ошибками > 10, сортируем по убыванию ошибок
+                filteredOperators = filteredOperators.filter(op => op.errors > 10);
+                filteredOperators.sort((a, b) => b.errors - a.errors);
+                break;
+                
+            case 'training-date':
+                // Режим "Дата обучения": только обученные операторы, сортируем по дате обучения (старые сверху)
+                filteredOperators = filteredOperators.filter(op => op.lastTrainingDate !== null);
+                filteredOperators.sort((a, b) => {
+                    // Сортируем по дате обучения: более старые даты сверху
+                    return a.lastTrainingDate - b.lastTrainingDate;
+                });
+                break;
+                
+            default:
+                // По умолчанию сортируем по убыванию ошибок
+                filteredOperators.sort((a, b) => b.errors - a.errors);
+                break;
+        }
+        
+        return filteredOperators;
+    }
+    
+    // Функция для показа уведомления
+    function showNotification(message, type = 'info') {
+        // Создаем элемент уведомления
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.innerHTML = `
+            <span class="material-icons">${type === 'info' ? 'info' : 'warning'}</span>
+            <span>${message}</span>
+        `;
+        
+        // Добавляем стили для уведомления
+        notification.style.cssText = `
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: ${type === 'info' ? '#e3f2fd' : '#fff3e0'};
+            color: ${type === 'info' ? '#1976d2' : '#f57c00'};
+            border: 1px solid ${type === 'info' ? '#bbdefb' : '#ffcc02'};
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            animation: slideInRight 0.3s ease;
+            max-width: 300px;
+            font-size: 14px;
+        `;
+        
+        // Добавляем CSS анимацию если её нет
+        if (!document.querySelector('#notification-styles')) {
+            const style = document.createElement('style');
+            style.id = 'notification-styles';
+            style.textContent = `
+                @keyframes slideInRight {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+                @keyframes slideOutRight {
+                    from {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                    to {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        document.body.appendChild(notification);
+        
+        // Автоматически убираем уведомление через 3 секунды
+        setTimeout(() => {
+            notification.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+    
+    // Делаем функции глобальными для вызова из HTML
+    window.showTrainingForm = showTrainingForm;
+    window.saveTrainingComment = saveTrainingComment;
+    window.cancelTrainingComment = cancelTrainingComment;
+    window.editTrainingComment = editTrainingComment;
+    
+    // Функция инициализации окон 
+    function initializeWindows() {
+        const windows = document.querySelectorAll('.training-window');
+        windows.forEach(window => {
+            makeWindowDraggable(window);
+            makeWindowResizable(window);
+            addWindowControls(window);
+        });
+        
+        // Инициализируем кнопки развертывания в отключенном состоянии
+        document.querySelectorAll('.maximize-btn').forEach(btn => {
+            btn.classList.add('disabled');
+            btn.style.cursor = 'not-allowed';
+            btn.title = 'Развертывание доступно только в режиме редактирования';
+        });
+        
+        // Инициализируем кнопки свертывания в отключенном состоянии
+        document.querySelectorAll('.minimize-btn').forEach(btn => {
+            btn.classList.add('disabled');
+            btn.style.cursor = 'not-allowed';
+            btn.title = 'Свертывание доступно только в режиме редактирования';
+        });
+    }
+
+    // Функция для создания draggable окна
+    function makeWindowDraggable(windowElement) {
+        const header = windowElement.querySelector('.window-header');
+        let isDragging = false;
+        let currentX = 0;
+        let currentY = 0;
+        let initialX = 0;
+        let initialY = 0;
+        let xOffset = 0;
+        let yOffset = 0;
+        
+        if (!header) return;
+        
+        header.addEventListener('mousedown', dragStart);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', dragEnd);
+        
+        function dragStart(e) {
+            // Проверяем, что режим редактирования активен
+            if (!editMode) {
+                return;
+            }
+            
+            if (e.target.closest('.window-controls')) return;
+            
+            initialX = e.clientX - xOffset;
+            initialY = e.clientY - yOffset;
+            
+            if (e.target === header || header.contains(e.target)) {
+                isDragging = true;
+                windowElement.classList.add('dragging');
+            }
+        }
+        
+        function drag(e) {
+            // Проверяем, что режим редактирования активен и происходит перетаскивание
+            if (isDragging && editMode) {
+                e.preventDefault();
+                currentX = e.clientX - initialX;
+                currentY = e.clientY - initialY;
+                
+                xOffset = currentX;
+                yOffset = currentY;
+                
+                // Ограничиваем перемещение в пределах training-layout
+                const trainingLayout = document.querySelector('.training-layout');
+                
+                if (trainingLayout) {
+                    const containerRect = trainingLayout.getBoundingClientRect();
+                    const windowRect = windowElement.getBoundingClientRect();
+                    
+                    // Рассчитываем максимальные позиции с учетом размеров окна
+                    const maxX = containerRect.width - windowRect.width - 20; // 20px отступ справа
+                    const maxY = containerRect.height - windowRect.height - 20; // 20px отступ снизу
+                    
+                    // Ограничиваем позицию
+                    currentX = Math.max(20, Math.min(currentX, maxX)); // минимум 20px слева
+                    currentY = Math.max(20, Math.min(currentY, maxY)); // минимум 20px сверху
+                    
+                    // Дополнительная проверка: окно не должно выходить за правую и нижнюю границы
+                    const windowWidth = parseInt(windowElement.style.width) || windowRect.width;
+                    const windowHeight = parseInt(windowElement.style.height) || windowRect.height;
+                    
+                    if (currentX + windowWidth > containerRect.width - 15) {
+                        currentX = containerRect.width - windowWidth - 15;
+                    }
+                    
+                    if (currentY + windowHeight > containerRect.height - 15) {
+                        currentY = containerRect.height - windowHeight - 15;
+                    }
+                }
+                
+                windowElement.style.left = currentX + 'px';
+                windowElement.style.top = currentY + 'px';
+            }
+        }
+        
+        function dragEnd() {
+            initialX = currentX;
+            initialY = currentY;
+            isDragging = false;
+            windowElement.classList.remove('dragging');
+        }
+    }
+
+    // Функция для добавления контролов окна
+    function addWindowControls(windowElement) {
+        const minimizeBtn = windowElement.querySelector('.minimize-btn');
+        const maximizeBtn = windowElement.querySelector('.maximize-btn');
+        const closeBtn = windowElement.querySelector('.close-btn');
+        
+        if (minimizeBtn) {
+            minimizeBtn.addEventListener('click', () => {
+                // Проверяем, включен ли режим редактирования
+                if (!editMode) {
+                    return; // Блокируем свертывание в обычном режиме
+                }
+                
+                windowElement.classList.toggle('minimized');
+            });
+        }
+        
+        if (maximizeBtn) {
+            maximizeBtn.addEventListener('click', () => {
+                // Проверяем, включен ли режим редактирования
+                if (!editMode) {
+                    return; // Блокируем развертывание в обычном режиме
+                }
+                
+                const isMaximized = windowElement.classList.contains('maximized');
+                
+                if (!isMaximized) {
+                    // Сохраняем текущие размеры и позицию
+                    windowElement.setAttribute('data-original-width', windowElement.style.width || '320px');
+                    windowElement.setAttribute('data-original-height', windowElement.style.height || '220px');
+                    windowElement.setAttribute('data-original-left', windowElement.style.left || '20px');
+                    windowElement.setAttribute('data-original-top', windowElement.style.top || '20px');
+                    
+                    // Максимизируем окно
+                    windowElement.classList.add('maximized');
+                } else {
+                    // Восстанавливаем оригинальные размеры
+                    const originalWidth = windowElement.getAttribute('data-original-width');
+                    const originalHeight = windowElement.getAttribute('data-original-height');
+                    const originalLeft = windowElement.getAttribute('data-original-left');
+                    const originalTop = windowElement.getAttribute('data-original-top');
+                    
+                    if (originalWidth) windowElement.style.width = originalWidth;
+                    if (originalHeight) windowElement.style.height = originalHeight;
+                    if (originalLeft) windowElement.style.left = originalLeft;
+                    if (originalTop) windowElement.style.top = originalTop;
+                    
+                    windowElement.classList.remove('maximized');
+                }
+            });
+        }
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                windowElement.style.display = 'none';
+                
+                // Обновляем состояние чекбокса в выпадающем списке
+                const windowId = windowElement.id;
+                let dataWindow = '';
+                
+                if (windowId === 'operators-errors-window') {
+                    dataWindow = 'operators-list';
+                } else if (windowId === 'operator-details-window') {
+                    dataWindow = 'operator-details';
+                }
+                
+                if (dataWindow) {
+                    const checkbox = document.querySelector(`input[data-window="${dataWindow}"]`);
+                    if (checkbox) {
+                        checkbox.checked = false;
+                    }
+                }
+                
+                // Проверяем нужно ли показать заглушку
+                checkPlaceholderVisibility();
+            });
+        }
+    }
+
+    function makeWindowResizable(windowElement) {
+        const resizeHandle = windowElement.querySelector('.resize-handle');
+        if (!resizeHandle) return;
+        
+        let isResizing = false;
+        let startX, startY, startWidth, startHeight;
+        
+        resizeHandle.addEventListener('mousedown', initResize);
+        
+        function initResize(e) {
+            isResizing = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            startWidth = parseInt(document.defaultView.getComputedStyle(windowElement).width, 10);
+            startHeight = parseInt(document.defaultView.getComputedStyle(windowElement).height, 10);
+            
+            document.addEventListener('mousemove', doResize);
+            document.addEventListener('mouseup', stopResize);
+            
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        function doResize(e) {
+            if (!isResizing) return;
+            
+            const newWidth = startWidth + e.clientX - startX;
+            const newHeight = startHeight + e.clientY - startY;
+            
+            // Получаем размеры основного контейнера training-layout
+            const trainingLayout = document.querySelector('.training-layout');
+            let maxWidth = 1200;
+            let maxHeight = 800;
+            
+            if (trainingLayout) {
+                const layoutRect = trainingLayout.getBoundingClientRect();
+                const windowRect = windowElement.getBoundingClientRect();
+                
+                // Вычисляем максимальные размеры с учетом позиции окна
+                const windowLeftInContainer = windowRect.left - layoutRect.left;
+                const windowTopInContainer = windowRect.top - layoutRect.top;
+                
+                // Максимальные размеры = размер контейнера - позиция окна - отступы
+                maxWidth = Math.max(220, layoutRect.width - windowLeftInContainer - 20);
+                maxHeight = Math.max(140, layoutRect.height - windowTopInContainer - 20);
+                
+                // Дополнительная проверка: окно не должно выходить за пределы
+                const potentialRight = windowLeftInContainer + newWidth;
+                const potentialBottom = windowTopInContainer + newHeight;
+                
+                if (potentialRight > layoutRect.width - 20) {
+                    maxWidth = layoutRect.width - windowLeftInContainer - 20;
+                }
+                
+                if (potentialBottom > layoutRect.height - 20) {
+                    maxHeight = layoutRect.height - windowTopInContainer - 20;
+                }
+            }
+            
+            // Ограничения по размеру
+            const minWidth = 220;
+            const minHeight = 140;
+            
+            const constrainedWidth = Math.max(minWidth, Math.min(newWidth, maxWidth));
+            const constrainedHeight = Math.max(minHeight, Math.min(newHeight, maxHeight));
+            
+            windowElement.style.width = constrainedWidth + 'px';
+            windowElement.style.height = constrainedHeight + 'px';
+            
+            // После изменения размера проверяем, что окно все еще в пределах контейнера
+            setTimeout(() => {
+                const updatedWindowRect = windowElement.getBoundingClientRect();
+                if (trainingLayout) {
+                    const containerRect = trainingLayout.getBoundingClientRect();
+                    
+                    // Если окно выходит за правую границу
+                    if (updatedWindowRect.right > containerRect.right - 15) {
+                        const newLeft = containerRect.right - updatedWindowRect.width - 15;
+                        windowElement.style.left = Math.max(15, newLeft - containerRect.left) + 'px';
+                    }
+                    
+                    // Если окно выходит за нижнюю границу
+                    if (updatedWindowRect.bottom > containerRect.bottom - 15) {
+                        const newTop = containerRect.bottom - updatedWindowRect.height - 15;
+                        windowElement.style.top = Math.max(15, newTop - containerRect.top) + 'px';
+                    }
+                }
+            }, 0);
+        }
+        
+        function stopResize() {
+            isResizing = false;
+            document.removeEventListener('mousemove', doResize);
+            document.removeEventListener('mouseup', stopResize);
+        }
+    }
+    
+    // Инициализация окон при загрузке
+    initializeWindows();
+    
+    // Автоматически инициализируем окно операторов если оно отмечено как включенное
+    const operatorsCheckbox = document.querySelector('input[data-window="operators-list"]');
+    if (operatorsCheckbox && operatorsCheckbox.checked) {
+        addWindow('operators-list');
+    }
+    
+    // Проверяем видимость заглушки при загрузке
+    checkPlaceholderVisibility();
+});
+        </script>
+    </body>
+</html>
