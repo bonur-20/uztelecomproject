@@ -1,0 +1,46 @@
+/* Стили для tooltip слайдера обучения */
+.slider-tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px); /* Размещаем над слайдером */
+    left: 50%;
+    transform: translateX(-50%); /* Центрируем по горизонтали */
+    background: linear-gradient(135deg, #003F7D 0%, #0056A3 100%); /* Синий градиент как в интерфейсе */
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px; /* Скругленные углы как в интерфейсе */
+    font-size: 12px;
+    font-weight: 500; /* Полужирный шрифт */
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1002;
+    box-shadow: 0 4px 12px rgba(0, 63, 125, 0.3); /* Тень в цвете интерфейса */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Тонкая светлая граница */
+    pointer-events: none; /* Не блокируем события мыши */
+}
+
+.slider:hover .slider-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1.02); /* Небольшое увеличение при появлении */
+}
+
+.slider-tooltip::before {
+    content: '';
+    position: absolute;
+    top: 100%; /* Стрелочка снизу от подсказки */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #003F7D; /* Цвет стрелочки соответствует фону */
+}
+
+/* Дополнительные стили для анимации */
+.slider-tooltip .tooltip-text {
+    display: inline-block;
+    transition: opacity 0.2s ease;
+}

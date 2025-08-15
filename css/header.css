@@ -1,0 +1,244 @@
+/* ===== HEADER STYLES ===== */
+/* Стили для фиксированного header'а и связанных с ним компонентов */
+
+/* Фиксированный header */
+.header-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: var(--primary-color);
+    color: var(--white);
+    z-index: var(--z-index-header);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px 0 97px; /* Padding для закрытого sidebar */
+    box-shadow: var(--shadow-light);
+    transition: padding-left 0.25s cubic-bezier(.4,0,.2,1);
+}
+
+/* Когда sidebar открыт */
+body.sidebar-open .header-fixed {
+    padding-left: 295px; /* Padding для открытого sidebar */
+}
+
+body.sidebar-open .header-fixed .header-title {
+    margin-left: 80px !important;
+    transition: margin-left var(--transition-medium);
+}
+
+/* Заголовок header'а */
+.header-fixed .header-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: margin-left var(--transition-medium);
+}
+
+/* Группа элементов в header */
+.header-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Селектор группы */
+.header-group-select {
+    position: relative;
+    background: var(--primary-color);
+    color: var(--white);
+    font-weight: bold;
+    font-size: 0.7em;
+    border-radius: var(--border-radius);
+    padding: 2px 6px 2px 6px;
+    cursor: pointer;
+    min-width: 150px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+    transition: background var(--transition-fast);
+}
+
+.header-group-select:hover {
+    background: var(--primary-light);
+}
+
+.header-group-selected {
+    color: var(--white);
+    font-weight: bold;
+    font-size: 1.15em;
+    font-stretch: condensed;
+    letter-spacing: 1.0px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.header-group-arrow {
+    color: var(--white);
+    font-size: 1.3em;
+    margin-left: 4px;
+    transition: transform var(--transition-fast);
+}
+
+.header-group-select.active .header-group-arrow {
+    transform: rotate(180deg);
+}
+
+/* Выпадающий список групп */
+.header-group-list {
+    display: none;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background: var(--white);
+    color: var(--primary-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    min-width: 150px;
+    z-index: var(--z-index-dropdown);
+    padding: 3px 0;
+    margin: 0;
+    list-style: none;
+    animation: dropdownSlideIn var(--transition-medium);
+}
+
+.header-group-list.show {
+    display: block;
+}
+
+.header-group-list li {
+    padding: 7px 38px;
+    cursor: pointer;
+    font-size: 1.08em;
+    transition: background 0.15s, color 0.15s;
+    border-radius: 6px;
+    font-stretch: condensed;
+    letter-spacing: 1.0px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.header-group-list li.active,
+.header-group-list li:hover {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+/* Пользователь в header */
+.header-user {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    border-radius: var(--border-radius-large);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.header-user:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.header-user-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transition: border-color var(--transition-fast);
+}
+
+.header-user:hover .header-user-img {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.header-user span {
+    font-weight: 500;
+    color: var(--white);
+}
+
+/* Выпадающее меню пользователя */
+.header-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 200px;
+    background: var(--white);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-heavy);
+    border: 1px solid var(--border-color);
+    z-index: var(--z-index-dropdown);
+    overflow: hidden;
+    animation: dropdownSlideIn var(--transition-medium);
+}
+
+.header-dropdown.show {
+    display: block;
+}
+
+.header-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: background var(--transition-fast);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.header-dropdown a:last-child {
+    border-bottom: none;
+}
+
+.header-dropdown a:hover {
+    background: var(--background-color);
+}
+
+.header-dropdown a .material-icons {
+    font-size: 20px;
+    color: var(--text-secondary);
+}
+
+.header-dropdown a:hover .material-icons {
+    color: var(--primary-color);
+}
+
+/* Анимация для выпадающих списков */
+@keyframes dropdownSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .header-fixed {
+        padding: 0 16px 0 80px;
+    }
+    
+    .header-group {
+        gap: 12px;
+    }
+    
+    .header-group-select {
+        min-width: 120px;
+        font-size: 0.65em;
+    }
+    
+    .header-user span {
+        display: none;
+    }
+    
+    .header-dropdown {
+        min-width: 180px;
+    }
+}

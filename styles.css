@@ -113,7 +113,7 @@ body.sidebar-open .header-fixed .header-title {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 24px;
+    bottom: 43px;
     box-sizing: border-box;
     text-decoration: none !important;
 }
@@ -310,7 +310,7 @@ body.sidebar-open .header-fixed .header-title {
     font-weight: 600;
 }
 .sidebar-exit {
-    margin-top: auto;
+    margin-top: 0;
     margin-bottom: 0px;
     color: #fff !important;
     display: flex;
@@ -327,7 +327,7 @@ body.sidebar-open .header-fixed .header-title {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 24px;
+    bottom: 50px;
 }
 .collapsible-sidebar:not(.open) .sidebar-exit .sidebar-label {
     display: none !important;
@@ -350,6 +350,7 @@ body.sidebar-open .header-fixed .header-title {
     width: 270px;
     min-width: 270px;
 }
+/* Базовые правила для логотипа в закрытом состоянии */
 .sidebar-logo {
     justify-content: center;
     margin: 8px 0 8px 0;
@@ -358,17 +359,34 @@ body.sidebar-open .header-fixed .header-title {
     align-items: center;
     transition: margin 0.25s;
 }
+
+/* Базовые правила для изображения логотипа в закрытом состоянии */
 .sidebar-logo-img {
     width: 44px;
     height: 44px;
     object-fit: contain;
     transition: width 0.2s, height 0.2s;
-    margin: 0 0 0 0;
+    margin: 0 !important;
     display: block;
+    transform: none !important;
+    position: static !important;
 }
+
+/* Правила для открытого состояния */
+.sidebar.sidebar-figma.collapsible-sidebar.open .sidebar-logo {
+    justify-content: center;
+    margin: 8px 0 8px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
 .sidebar.sidebar-figma.collapsible-sidebar.open .sidebar-logo-img {
     width: 210px;
     height: 45px;
+    margin: 0 !important;
+    transform: none !important;
+    position: static !important;
 }
 .sidebar-logo-text {
     display: none;
@@ -539,6 +557,7 @@ body.sidebar-open .header-fixed .header-title {
     display: inline-block;
     width: 40px;
     height: 22px;
+    user-select: none;
 }
 .switch input {display:none;}
 .slider {
@@ -548,6 +567,10 @@ body.sidebar-open .header-fixed .header-title {
     background-color: #ccc;
     transition: .4s;
     border-radius: 22px;
+    z-index: 1;
+}
+.slider:hover {
+    opacity: 0.8;
 }
 .slider:before {
     position: absolute;
@@ -559,6 +582,7 @@ body.sidebar-open .header-fixed .header-title {
     background-color: white;
     transition: .4s;
     border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 input:checked + .slider {
     background-color: #003F7D;
@@ -651,7 +675,7 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     gap: 16px;
-    padding: 14px 24px;
+    padding: 5px 24px;
     border-radius: 12px;
     cursor: pointer;
     transition: background 0.2s;
@@ -951,7 +975,6 @@ body.sidebar-open .header-fixed {
     padding: 0px 0;
     z-index: 200;
     transition: opacity 0.2s;
-    font-size: 0.83em;
 }
 .header-dropdown.show {
     display: flex;
@@ -1075,8 +1098,8 @@ body.sidebar-open .header-fixed {
     background: #fff;
     border-radius: 18px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-    min-width: 220px;
-    min-height: 140px;
+    min-width: 412px;
+    min-height: 306px;
     width: 320px;
     height: 220px;
     position: absolute; /* Изменяем на absolute для позиционирования относительно training-layout */
@@ -1383,6 +1406,8 @@ body.windows-edit-mode .training-placeholder {
     left: 20px;
     width: 400px;
     height: 600px;
+    min-width: 412px;
+    min-height: 306px;
     background: #fff;
     border-radius: 18px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.10);
@@ -1398,7 +1423,7 @@ body.windows-edit-mode .training-placeholder {
     justify-content: space-between;
     font-weight: 600;
     font-size: 16px;
-    padding: 16px 20px;
+    padding: 7px 30px;
     color: #003F7D;
     border-bottom: 1px solid #e3e3e3;
     background: #f8f9fa;
@@ -1496,18 +1521,56 @@ body.windows-edit-mode .training-placeholder {
     font-size: 18px;
 }
 
+/* Улучшенные стили для кнопок управления окном */
+.window-control-btn {
+    transition: all 0.2s ease;
+}
+
+.window-control-btn.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Кнопка минимизации всегда активна */
+.minimize-btn {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+/* Анимация для минимизации окна */
+.training-window {
+    transition: height 0.3s ease;
+}
+
+.training-window.minimized {
+    transition: height 0.3s ease;
+}
+
 /* Состояния окна */
 .training-window.minimized {
     height: 50px !important;
     overflow: hidden;
+    min-height: 50px !important;
 }
 
 .training-window.minimized .window-content {
-    display: none;
+    display: none !important;
 }
 
 .training-window.minimized .resize-handle {
-    display: none;
+    display: none !important;
+}
+
+
+
+/* Стили для минимизированного окна с лучшим отображением */
+.training-window.minimized .minimize-btn {
+    background: rgba(255, 193, 7, 0.2);
+}
+
+.training-window.minimized .minimize-btn:hover {
+    background: #ffc107;
+    color: #fff;
 }
 
 .training-window.maximized {
@@ -1535,7 +1598,7 @@ body.sidebar-open .training-window.maximized {
 
 .operators-errors-window .window-content {
     flex: 1;
-    padding: 20px;
+    padding: 14px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -1650,7 +1713,7 @@ body.sidebar-open .training-window.maximized {
     display: flex;
     align-items: center;
     gap: 16px;
-    padding: 16px 12px;
+    padding: 5px 12px;
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -1669,8 +1732,8 @@ body.sidebar-open .training-window.maximized {
 }
 
 .operator-avatar {
-    width: 54px;
-    height: 54px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #e0e0e0;
@@ -1742,6 +1805,7 @@ body.sidebar-open .training-window.maximized {
 }
 
 .meta-badge.calendar {
+    background: #f3e5f5;
     background: #f3e5f5;
     color: #7b1fa2;
 }
@@ -1824,6 +1888,8 @@ body.sidebar-open .training-window.maximized {
     flex-direction: column;
     overflow: hidden;
     z-index: 5;
+    min-width: 617px;
+    min-height: 400px;
 }
 
 .operator-details-window .window-header {
@@ -1832,7 +1898,7 @@ body.sidebar-open .training-window.maximized {
     justify-content: space-between;
     font-weight: 600;
     font-size: 16px;
-    padding: 16px 20px;
+    padding: 7px 30px;
     color: #003F7D;
     border-bottom: 1px solid #e3e3e3;
     background: #f8f9fa;
@@ -1842,11 +1908,11 @@ body.sidebar-open .training-window.maximized {
 
 .operator-details-window .window-content {
     flex: 1;
-    padding: 20px;
+    padding: 14px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 12px;
     height: 100%;
 }
 
@@ -1861,7 +1927,7 @@ body.sidebar-open .training-window.maximized {
 .selected-operator-info {
     background: #f8f9fa;
     border-radius: 12px;
-    padding: 20px;
+    padding: 10px;
     border: 1px solid #e9ecef;
 }
 
@@ -1904,33 +1970,83 @@ body.sidebar-open .training-window.maximized {
 
 .operator-detail-stats {
     display: flex;
-    gap: 20px;
+    gap: 8px;
+    margin-top: 6px;
+    margin-bottom: 6px;
 }
 
 .stat-item {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 14px;
+    gap: 4px;
+    padding: 3px 8px;
+    background: rgba(0, 63, 125, 0.04);
+    border-radius: 5px;
+    font-size: 11px;
     color: #666;
+    border: 1px solid rgba(0, 63, 125, 0.08);
+    transition: all 0.2s ease;
+    flex: 1;
+    min-width: 0;
+    height: auto;
+    max-width: 190px;
+    min-height: 25px;
+}
+
+.stat-item:hover {
+    background: rgba(0, 63, 125, 0.08);
+    border-color: rgba(0, 63, 125, 0.15);
 }
 
 .stat-item .material-icons {
-    font-size: 18px;
+    font-size: 16px;
+    flex-shrink: 0;
 }
 
 .stat-item:first-child .material-icons {
     color: #d32f2f;
 }
 
-.stat-item:last-child .material-icons {
+.stat-item:nth-child(2) .material-icons {
     color: #2e7d32;
+}
+
+.stat-item:last-child .material-icons {
+    color: #ff9800;
+}
+
+.stat-item .stat-number {
+    font-size: 12px;
+    font-weight: 600;
+    color: #003F7D;
+    margin-right: 2px;
+    flex-shrink: 0;
+}
+
+.stat-item .stat-label {
+    font-size: 11.2px;
+    color: #666;
+    line-height: 1.2;
+    word-wrap: break-word;
 }
 
 .operator-actions {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+}
+
+.toggle-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.date-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .date-value {
@@ -1939,7 +2055,6 @@ body.sidebar-open .training-window.maximized {
     font-weight: 500;
 }
 
-/* Список ошибок оператора */
 .operator-errors-list {
     flex: 1;
     overflow-y: auto;
@@ -2009,34 +2124,10 @@ body.sidebar-open .training-window.maximized {
     margin-bottom: 12px;
 }
 
-.error-actions {
+.actions-container {
     display: flex;
     align-items: center;
     gap: 8px;
-}
-
-.error-status {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 12px;
-    border-radius: 16px;
-    font-size: 12px;
-    font-weight: 500;
-}
-
-.error-status.false {
-    background: #ffebee;
-    color: #d32f2f;
-}
-
-.error-status.true {
-    background: #e8f5e8;
-    color: #2e7d32;
-}
-
-.error-status .material-icons {
-    font-size: 14px;
 }
 
 /* Комментарии обучения */
@@ -2124,6 +2215,9 @@ body.sidebar-open .training-window.maximized {
     justify-content: flex-end;
     gap: 8px;
     margin-top: 12px;
+    margin-bottom: 0;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .comment-btn {
@@ -2133,10 +2227,15 @@ body.sidebar-open .training-window.maximized {
     padding: 8px 16px;
     border: none;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
+    min-width: 120px;
+    max-width: 150px;
+    max-height: 40px;
+    justify-content: center;
+    white-space: nowrap;
 }
 
 .comment-btn-save {
@@ -2183,29 +2282,6 @@ body.sidebar-open .training-window.maximized {
 
 .train-error-btn .material-icons {
     font-size: 16px;
-}
-
-.edit-comment-btn {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 8px;
-    border: 1px solid #ff9800;
-    background: white;
-    color: #ff9800;
-    border-radius: 4px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.edit-comment-btn:hover {
-    background: #ff9800;
-    color: white;
-}
-
-.edit-comment-btn .material-icons {
-    font-size: 14px;
 }
 
 /* Заглушка когда оператор не выбран */
@@ -2259,4 +2335,193 @@ body.sidebar-open .training-window.maximized {
 
 .operator-errors-list::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
+}
+
+/* Кастомное модальное окно подтверждения */
+.custom-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    animation: modalFadeIn 0.3s ease;
+}
+
+.custom-modal-content {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 90%;
+    margin: 20px;
+    animation: modalSlideIn 0.3s ease;
+    overflow: hidden;
+}
+
+.custom-modal-header {
+    padding: 24px 24px 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.custom-modal-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #fff3e0;
+    color: #f57c00;
+}
+
+.custom-modal-icon .material-icons {
+    font-size: 24px;
+}
+
+.custom-modal-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+.custom-modal-text {
+    padding: 20px 24px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.custom-modal-buttons {
+    padding: 16px 24px 24px 24px;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.custom-modal-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 80px;
+}
+
+.custom-modal-btn-cancel {
+    background-color: #f5f5f5;
+    color: #666;
+}
+
+.custom-modal-btn-cancel:hover {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.custom-modal-btn-confirm {
+    background-color: #dc3545;
+    color: white;
+}
+
+.custom-modal-btn-confirm:hover {
+    background-color: #c82333;
+}
+
+.custom-modal-btn:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Анимации для модального окна */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalFadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px) scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideOut {
+    from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-50px) scale(0.95);
+        opacity: 0;
+    }
+}
+
+/* Правила сброса для логотипа после расфиксации */
+.sidebar.sidebar-figma.collapsible-sidebar:not(.sidebar-pinned):not(.sidebar-pinned-collapsed):not(.sidebar-pinned-expanded) .sidebar-logo {
+    justify-content: center !important;
+    margin: 8px 0 8px 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    transform: none !important;
+    position: static !important;
+}
+
+.sidebar.sidebar-figma.collapsible-sidebar:not(.sidebar-pinned):not(.sidebar-pinned-collapsed):not(.sidebar-pinned-expanded) .sidebar-logo-img {
+    width: 44px !important;
+    height: 44px !important;
+    object-fit: contain !important;
+    margin: 0 !important;
+    display: block !important;
+    transform: none !important;
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+}
+
+.sidebar.sidebar-figma.collapsible-sidebar.open:not(.sidebar-pinned):not(.sidebar-pinned-collapsed):not(.sidebar-pinned-expanded) .sidebar-logo-img {
+    width: 210px !important;
+    height: 45px !important;
+}
+
+/* Дополнительные правила сброса для расширенного состояния */
+.sidebar.sidebar-figma.collapsible-sidebar.open:not(.sidebar-pinned-expanded) .sidebar-logo {
+    justify-content: center !important;
+    margin: 8px 0 8px 0 !important;
+}
+
+.sidebar.sidebar-figma.collapsible-sidebar.open:not(.sidebar-pinned-expanded) .sidebar-logo-img {
+    width: 210px !important;
+    height: 45px !important;
+    margin: 0 !important;
+    transform: none !important;
 }

@@ -1,0 +1,433 @@
+/* ===== MODAL STYLES ===== */
+/* Стили для модальных окон, всплывающих окон и overlay'ев */
+
+/* Базовый modal overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: var(--z-index-modal);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-medium), visibility var(--transition-medium);
+    backdrop-filter: blur(4px);
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Кастомное модальное окно подтверждения */
+.custom-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: var(--z-index-modal);
+    animation: modalFadeIn var(--transition-medium) ease;
+    backdrop-filter: blur(4px);
+}
+
+.custom-modal-content {
+    background: var(--white);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-heavy);
+    max-width: 500px;
+    width: 90%;
+    margin: 20px;
+    animation: modalSlideIn var(--transition-medium) ease;
+    overflow: hidden;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-modal-header {
+    padding: 24px 24px 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.custom-modal-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #fff3e0;
+    color: #f57c00;
+    flex-shrink: 0;
+}
+
+.custom-modal-icon.success {
+    background-color: #e8f5e8;
+    color: #4caf50;
+}
+
+.custom-modal-icon.error {
+    background-color: #ffebee;
+    color: #f44336;
+}
+
+.custom-modal-icon.info {
+    background-color: #e3f2fd;
+    color: var(--primary-color);
+}
+
+.custom-modal-icon .material-icons {
+    font-size: 24px;
+}
+
+.custom-modal-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.custom-modal-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.custom-modal-close:hover {
+    background: var(--background-color);
+    color: var(--text-primary);
+}
+
+.custom-modal-text {
+    padding: 20px 24px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    flex: 1;
+    overflow-y: auto;
+}
+
+.custom-modal-buttons {
+    padding: 16px 24px 24px 24px;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+
+.custom-modal-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    min-width: 80px;
+}
+
+.custom-modal-btn-cancel {
+    background-color: #f5f5f5;
+    color: var(--text-secondary);
+}
+
+.custom-modal-btn-cancel:hover {
+    background-color: #e0e0e0;
+    color: var(--text-primary);
+}
+
+.custom-modal-btn-confirm {
+    background-color: #dc3545;
+    color: var(--white);
+}
+
+.custom-modal-btn-confirm:hover {
+    background-color: #c82333;
+}
+
+.custom-modal-btn:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Выпадающий список для добавления окон */
+.window-selector-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 280px;
+    background: var(--white);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-heavy);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    z-index: var(--z-index-dropdown);
+    overflow: hidden;
+}
+
+.window-selector-dropdown.show {
+    display: block;
+    animation: dropdownSlideIn var(--transition-medium) ease-out;
+}
+
+.window-selector-header {
+    padding: 16px 20px;
+    background: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.window-selector-header .material-icons {
+    color: var(--primary-color);
+    font-size: 20px;
+}
+
+.window-selector-list {
+    padding: 8px 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.window-selector-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    position: relative;
+}
+
+.window-selector-item:hover {
+    background: var(--background-color);
+}
+
+.window-selector-item input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-color);
+    border-radius: 3px;
+    position: relative;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.window-selector-item input[type="checkbox"]:checked ~ .checkmark {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.window-selector-item input[type="checkbox"]:checked ~ .checkmark::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid var(--white);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.window-name {
+    font-size: 14px;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Tooltip */
+.tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--white);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-fast), visibility var(--transition-fast);
+    pointer-events: none;
+    z-index: var(--z-index-dropdown);
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.8);
+}
+
+.tooltip-wrapper:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Анимации для модальных окон */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalFadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px) scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideOut {
+    from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-50px) scale(0.95);
+        opacity: 0;
+    }
+}
+
+@keyframes dropdownSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Закрытие модального окна */
+.modal-closing .custom-modal-content {
+    animation: modalSlideOut var(--transition-medium) ease;
+}
+
+.modal-closing {
+    animation: modalFadeOut var(--transition-medium) ease;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .custom-modal-content {
+        width: 95%;
+        margin: 10px;
+        max-height: 95vh;
+    }
+    
+    .custom-modal-header {
+        padding: 20px 16px 12px 16px;
+    }
+    
+    .custom-modal-text {
+        padding: 16px;
+        font-size: 15px;
+    }
+    
+    .custom-modal-buttons {
+        padding: 12px 16px 20px 16px;
+        flex-direction: column;
+    }
+    
+    .custom-modal-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .window-selector-dropdown {
+        min-width: 260px;
+        left: 0;
+        right: auto;
+    }
+    
+    .window-selector-item {
+        padding: 14px 16px;
+    }
+    
+    .window-name {
+        font-size: 13px;
+    }
+}
+
+/* Скролл для длинных модальных окон */
+.custom-modal-text::-webkit-scrollbar,
+.window-selector-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-modal-text::-webkit-scrollbar-track,
+.window-selector-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.custom-modal-text::-webkit-scrollbar-thumb,
+.window-selector-list::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.custom-modal-text::-webkit-scrollbar-thumb:hover,
+.window-selector-list::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}

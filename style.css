@@ -17,7 +17,7 @@ html {
 .background {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: url('assets/bg.jpg') no-repeat center center/cover;
+    background: url('assets/фон/фон 1.jpg') no-repeat center center/cover;
     z-index: 0;
     animation: bgMove 16s ease-in-out infinite alternate;
     will-change: background-position, transform;

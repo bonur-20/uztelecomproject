@@ -1,0 +1,334 @@
+/* ===== TRAINING LAYOUT STYLES ===== */
+/* Стили для основной тренировочной области, карточек и layout'а */
+
+/* Основная тренировочная область */
+.training-layout {
+    flex: 1;
+    padding: var(--header-height) 0 0 var(--sidebar-width-closed);
+    background: var(--background-color);
+    overflow: hidden;
+    position: relative;
+    transition: padding-left var(--transition-medium);
+}
+
+/* Когда sidebar открыт */
+body.sidebar-open .training-layout {
+    padding-left: var(--sidebar-width-open);
+}
+
+/* Header тренировочной области */
+.training-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 40px 0 40px;
+    background: var(--background-color);
+    min-height: 80px;
+}
+
+.training-header h1 {
+    font-size: 2em;
+    font-weight: 700;
+    margin: 0;
+    color: var(--primary-color);
+}
+
+/* Контролы в header */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+/* Поле поиска */
+.search-input {
+    padding: 10px 18px;
+    border-radius: var(--border-radius-large);
+    border: 1px solid var(--border-color);
+    font-size: 1em;
+    background: var(--white);
+    min-width: 220px;
+    outline: none;
+    transition: border var(--transition-fast);
+}
+
+.search-input:focus {
+    border: 1.5px solid var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-hover);
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Группа переключателей */
+.toggle-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1em;
+}
+
+/* Переключатель */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 22px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 2px;
+    bottom: 2px;
+    background-color: var(--white);
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(18px);
+}
+
+/* Иконки в header */
+.header-icons {
+    display: flex;
+    gap: 12px;
+    color: var(--primary-color);
+    font-size: 1.6em;
+}
+
+.header-icons .material-icons {
+    cursor: pointer;
+    transition: color var(--transition-fast);
+}
+
+.header-icons .material-icons:hover {
+    color: var(--primary-light);
+}
+
+/* Профиль пользователя */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    border-radius: var(--border-radius-xlarge);
+    padding: 4px 12px 4px 4px;
+    box-shadow: var(--shadow-light);
+    cursor: pointer;
+    transition: box-shadow var(--transition-fast);
+}
+
+.user-profile:hover {
+    box-shadow: var(--shadow-medium);
+}
+
+.profile-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-name {
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+/* Карточки */
+.card {
+    background: var(--white);
+    border-radius: var(--border-radius-xlarge);
+    box-shadow: var(--shadow-medium);
+    padding: 24px;
+    transition: box-shadow var(--transition-fast);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-heavy);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.card-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.card-subtitle {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    margin: 4px 0 0 0;
+}
+
+.card-content {
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+.card-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    justify-content: flex-end;
+}
+
+/* Заглушки для графиков */
+.chart-placeholder,
+.pie-placeholder {
+    min-width: 220px;
+    min-height: 180px;
+    background: var(--background-color);
+    border-radius: var(--border-radius-large);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1em;
+    color: var(--text-secondary);
+    border: 2px dashed var(--border-color);
+    transition: border-color var(--transition-fast);
+}
+
+.chart-placeholder:hover,
+.pie-placeholder:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* Окна тренировок */
+.training-windows {
+    display: flex;
+    gap: 24px;
+    margin: 32px 0 0 0;
+    flex-wrap: wrap;
+    padding: 0 40px;
+}
+
+.training-window {
+    background: var(--white);
+    border-radius: var(--border-radius-xlarge);
+    box-shadow: var(--shadow-medium);
+    min-width: 220px;
+    min-height: 140px;
+    width: 320px;
+    height: 220px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow var(--transition-fast), border var(--transition-fast);
+    overflow: hidden;
+}
+
+.training-window .window-header {
+    font-weight: 600;
+    font-size: 1.1em;
+    padding: 16px 20px 10px 20px;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-light);
+    background: var(--background-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.training-window .window-content {
+    flex: 1;
+    padding: 18px 20px;
+    color: var(--text-primary);
+    overflow: auto;
+}
+
+.training-window .window-title {
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+    .training-header {
+        padding: 20px 24px 0 24px;
+    }
+    
+    .header-controls {
+        gap: 16px;
+    }
+    
+    .search-input {
+        min-width: 180px;
+    }
+    
+    .training-windows {
+        padding: 0 24px;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .training-layout {
+        padding: var(--header-height) 0 0 0;
+    }
+    
+    .training-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+        padding: 16px 16px 0 16px;
+    }
+    
+    .header-controls {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    
+    .search-input {
+        min-width: 100%;
+    }
+    
+    .training-windows {
+        padding: 0 16px;
+        gap: 12px;
+    }
+    
+    .training-window {
+        width: 100%;
+        min-width: 100%;
+        position: relative;
+        top: auto;
+        left: auto;
+    }
+}

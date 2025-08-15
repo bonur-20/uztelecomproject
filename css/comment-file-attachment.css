@@ -1,0 +1,302 @@
+/* Стили для прикрепления файлов в комментариях обучения */
+
+/* Кнопка прикрепления файла в комментариях */
+.comment-attach-file-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    background: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid #64b5f6;
+    min-width: 120px;
+    max-width: 150px;
+    max-height: 40px;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.comment-attach-file-btn:hover {
+    background: #bbdefb;
+    border-color: #42a5f5;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.2);
+}
+
+.comment-attach-file-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(25, 118, 210, 0.2);
+}
+
+.comment-attach-file-btn .material-icons {
+    font-size: 14px;
+}
+
+/* Список прикрепленных файлов в комментариях */
+.comment-attached-files-list {
+    margin-top: 8px;
+    padding: 12px;
+    background: #f8fffe;
+    border: 1px solid #b2dfdb;
+    border-radius: 6px;
+    display: block;
+}
+
+.comment-attached-files-list.show {
+    display: block;
+    animation: fadeInUp 0.3s ease;
+}
+
+.comment-attached-files-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #00695c;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.comment-attached-files-title .material-icons {
+    font-size: 14px;
+    color: #00897b;
+}
+
+/* Элемент прикрепленного файла в комментариях */
+.comment-attached-file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #ffffff;
+    border: 1px solid #b2dfdb;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    transition: all 0.2s ease;
+}
+
+.comment-attached-file-item:last-child {
+    margin-bottom: 0;
+}
+
+.comment-attached-file-item:hover {
+    background: #e0f2f1;
+    border-color: #80cbc4;
+}
+
+.comment-attached-file-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.comment-attached-file-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: #e0f2f1;
+    border-radius: 4px;
+    color: #00897b;
+}
+
+.comment-attached-file-icon .material-icons {
+    font-size: 16px;
+}
+
+.comment-attached-file-details {
+    flex: 1;
+}
+
+.comment-attached-file-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: #424242;
+    margin-bottom: 2px;
+    word-break: break-all;
+}
+
+.comment-attached-file-size {
+    font-size: 10px;
+    color: #757575;
+}
+
+/* Кнопка удаления файла в комментариях */
+.comment-remove-file-btn {
+    padding: 4px;
+    border: none;
+    background: transparent;
+    color: #757575;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comment-remove-file-btn:hover {
+    background: #ffebee;
+    color: #d32f2f;
+}
+
+.comment-remove-file-btn .material-icons {
+    font-size: 16px;
+}
+
+/* Файлы в отправленных комментариях */
+.comment-files {
+    margin: 8px 0;
+    padding: 8px 12px;
+    background: #f1f8e9;
+    border: 1px solid #c8e6c9;
+    border-radius: 4px;
+}
+
+.comment-files-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #2e7d32;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.comment-files-title .material-icons {
+    font-size: 12px;
+}
+
+.comment-file-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 0;
+    font-size: 11px;
+    color: #424242;
+}
+
+.comment-file-item:not(:last-child) {
+    border-bottom: 1px solid #c8e6c9;
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+}
+
+.comment-file-item .material-icons {
+    font-size: 14px;
+    color: #388e3c;
+}
+
+.comment-file-name {
+    flex: 1;
+    font-weight: 500;
+    word-break: break-all;
+}
+
+.comment-file-size {
+    color: #757575;
+    font-size: 10px;
+}
+
+/* Drag and Drop зона для комментариев */
+.comment-file-drop-zone {
+    margin-top: 8px;
+    padding: 20px;
+    border: 2px dashed #b2dfdb;
+    border-radius: 6px;
+    text-align: center;
+    transition: all 0.2s ease;
+    background: #e0f2f1;
+    display: none;
+}
+
+.comment-file-drop-zone.show {
+    display: block;
+}
+
+.comment-file-drop-zone.drag-over {
+    border-color: #00897b;
+    background: #b2dfdb;
+}
+
+.comment-file-drop-zone-text {
+    font-size: 12px;
+    color: #00695c;
+    margin-bottom: 8px;
+}
+
+.comment-file-drop-zone-icon {
+    color: #4db6ac;
+    margin-bottom: 8px;
+}
+
+.comment-file-drop-zone-icon .material-icons {
+    font-size: 32px;
+}
+
+/* Ошибки валидации файлов для комментариев */
+.comment-file-error {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: #ffebee;
+    border: 1px solid #ef5350;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #d32f2f;
+    display: none;
+}
+
+.comment-file-error.show {
+    display: block;
+    animation: shake 0.5s ease;
+}
+
+.comment-file-error .material-icons {
+    font-size: 12px;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+/* Ограничения файлов для комментариев */
+.comment-file-restrictions {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: #e1f5fe;
+    border: 1px solid #4fc3f7;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #0277bd;
+    line-height: 1.4;
+}
+
+.comment-file-restrictions .material-icons {
+    font-size: 12px;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+/* Анимация для комментариев */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}

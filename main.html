@@ -4,12 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Обучение | UZTELECOM</title>
+    
+    <!-- Временно используем старые стили для совместимости -->
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="css/window-manager.css">
+    <link rel="stylesheet" href="css/sidebar-pin.css">
+    <link rel="stylesheet" href="css/appeals.css">
+    <link rel="stylesheet" href="css/file-attachment.css">
+    <link rel="stylesheet" href="css/comment-file-attachment.css">
+    <link rel="stylesheet" href="css/appeal-modal.css">
+    <link rel="stylesheet" href="css/slider-tooltip.css">
+    <link rel="stylesheet" href="css/analytics-dashboard.css">
+    
+    <!-- Подключение Google Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/синее лого.png">
 </head>
 <body>        <header class="header-fixed">
-            <div class="header-title">Обучение</div>
+            <div class="header-title">
+                Обучение
+            </div>
             <!-- Кнопки редактирования (скрыты по умолчанию) -->
             <div class="header-editor-controls" id="header-editor-controls" style="display: none;">
                 <button class="editor-btn save-btn" id="save-btn">
@@ -23,6 +39,10 @@
                 <button class="editor-btn add-remove-btn" id="add-remove-btn">
                     <span class="material-icons">add_box</span>
                     Добавить/Убрать
+                </button>
+                <button class="editor-btn reset-btn" id="reset-windows-btn">
+                    <span class="material-icons">refresh</span>
+                    Сбросить настройки окон
                 </button>
                 <!-- Выпадающий список для добавления окон -->
                 <div class="window-selector-dropdown" id="window-selector-dropdown">
@@ -92,7 +112,20 @@
                     <a><span class="material-icons">bar_chart</span> <span class="sidebar-label">Статистика супервайзера</span></a>
                     <a><span class="material-icons">settings</span> <span class="sidebar-label">Настройки</span></a>
                 </nav>
-                <a class="sidebar-exit" href="index.html"><span class="material-icons">logout</span> <span class="sidebar-label">Выйти</span></a>
+                
+                <!-- Кнопки фиксации сайдбара - размещены в самом низу -->
+                <div class="sidebar-pin-controls">
+                    <button class="pin-button pin-button-collapsed" id="sidebar-pin-collapsed-btn" title="Зафиксировать в закрытом виде">
+                        <span class="material-icons">push_pin</span>
+                        <span class="sidebar-label">Закрепить закрытым</span>
+                    </button>
+                    <button class="pin-button pin-button-expanded" id="sidebar-pin-expanded-btn" title="Зафиксировать в открытом виде">
+                        <span class="material-icons">lock</span>
+                        <span class="sidebar-label">Закрепить открытым</span>
+                    </button>
+                </div>
+                
+                <a class="sidebar-exit" href="login.html"><span class="material-icons">logout</span> <span class="sidebar-label">Выйти</span></a>
             </aside>
             <!-- Main Content -->
             <main class="main-content training-page">
@@ -185,21 +218,29 @@
                                         <div class="operator-detail-stats">
                                             <div class="stat-item">
                                                 <span class="material-icons">error</span>
-                                                <span id="operator-detail-errors">0</span> ошибок
+                                                <span class="stat-number" id="operator-detail-errors">0</span>
+                                                <span class="stat-label">Необученных звонков</span>
                                             </div>
                                             <div class="stat-item">
                                                 <span class="material-icons">check_circle</span>
-                                                <span id="operator-detail-success">0</span> успешных
+                                                <span class="stat-number" id="operator-detail-success">0</span>
+                                                <span class="stat-label">Обученных звонков</span>
+                                            </div>
+                                            <div class="stat-item">
+                                                <span class="material-icons">analytics</span>
+                                                <span class="stat-number" id="operator-detail-average">0</span>
+                                                <span class="stat-label">Общее кол-во допущенных ошибок</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="operator-actions">
                                         <div class="toggle-group">
-                                            <span class="date-label">Дата и время обучения:</span>
                                             <div class="switch">
                                                 <input type="checkbox" id="training-date-toggle">
                                                 <span class="slider"></span>
                                             </div>
+                                        </div>
+                                        <div class="date-group">
                                             <span class="date-value">12.06.2024 / 10:40</span>
                                         </div>
                                     </div>
@@ -207,6 +248,7 @@
                             </div>
                             
                             <!-- Список ошибок оператора -->
+
                             <div class="operator-errors-list" id="operator-errors-list">
                                 <!-- Здесь будут отображаться ошибки выбранного оператора -->
                             </div>
@@ -217,6 +259,77 @@
                                     <span class="material-icons">person_search</span>
                                     <h3>Выберите оператора</h3>
                                     <p>Для просмотра подробной информации об ошибках выберите оператора из списка слева</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="resize-handle"></div>
+                    </div>
+                    
+                    <!-- Окно "Аналитика учебного процесса" -->
+                    <div class="training-window analytics-dashboard-window" id="analytics-dashboard-window" style="display: none; top: 40px; left: 900px; width: 1000px; height: 700px;">
+                        <div class="window-header">
+                            <div class="window-title-section">
+                                <span class="material-icons">analytics</span>
+                                <span>Аналитика учебного процесса</span>
+                            </div>
+                            <div class="window-controls">
+                                <button class="window-control-btn minimize-btn" title="Свернуть">
+                                    <span class="material-icons">remove</span>
+                                </button>
+                                <button class="window-control-btn maximize-btn" title="Развернуть">
+                                    <span class="material-icons">crop_din</span>
+                                </button>
+                                <button class="window-control-btn close-btn" title="Закрыть" style="display: none;">
+                                    <span class="material-icons">close</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="window-content">
+                            
+                            <!-- Основное содержимое аналитики -->
+                            <div class="analytics-content">
+                                <div class="analytics-compact-row" style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div class="analytics-chart-container" style="min-width: 180px; max-width: 260px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 5px 5px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;">
+                                        <div class="analytics-chart-title" style="font-size: 12px; font-weight: 700; margin-bottom: 0px; text-align: center;">Статистика обучения</div>
+                                        <div class="analytics-chart-flex" style="display: flex; flex-direction: row; align-items: center; justify-content: flex-start; width: 100%; gap: 0px;">
+                                            <div class="analytics-chart" style="display: flex; align-items: center; justify-content: center; min-width: 120px;">
+                                                <canvas id="analytics-pie-chart" width="120" height="120"></canvas>
+                                            </div>
+                                            <div class="analytics-chart-info-list" style="display: flex; flex-direction: column; gap: 6px; min-width: 110px;">
+                                                <div class="analytics-chart-info">Обучено всего: <span id="trained-calls-archive">1000</span></div>
+                                                <div class="analytics-chart-info">Обучено за день: <span id="trained-calls-count">54</span></div>
+                                                <div class="analytics-chart-info">Необучено: <span id="untrained-calls-count">46</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="analytics-criteria-table" style="flex: 1; min-width: 0;">
+                                        <table class="criteria-table" style="width: 100%; margin: 0; border-collapse: separate; border-spacing: 0;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 40px;">#</th>
+                                                    <th style="text-align: left;">Критерий оценки</th>
+                                                    <th style="width: 70px; text-align: right;">%</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>01</td>
+                                                    <td>Приветствие</td>
+                                                    <td><span class="percentage-badge" style="background: #e3f2fd; color: #1976d2; padding: 2px 10px; border-radius: 12px; font-weight: 500;">92%</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>02</td>
+                                                    <td>Внимательное слушание</td>
+                                                    <td><span class="percentage-badge" style="background: #e8f5e9; color: #388e3c; padding: 2px 10px; border-radius: 12px; font-weight: 500;">88%</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>03</td>
+                                                    <td>Использование уточняющих вопросов</td>
+                                                    <td><span class="percentage-badge" style="background: #fffde7; color: #fbc02d; padding: 2px 10px; border-radius: 12px; font-weight: 500;">75%</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -242,10 +355,48 @@
             </main>
         </div>
         <script src="script.js"></script>
+        <script src="js/sidebar-pin-manager.js"></script>
+        <script src="js/appeals-manager.js"></script>
+        <script src="js/file-attachment-manager.js"></script>
+        <script src="js/comment-file-attachment-manager.js"></script>
+        <script src="js/analytics-manager.js"></script>
         <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Режим редактирования окон - объявляем в начале
     let editMode = false;
+
+    // Автоинициализация аналитики при загрузке, если окно видно
+    const analyticsWindow = document.getElementById('analytics-dashboard-window');
+    if (analyticsWindow && analyticsWindow.style.display !== 'none' && getComputedStyle(analyticsWindow).display !== 'none') {
+        try {
+            if (window.AnalyticsManager) {
+                setTimeout(() => {
+                    window.AnalyticsManager.init();
+                }, 100);
+            }
+        } catch (error) {
+            console.error('Ошибка при автоинициализации AnalyticsManager:', error);
+        }
+    }
+    
+    // Восстановление состояния окна аналитики из localStorage
+    const analyticsState = localStorage.getItem('analyticsDashboardVisible');
+    if (analyticsWindow) {
+        if (analyticsState === 'true') {
+            analyticsWindow.style.display = 'flex';
+            try {
+                if (window.AnalyticsManager) {
+                    setTimeout(() => {
+                        window.AnalyticsManager.init();
+                    }, 100);
+                }
+            } catch (error) {
+                console.error('Ошибка при автоинициализации AnalyticsManager:', error);
+            }
+        } else {
+            analyticsWindow.style.display = 'none';
+        }
+    }
     
     // Скрипт для кастомного select
     const groupSelect = document.querySelector('.header-group-select');
@@ -274,6 +425,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const logoImg = document.getElementById('sidebar-logo-img');
     if (sidebar && logoImg) {
         sidebar.addEventListener('mouseenter', () => {
+            // Проверяем, не зафиксирован ли сайдбар
+            if (window.isSidebarPinned && window.isSidebarPinned()) {
+                return; // Не меняем логотип и не открываем сайдбар, если он зафиксирован
+            }
+            
             logoImg.src = 'assets/logo.png';
             sidebar.classList.add('open');
             document.body.classList.add('sidebar-open');
@@ -281,6 +437,11 @@ document.addEventListener('DOMContentLoaded', function() {
             updateMaximizedWindowsSize();
         });
         sidebar.addEventListener('mouseleave', () => {
+            // Проверяем, не зафиксирован ли сайдбар
+            if (window.isSidebarPinned && window.isSidebarPinned()) {
+                return; // Не меняем логотип и не закрываем сайдбар, если он зафиксирован
+            }
+            
             logoImg.src = 'assets/mini.png';
             sidebar.classList.remove('open');
             document.body.classList.remove('sidebar-open');
@@ -339,11 +500,11 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.title = 'Развернуть окно';
         });
         
-        // Включаем кнопки свертывания
+        // Включаем кнопки свертывания (они всегда активны)
         document.querySelectorAll('.minimize-btn').forEach(btn => {
             btn.classList.remove('disabled');
             btn.style.cursor = 'pointer';
-            btn.title = 'Свернуть окно';
+            btn.title = 'Свернуть/развернуть окно';
         });
         
         // Закрываем dropdown
@@ -373,11 +534,11 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.title = 'Развертывание доступно только в режиме редактирования';
         });
         
-        // Отключаем кнопки свертывания
+        // Кнопки свертывания остаются активными (они работают всегда)
         document.querySelectorAll('.minimize-btn').forEach(btn => {
-            btn.classList.add('disabled');
-            btn.style.cursor = 'not-allowed';
-            btn.title = 'Свертывание доступно только в режиме редактирования';
+            btn.classList.remove('disabled');
+            btn.style.cursor = 'pointer';
+            btn.title = 'Свернуть/развернуть окно';
         });
         
         // Скрываем dropdown окон при выходе из режима редактирования
@@ -469,6 +630,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Проверяем конкретные окна
         const operatorsWindow = document.getElementById('operators-errors-window');
         const detailsWindow = document.getElementById('operator-details-window');
+        const analyticsWindow = document.getElementById('analytics-dashboard-window');
         
         const operatorsVisible = operatorsWindow && 
             operatorsWindow.style.display !== 'none' && 
@@ -477,9 +639,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const detailsVisible = detailsWindow && 
             detailsWindow.style.display !== 'none' && 
             getComputedStyle(detailsWindow).display !== 'none';
+            
+        const analyticsVisible = analyticsWindow && 
+            analyticsWindow.style.display !== 'none' && 
+            getComputedStyle(analyticsWindow).display !== 'none';
         
         // Скрываем или показываем заглушку
-        if (operatorsVisible || detailsVisible) {
+        if (operatorsVisible || detailsVisible || analyticsVisible) {
             placeholder.style.display = 'none';
         } else {
             placeholder.style.display = 'block';
@@ -495,11 +661,34 @@ document.addEventListener('DOMContentLoaded', function() {
             if (operatorsWindow) {
                 operatorsWindow.style.display = 'flex';
                 initOperatorsList();
+                // Сохраняем состояние окна
+                WindowStateManager.saveWindowState(operatorsWindow);
             }
         } else if (windowType === 'operator-details') {
             const detailsWindow = document.getElementById('operator-details-window');
             if (detailsWindow) {
                 detailsWindow.style.display = 'flex';
+                // Сохраняем состояние окна
+                WindowStateManager.saveWindowState(detailsWindow);
+            }
+        } else if (windowType === 'analytics-dashboard') {
+            const analyticsWindow = document.getElementById('analytics-dashboard-window');
+            if (analyticsWindow) {
+                analyticsWindow.style.display = 'flex';
+                // Сохраняем состояние окна в localStorage
+                localStorage.setItem('analyticsDashboardVisible', 'true');
+                // Инициализируем аналитику с защитой от ошибок
+                try {
+                    if (window.AnalyticsManager) {
+                        setTimeout(() => {
+                            window.AnalyticsManager.init();
+                        }, 100);
+                    }
+                } catch (error) {
+                    console.error('Ошибка при инициализации AnalyticsManager:', error);
+                }
+                // Сохраняем состояние окна
+                WindowStateManager.saveWindowState(analyticsWindow);
             }
         }
         
@@ -515,13 +704,37 @@ document.addEventListener('DOMContentLoaded', function() {
             const operatorsWindow = document.getElementById('operators-errors-window');
             if (operatorsWindow) {
                 operatorsWindow.style.display = 'none';
+                // Сохраняем состояние окна
+                WindowStateManager.saveWindowState(operatorsWindow);
             }
         } else if (windowType === 'operator-details') {
             const detailsWindow = document.getElementById('operator-details-window');
             if (detailsWindow) {
                 detailsWindow.style.display = 'none';
+                // Сохраняем состояние окна
+                WindowStateManager.saveWindowState(detailsWindow);
+            }
+        } else if (windowType === 'analytics-dashboard') {
+            const analyticsWindow = document.getElementById('analytics-dashboard-window');
+            if (analyticsWindow) {
+                analyticsWindow.style.display = 'none';
+                // Сохраняем состояние окна в localStorage
+                localStorage.setItem('analyticsDashboardVisible', 'false');
+                // Уничтожаем ресурсы аналитики с защитой от ошибок
+                try {
+                    if (window.AnalyticsManager) {
+                        window.AnalyticsManager.destroy();
+                    }
+                } catch (error) {
+                    console.error('Ошибка при уничтожении AnalyticsManager:', error);
+                }
+                // Сохраняем состояние окна
+                WindowStateManager.saveWindowState(analyticsWindow);
             }
         }
+        
+        // Сохраняем состояние всех окон
+        WindowStateManager.saveAllWindowStates();
         
         // Проверяем нужно ли показать заглушку
         checkPlaceholderVisibility();
@@ -676,7 +889,7 @@ document.addEventListener('DOMContentLoaded', function() {
             "1P8A0276.jpg", "1P8A0543.jpg", "2Y0A0426.jpg", "2Y0A9000.png", "2Y0A9032.png",
             "2Y0A9049.png", "2Y0A9086.png", "2Y0A9323.png", "2Y0A9346.png", "2Y0A9419.png",
             "2Y0A9427.png", "2Y0A9433.png", "2Y0A9689.jpg", "Adilova Arofat Faxriddin qizi.jpg",
-            "Foto.jpg", "Fozilxonov Zoirxon Davron o'g'ли 0147.png", "Пулатова Юлдуз.png"
+            "Foto.jpg", "Fozилхонова Zоирхон Даврон o'g'ли 0147.png", "Пулатова Юлдуз.png"
         ];
         
         const names = [
@@ -998,7 +1211,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const operatorErrors = generateOperatorErrors(operatorId, operator.name);
         window.currentOperatorErrors = operatorErrors; // Сохраняем глобально
         
+        // Загружаем сохраненные аппеляции
+        if (window.appealModal && window.appealModal.loadAppealData) {
+            window.appealModal.loadAppealData();
+        }
+        
         renderOperatorErrors(operatorErrors);
+        
+        // Инициализируем слайдер даты и времени обучения
+        setTimeout(() => {
+            if (typeof initTrainingDateToggle === 'function') {
+                initTrainingDateToggle();
+            }
+        }, 100);
         
         console.log(`Загружены детали для оператора: ${operator.name}`);
     }
@@ -1029,17 +1254,17 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         <div class="error-description">${error.description}</div>
                     </div>
-                    <div class="error-actions">
-                        <div class="error-status ${error.lk.toLowerCase()}">
-                            <span class="material-icons">${error.lk === 'True' ? 'check_circle' : 'cancel'}</span>
-                            ${error.lk === 'True' ? 'True' : 'False'}
-                        </div>
+                    <div class="actions-container">
                         ${!error.isTrained ? `
                             <button class="train-error-btn" onclick="showTrainingForm(${error.id})">
                                 <span class="material-icons">school</span>
                                 Обучить
                             </button>
                         ` : ''}
+                        <button class="appeal-error-btn" onclick="showAppealForm(${error.id})">
+                            <span class="material-icons">gavel</span>
+                            Аппеляция
+                        </button>
                     </div>
                 </div>
                 
@@ -1051,6 +1276,21 @@ document.addEventListener('DOMContentLoaded', function() {
                                     ${comment.isOriginal ? 'Дата обучения:' : 'Отредактировано:'} ${comment.date}
                                 </div>
                                 <div class="comment-text">${comment.text}</div>
+                                ${comment.files && comment.files.length > 0 ? `
+                                    <div class="comment-files">
+                                        <div class="comment-files-title">
+                                            <span class="material-icons">attach_file</span>
+                                            Прикрепленные файлы (${comment.files.length}):
+                                        </div>
+                                        ${comment.files.map(file => `
+                                            <div class="comment-file-item">
+                                                <span class="material-icons">${this.getFileIcon ? this.getFileIcon(file.type) : 'insert_drive_file'}</span>
+                                                <span class="comment-file-name">${file.name}</span>
+                                                <span class="comment-file-size">(${this.formatFileSize ? this.formatFileSize(file.size) : file.size + ' Б'})</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                ` : ''}
                                 ${index === 0 && error.trainingComments.length > 1 ? `
                                     <div class="comment-arrow">
                                         <span class="material-icons">arrow_forward</span>
@@ -1058,7 +1298,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 ` : ''}
                             </div>
                         `).join('')}
-                        <button class="edit-comment-btn" onclick="editTrainingComment(${error.id})">
+                        <button class="train-error-btn" onclick="editTrainingComment(${error.id})">
                             <span class="material-icons">edit</span>
                             Редактировать
                         </button>
@@ -1069,6 +1309,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     <textarea class="comment-input" id="comment-input-${error.id}" 
                               placeholder="Введите комментарий обучения..."></textarea>
                     <div class="comment-form-actions">
+                        <button class="comment-btn comment-attach-file-btn">
+                            <span class="material-icons">attach_file</span>
+                            Прикрепить файл
+                        </button>
                         <button class="comment-btn comment-btn-save" onclick="saveTrainingComment(${error.id})">
                             <span class="material-icons">check</span>
                             Сохранить
@@ -1079,6 +1323,44 @@ document.addEventListener('DOMContentLoaded', function() {
                         </button>
                     </div>
                 </div>
+                
+                ${error.appeals && error.appeals.length > 0 ? `
+                    <div class="appeals-list">
+                        <h4>Аппеляции:</h4>
+                        ${error.appeals.map(appeal => `
+                            <div class="appeal-item">
+                                <div class="appeal-date">
+                                    <span class="material-icons">schedule</span>
+                                    Отправлено: ${appeal.date}
+                                </div>
+                                <div class="appeal-text">${appeal.text}</div>
+                                ${appeal.files && appeal.files.length > 0 ? `
+                                    <div class="appeal-files">
+                                        <div class="appeal-files-title">
+                                            <span class="material-icons">attach_file</span>
+                                            Прикрепленные файлы (${appeal.files.length}):
+                                        </div>
+                                        ${appeal.files.map(file => `
+                                            <div class="appeal-file-item">
+                                                <span class="material-icons">${this.getFileIcon ? this.getFileIcon(file.type) : 'insert_drive_file'}</span>
+                                                <span class="appeal-file-name">${file.name}</span>
+                                                <span class="appeal-file-size">(${this.formatFileSize ? this.formatFileSize(file.size) : file.size + ' Б'})</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                ` : ''}
+                                <div class="appeal-status ${appeal.status}">
+                                    <span class="material-icons">
+                                        ${appeal.status === 'pending' ? 'hourglass_empty' : 
+                                          appeal.status === 'approved' ? 'check_circle' : 'cancel'}
+                                    </span>
+                                    ${appeal.status === 'pending' ? 'На рассмотрении' : 
+                                      appeal.status === 'approved' ? 'Одобрено' : 'Отклонено'}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
             </div>
         `).join('');
     }
@@ -1108,6 +1390,9 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        // Получаем прикрепленные файлы
+        const attachedFiles = window.getCommentAttachedFiles ? window.getCommentAttachedFiles(form) : [];
+        
         // Находим ошибку в данных
         const error = window.currentOperatorErrors.find(err => err.id === errorId);
         if (!error) return;
@@ -1125,17 +1410,31 @@ document.addEventListener('DOMContentLoaded', function() {
             id: error.trainingComments.length + 1,
             date: `${dateStr} ${timeStr}`,
             text: commentText,
-            isOriginal: error.trainingComments.length === 0
+            isOriginal: error.trainingComments.length === 0,
+            files: attachedFiles.map(fileData => ({
+                name: fileData.name,
+                size: fileData.size,
+                type: fileData.type,
+                id: fileData.id
+            }))
         };
         
         // Добавляем комментарий и помечаем ошибку как обученную
         error.trainingComments.push(newComment);
         error.isTrained = true;
         
+        // Очищаем форму и прикрепленные файлы
+        input.value = '';
+        if (window.clearCommentAttachedFiles) {
+            window.clearCommentAttachedFiles(form);
+        }
+        
         // Перерендериваем список ошибок
         renderOperatorErrors(window.currentOperatorErrors);
         
-        console.log(`Добавлен комментарий для ошибки ${errorId}: ${commentText}`);
+        // Показываем уведомление
+        const fileCountText = attachedFiles.length > 0 ? ` с ${attachedFiles.length} файлом(ами)` : '';
+        console.log(`Добавлен комментарий${fileCountText} для ошибки ${errorId}: ${commentText}`);
     }
     
     // Функция для отмены добавления комментария
@@ -1146,6 +1445,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (form && input) {
             form.classList.remove('show');
             input.value = '';
+            
+            // Очищаем прикрепленные файлы
+            if (window.clearCommentAttachedFiles) {
+                window.clearCommentAttachedFiles(form);
+            }
         }
     }
     
@@ -1178,8 +1482,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Перерендериваем список ошибок
             renderOperatorErrors(window.currentOperatorErrors);
-            
-            console.log(`Отредактирован комментарий для ошибки ${errorId}`);
         }
     }
     
@@ -1365,11 +1667,11 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.title = 'Развертывание доступно только в режиме редактирования';
         });
         
-        // Инициализируем кнопки свертывания в отключенном состоянии
+        // Инициализируем кнопки свертывания (они всегда активны)
         document.querySelectorAll('.minimize-btn').forEach(btn => {
-            btn.classList.add('disabled');
-            btn.style.cursor = 'not-allowed';
-            btn.title = 'Свертывание доступно только в режиме редактирования';
+            btn.classList.remove('disabled');
+            btn.style.cursor = 'pointer';
+            btn.title = 'Свернуть/развернуть окно';
         });
     }
 
@@ -1466,12 +1768,36 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (minimizeBtn) {
             minimizeBtn.addEventListener('click', () => {
-                // Проверяем, включен ли режим редактирования
-                if (!editMode) {
-                    return; // Блокируем свертывание в обычном режиме
+                // Минимизация доступна всегда
+                const isMinimized = windowElement.classList.contains('minimized');
+                const icon = minimizeBtn.querySelector('.material-icons');
+                
+                if (isMinimized) {
+                    // Разворачиваем окно
+                    windowElement.classList.remove('minimized');
+                    icon.textContent = 'remove';
+                    minimizeBtn.title = 'Свернуть окно';
+                    
+                    // Если окно было максимизировано до минимизации, возвращаем это состояние
+                    const wasMaximized = windowElement.getAttribute('data-was-maximized') === 'true';
+                    if (wasMaximized) {
+                        windowElement.classList.add('maximized');
+                        windowElement.removeAttribute('data-was-maximized');
+                    }
+                } else {
+                    // Сворачиваем окно
+                    // Если окно было максимизировано, запоминаем это
+                    if (windowElement.classList.contains('maximized')) {
+                        windowElement.setAttribute('data-was-maximized', 'true');
+                        windowElement.classList.remove('maximized');
+                    }
+                    windowElement.classList.add('minimized');
+                    icon.textContent = 'expand_more';
+                    minimizeBtn.title = 'Развернуть окно';
                 }
                 
-                windowElement.classList.toggle('minimized');
+                // Сохраняем состояние окна
+                WindowStateManager.saveWindowState(windowElement);
             });
         }
         
@@ -1507,6 +1833,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     windowElement.classList.remove('maximized');
                 }
+                
+                // Сохраняем состояние окна
+                WindowStateManager.saveWindowState(windowElement);
             });
         }
         
@@ -1522,6 +1851,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     dataWindow = 'operators-list';
                 } else if (windowId === 'operator-details-window') {
                     dataWindow = 'operator-details';
+                } else if (windowId === 'analytics-dashboard-window') {
+                    dataWindow = 'analytics-dashboard';
                 }
                 
                 if (dataWindow) {
@@ -1530,6 +1861,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         checkbox.checked = false;
                     }
                 }
+                
+                // Сохраняем состояние окна
+                WindowStateManager.saveWindowState(windowElement);
+                
+                // Сохраняем состояние всех окон
+                WindowStateManager.saveAllWindowStates();
                 
                 // Проверяем нужно ли показать заглушку
                 checkPlaceholderVisibility();
@@ -1631,13 +1968,384 @@ document.addEventListener('DOMContentLoaded', function() {
             isResizing = false;
             document.removeEventListener('mousemove', doResize);
             document.removeEventListener('mouseup', stopResize);
+            
+            // Сохраняем состояние окна после изменения размера
+            WindowStateManager.saveWindowState(windowElement);
         }
     }
+    
+    // Система сохранения состояния окон
+    const WindowStateManager = {
+        storageKey: 'windowStates',
+        
+        // Сохранение состояния конкретного окна
+        saveWindowState: function(windowElement) {
+            const windowId = windowElement.id;
+            if (!windowId) return;
+            
+            const state = {
+                width: windowElement.style.width || '320px',
+                height: windowElement.style.height || '220px',
+                left: windowElement.style.left || '20px',
+                top: windowElement.style.top || '20px',
+                zIndex: windowElement.style.zIndex || 'auto',
+                visible: windowElement.style.display !== 'none',
+                maximized: windowElement.classList.contains('maximized'),
+                minimized: windowElement.classList.contains('minimized'),
+                wasMaximized: windowElement.getAttribute('data-was-maximized') === 'true'
+            };
+            this.saveState(windowId, state);
+        },
+        
+        // Сохранение состояния всех окон
+        saveAllWindowStates: function() {
+            const windows = document.querySelectorAll('.training-window');
+            windows.forEach(window => {
+                this.saveWindowState(window);
+            });
+            
+            // Сохраняем состояние чекбоксов
+            const checkboxStates = {};
+            const checkboxes = document.querySelectorAll('.window-selector-item input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                const windowType = checkbox.getAttribute('data-window');
+                if (windowType) {
+                    checkboxStates[windowType] = checkbox.checked;
+                }
+            });
+            localStorage.setItem('windowCheckboxStates', JSON.stringify(checkboxStates));
+            
+            console.log('Состояние всех окон сохранено');
+        },
+        
+        // Сохранение состояния конкретного окна в localStorage
+        saveState: function(windowId, state) {
+            const savedStates = this.getAllStates();
+            savedStates[windowId] = state;
+            localStorage.setItem(this.storageKey, JSON.stringify(savedStates));
+        },
+        
+        // Получение всех сохраненных состояний
+        getAllStates: function() {
+            const saved = localStorage.getItem(this.storageKey);
+            return saved ? JSON.parse(saved) : {};
+        },
+        
+        // Получение состояния конкретного окна
+        getWindowState: function(windowId) {
+            const states = this.getAllStates();
+            return states[windowId] || null;
+        },
+        
+        // Очистка всех сохраненных состояний
+       
+        clearStates: function() {
+            localStorage.removeItem(this.storageKey);
+            localStorage.removeItem('windowCheckboxStates');
+            console.log('Все сохраненные состояния окон очищены');
+        },
+        
+        // Восстановление состояния конкретного окна
+        restoreWindowState: function(windowElement) {
+            const windowId = windowElement.id;
+            if (!windowId) return;
+            
+            const state = this.getWindowState(windowId);
+            if (!state) return;
+            
+            // Восстанавливаем размеры и позицию
+            windowElement.style.width = state.width;
+            windowElement.style.height = state.height;
+            windowElement.style.left = state.left;
+            windowElement.style.top = state.top;
+            
+            if (state.zIndex !== 'auto') {
+                windowElement.style.zIndex = state.zIndex;
+            }
+            
+            // Восстанавливаем состояние максимизации/минимизации
+            if (state.maximized) {
+                windowElement.classList.add('maximized');
+            } else {
+                windowElement.classList.remove('maximized');
+            }
+            
+            if (state.minimized) {
+                windowElement.classList.add('minimized');
+                // Восстанавливаем атрибут was-maximized если он был
+                if (state.wasMaximized) {
+                    windowElement.setAttribute('data-was-maximized', 'true');
+                }
+                // Обновляем иконку кнопки минимизации
+                const minimizeBtn = windowElement.querySelector('.minimize-btn .material-icons');
+                if (minimizeBtn) {
+                    minimizeBtn.textContent = 'expand_more';
+                    windowElement.querySelector('.minimize-btn').title = 'Развернуть окно';
+                }
+            } else {
+                windowElement.classList.remove('minimized');
+                windowElement.removeAttribute('data-was-maximized');
+                // Обновляем иконку кнопки минимизации
+                const minimizeBtn = windowElement.querySelector('.minimize-btn .material-icons');
+                if (minimizeBtn) {
+                    minimizeBtn.textContent = 'remove';
+                    windowElement.querySelector('.minimize-btn').title = 'Свернуть окно';
+                }
+            }
+            
+            // Восстанавливаем видимость
+            if (state.visible) {
+                windowElement.style.display = 'flex';
+                
+                // Для окна операторов инициализируем данные
+                if (windowId === 'operators-errors-window') {
+                    setTimeout(() => {
+                        initOperatorsList();
+                    }, 100);
+                }
+            } else {
+                windowElement.style.display = 'none';
+            }
+            
+            console.log(`Состояние окна ${windowId} восстановлено`);
+        },
+        
+        // Восстановление состояния всех окон
+        restoreAllWindowStates: function() {
+            // Восстанавливаем состояние чекбоксов
+            const checkboxStates = localStorage.getItem('windowCheckboxStates');
+            if ( checkboxStates) {
+                try {
+                    const states = JSON.parse(checkboxStates);
+                    Object.keys(states).forEach(windowType => {
+                        const checkbox = document.querySelector(`input[data-window="${windowType}"]`);
+                        if (checkbox) {
+                            checkbox.checked = states[windowType];
+                        }
+                    });
+                } catch (e) {
+                    console.error('Ошибка при восстановлении состояния чекбоксов:', e);
+                }
+            }
+            
+            // Восстанавливаем состояние окон
+            const windows = document.querySelectorAll('.training-window');
+            windows.forEach(window => {
+                this.restoreWindowState(window);
+            });
+            
+            console.log('Состояние всех окон восстановлено');
+        },
+        
+        // Настройка автосохранения при изменениях
+        setupAutoSave: function() {
+            // Сохранение при изменении размера окон
+            const resizeObserver = new ResizeObserver(entries => {
+                entries.forEach(entry => {
+                    const element = entry.target;
+                    if (element.classList.contains('training-window')) {
+                        setTimeout(() => {
+                            this.saveWindowState(element);
+                        }, 100);
+                    }
+                });
+            });
+            
+            // Наблюдаем за всеми окнами
+            document.querySelectorAll('.training-window').forEach(window => {
+                resizeObserver.observe(window);
+            });
+            
+            // Сохранение при изменении DOM (добавление/удаление окон)
+            const mutationObserver = new MutationObserver(mutations => {
+                let shouldSave = false;
+                mutations.forEach(mutation => {
+                    if (mutation.type === 'attributes' && 
+                        (mutation.attributeName === 'style' || mutation.attributeName === 'class')) {
+                        const element = mutation.target;
+                        if (element.classList.contains('training-window')) {
+                            shouldSave = true;
+                        }
+                    }
+                });
+                
+                if (shouldSave) {
+                    setTimeout(() => {
+                        this.saveAllWindowStates();
+                    }, 100);
+                }
+            });
+            
+            // Наблюдаем за изменениями в контейнере окон
+            const trainingLayout = document.querySelector('.training-layout');
+            if (trainingLayout) {
+                mutationObserver.observe(trainingLayout, {
+                    attributes: true,
+                    subtree: true,
+                    attributeFilter: ['style', 'class']
+                });
+            }
+            
+            console.log('Автосохранение настроено');
+        }
+    };
+    
+    // Инициализация состояния окон при загрузке
+    WindowStateManager.restoreAllWindowStates();
     
     // Инициализация окон при загрузке
     initializeWindows();
     
+    // Восстанавливаем сохраненное состояние окон
+    setTimeout(() => {
+        WindowStateManager.restoreAllWindowStates();
+        // Настраиваем автосохранение
+        WindowStateManager.setupAutoSave();
+    }, 100);
+    
+    // Добавляем обработчики для кнопок редактора
+    const resetWindowsBtn = document.getElementById('reset-windows-btn');
+    if (resetWindowsBtn) {
+        resetWindowsBtn.addEventListener('click', async function(e) {
+            e.preventDefault();
+            
+            const confirmed = await showCustomConfirm(
+                'Сброс настроек окон',
+                'Вы уверены, что хотите сбросить все настройки окон? Это действие нельзя отменить.',
+                'Сбросить',
+                'Отмена'
+            );
+            
+            if (confirmed) {
+                // Очищаем сохраненные состояния
+                WindowStateManager.clearStates();
+                
+                // Сбрасываем все окна к исходному состоянию - все скрыты
+                const windows = document.querySelectorAll('.training-window');
+                windows.forEach(window => {
+                    // Все окна скрываем после сброса
+                    window.style.display = 'none';
+                    window.style.width = '320px';
+                    window.style.height = '220px';
+                    window.style.left = '20px';
+                    window.style.top = '20px';
+                    window.style.zIndex = 'auto';
+                    window.classList.remove('maximized', 'minimized');
+                });
+                
+                // Сбрасываем все чекбоксы к неактивному состоянию
+                const checkboxes = document.querySelectorAll('.window-selector-item input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    // Все чекбоксы отключаем после сброса
+                    checkbox.checked = false;
+                });
+                
+                // Показываем заглушку (но только после того, как настроили окна)
+                setTimeout(() => {
+                    checkPlaceholderVisibility();
+                }, 200);
+                
+                showNotification('Настройки окон сброшены. Все окна скрыты.', 'info');
+                console.log('Настройки окон сброшены к исходному состоянию - все окна скрыты');
+            }
+        });
+    }
+    
+    // Функция для создания красивого модального окна подтверждения
+    function showCustomConfirm(title, message, confirmText = 'Да', cancelText = 'Отмена') {
+        return new Promise((resolve) => {
+            // Создаем модальное окно
+            const modal = document.createElement('div');
+            modal.className = 'custom-modal';
+            
+            modal.innerHTML = `
+                <div class="custom-modal-content">
+                    <div class="custom-modal-header">
+                        <div class="custom-modal-icon">
+                            <span class="material-icons">warning</span>
+                        </div>
+                        <h3 class="custom-modal-title">${title}</h3>
+                    </div>
+                    <div class="custom-modal-text">${message}</div>
+                    <div class="custom-modal-buttons">
+                        <button class="custom-modal-btn custom-modal-btn-cancel" data-action="cancel">
+                            ${cancelText}
+                        </button>
+                        <button class="custom-modal-btn custom-modal-btn-confirm" data-action="confirm">
+                            ${confirmText}
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Добавляем модальное окно на страницу
+            document.body.appendChild(modal);
+            
+            // Обработчики событий
+            const handleClick = (e) => {
+                const action = e.target.getAttribute('data-action');
+                if (action === 'confirm') {
+                    closeModal(true);
+                } else if (action === 'cancel') {
+                    closeModal(false);
+                }
+            };
+            
+            const handleKeydown = (e) => {
+                if (e.key === 'Escape') {
+                    closeModal(false);
+                } else if (e.key === 'Enter') {
+                    closeModal(true);
+                }
+            };
+            
+            const closeModal = (result) => {
+                // Анимация закрытия
+                modal.style.animation = 'modalFadeOut 0.3s ease';
+                const content = modal.querySelector('.custom-modal-content');
+                content.style.animation = 'modalSlideOut 0.3s ease';
+                
+                setTimeout(() => {
+                    document.body.removeChild(modal);
+                    document.removeEventListener('keydown', handleKeydown);
+                    resolve(result);
+                }, 300);
+            };
+            
+            // Добавляем обработчики
+            modal.addEventListener('click', (e) => {
+                // Закрываем при клике на фон
+                if (e.target === modal) {
+                    closeModal(false);
+                }
+            });
+            
+            modal.addEventListener('click', handleClick);
+            document.addEventListener('keydown', handleKeydown);
+            
+            // Фокус на кнопке отмены по умолчанию
+            setTimeout(() => {
+                const cancelBtn = modal.querySelector('[data-action="cancel"]');
+                if (cancelBtn) {
+                    cancelBtn.focus();
+                }
+            }, 100);
+        });
+    }
+    
     // Автоматически инициализируем окно операторов если оно отмечено как включенное
+    setTimeout(() => {
+        const operatorsCheckbox = document.querySelector('input[data-window="operators-list"]');
+        const operatorsWindow = document.getElementById('operators-errors-window');
+        
+        if (operatorsCheckbox && operatorsCheckbox.checked && operatorsWindow) {
+            if (operatorsWindow.style.display === 'none') {
+                addWindow('operators-list');
+            } else if (operatorsWindow.style.display === 'flex' || operatorsWindow.style.display === '') {
+                initOperatorsList();
+            }
+        }
+    }, 200);
     const operatorsCheckbox = document.querySelector('input[data-window="operators-list"]');
     if (operatorsCheckbox && operatorsCheckbox.checked) {
         addWindow('operators-list');
@@ -1647,5 +2355,30 @@ document.addEventListener('DOMContentLoaded', function() {
     checkPlaceholderVisibility();
 });
         </script>
+        
+        <!-- Старые рабочие скрипты для совместимости -->
+        <script src="script.js"></script>
+        
+        <script>
+        // Простая инициализация без модулей
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ Приложение загружается...');
+            
+            try {
+                // Инициализируем основные функции из script.js
+                if (typeof initOperatorsList === 'function') {
+                    initOperatorsList();
+                }
+                
+                console.log('✅ Приложение успешно загружено');
+                
+            } catch (error) {
+                console.error('❌ Ошибка загрузки:', error);
+            }
+        });
+        </script>
+        <script src="js/training-date-toggle.js"></script>
+        <script src="js/slider-tooltip.js"></script>
+        <script src="js/appeal-modal.js"></script>
     </body>
 </html>

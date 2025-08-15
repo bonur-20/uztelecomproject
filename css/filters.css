@@ -1,1 +1,183 @@
-/* CSS стили для фильтров */
+/* ===== FILTERS STYLES ===== */
+/* Стили для фильтров, переключателей и элементов управления */
+
+/* Основной контейнер фильтров */
+.filters-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: var(--white);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-light);
+    flex-wrap: wrap;
+}
+
+/* Группа фильтров */
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-group-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-right: 4px;
+    white-space: nowrap;
+}
+
+/* Переключатели фильтров */
+.filter-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--white);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 13px;
+    font-weight: 500;
+    user-select: none;
+    min-height: 32px;
+    box-sizing: border-box;
+}
+
+.filter-toggle:hover {
+    background: #f5f5f5;
+    border-color: #ccc;
+    transform: translateY(-1px);
+}
+
+.filter-toggle input[type="radio"],
+.filter-toggle input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.filter-toggle input[type="radio"]:checked ~ .filter-text,
+.filter-toggle input[type="checkbox"]:checked ~ .filter-text {
+    color: var(--white);
+}
+
+.filter-toggle:has(input:checked) {
+    background: #666;
+    border-color: #666;
+    color: var(--white);
+    box-shadow: var(--shadow-light);
+}
+
+.filter-toggle-blue:has(input:checked) {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--white);
+}
+
+.filter-toggle-green:has(input:checked) {
+    background: #4caf50;
+    border-color: #4caf50;
+    color: var(--white);
+}
+
+.filter-toggle-orange:has(input:checked) {
+    background: #ff9800;
+    border-color: #ff9800;
+    color: var(--white);
+}
+
+.filter-toggle-red:has(input:checked) {
+    background: #f44336;
+    border-color: #f44336;
+    color: var(--white);
+}
+
+.filter-text {
+    font-weight: 500;
+    transition: color var(--transition-fast);
+    pointer-events: none;
+}
+
+/* Группа переключателей */
+.toggle-button-group {
+    display: inline-flex;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+}
+
+.toggle-button-group .filter-toggle {
+    border-radius: 0;
+    border-right: none;
+    margin: 0;
+}
+
+.toggle-button-group .filter-toggle:first-child {
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+}
+
+.toggle-button-group .filter-toggle:last-child {
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    border-right: 1px solid var(--border-color);
+}
+
+.toggle-button-group .filter-toggle:has(input:checked) {
+    z-index: 1;
+    border-color: var(--primary-color);
+}
+
+/* Поле поиска в фильтрах */
+.filter-search {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+.filter-search input {
+    width: 100%;
+    padding: 8px 36px 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    outline: none;
+    transition: border-color var(--transition-fast);
+}
+
+.filter-search input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-hover);
+}
+
+.filter-search .search-icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 18px;
+    pointer-events: none;
+}
+
+/* Анимации */
+@keyframes filterApply {
+    0% {
+        opacity: 0.7;
+        transform: scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.filter-applied {
+    animation: filterApply 0.2s ease-out;
+}

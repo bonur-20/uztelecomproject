@@ -1,0 +1,732 @@
+/* sidebar-pin.css - Стили для функции закрепления сайдбара */
+
+/* Контейнер для кнопок фиксации в сайдбаре */
+.sidebar-pin-controls {
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 3px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+}
+
+/* Для расширенного режима - сохраняем компактное расположение */
+.sidebar.sidebar-figma.sidebar-pinned-expanded .sidebar-pin-controls {
+    position: absolute !important;
+    bottom: 3px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    padding: 6px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+}
+
+/* Кнопки в расширенном режиме - компактные */
+.sidebar.sidebar-figma.sidebar-pinned-expanded .pin-button {
+    width: 31px !important;
+    height: 31px !important;
+    margin: 0 !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+}
+
+/* Кнопки фиксации в сайдбаре - компактные */
+.pin-button {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 31px;
+    height: 31px;
+    margin: 0;
+    position: relative;
+    outline: none;
+    flex-shrink: 0;
+}
+
+/* Скрываем текстовые надписи в кнопках закрепления */
+.pin-button .sidebar-label {
+    display: none !important;
+}
+
+/* Скрываем надписи в кнопках закрепления для зафиксированного сайдбара */
+.sidebar.sidebar-figma.sidebar-pinned .pin-button .sidebar-label {
+    display: none !important;
+}
+
+/* Скрываем надписи в кнопках закрепления для зафиксированного сайдбара в collapsed режиме */
+.sidebar.sidebar-figma.sidebar-pinned-collapsed .pin-button .sidebar-label {
+    display: none !important;
+}
+
+/* Скрываем надписи в кнопках закрепления для зафиксированного сайдбара в expanded режиме */
+.sidebar.sidebar-figma.sidebar-pinned-expanded .pin-button .sidebar-label {
+    display: none !important;
+}
+
+/* Дополнительные правила для всех состояний закрепления */
+.sidebar-pinned .sidebar-pin-controls .pin-button .sidebar-label,
+.sidebar-pinned-collapsed .sidebar-pin-controls .pin-button .sidebar-label,
+.sidebar-pinned-expanded .sidebar-pin-controls .pin-button .sidebar-label {
+    display: none !important;
+}
+
+/* Обеспечиваем, что иконки остаются видимыми в закрепленном режиме */
+.sidebar-pinned .pin-button .material-icons,
+.sidebar-pinned-collapsed .pin-button .material-icons,
+.sidebar-pinned-expanded .pin-button .material-icons {
+    display: inline-block !important;
+}
+
+.pin-button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.pin-button.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.pin-button.active:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Анимация для иконок */
+.pin-button .material-icons {
+    transition: transform 0.3s ease;
+    font-size: 15px;
+    width: 15px;
+    text-align: center;
+}
+
+.pin-button.active .material-icons {
+    transform: rotate(45deg);
+}
+
+/* Специальные стили для разных типов кнопок */
+.pin-button-collapsed.active {
+    background: linear-gradient(90deg, rgba(255, 193, 7, 0.2) 0%, rgba(255, 193, 7, 0.1) 100%);
+    border-left: 3px solid #ffc107;
+}
+
+.pin-button-expanded.active {
+    background: linear-gradient(90deg, rgba(40, 167, 69, 0.2) 0%, rgba(40, 167, 69, 0.1) 100%);
+    border-left: 3px solid #28a745;
+}
+
+/* Скрытие меток в свернутом состоянии */
+.sidebar:not(.open) .sidebar-label {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.sidebar.open .sidebar-label {
+    opacity: 1;
+    visibility: visible;
+}
+
+.pin-button.active .material-icons {
+    transform: rotate(45deg);
+}
+
+/* Удаляем старые стили для header-pin-control */
+
+/* Состояние зафиксированного сайдбара (базовые правила только для collapsed режима) */
+.sidebar.sidebar-figma.sidebar-pinned:not(.sidebar-pinned-expanded) {
+    position: fixed !important;
+    width: 72px !important;
+    min-width: 72px !important;
+    transition: none !important;
+    cursor: pointer !important;
+}
+
+.sidebar.sidebar-figma.sidebar-pinned:not(.sidebar-pinned-expanded):hover {
+    width: 72px !important;
+    min-width: 72px !important;
+}
+
+.sidebar.sidebar-figma.sidebar-pinned:not(.sidebar-pinned-expanded) .sidebar-label {
+    display: none !important;
+}
+
+/* Фиксация размеров и позиции логотипа для зафиксированного сайдбара (только collapsed) */
+.sidebar.sidebar-figma.sidebar-pinned:not(.sidebar-pinned-expanded) .sidebar-logo {
+    justify-content: center !important;
+    margin: 8px 0 8px 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    transition: none !important; /* Отключаем все анимации */
+}
+
+.sidebar.sidebar-figma.sidebar-pinned:not(.sidebar-pinned-expanded) .sidebar-logo-img {
+    width: 44px !important;
+    height: 44px !important;
+    object-fit: contain !important;
+    transition: none !important; /* Отключаем все анимации */
+    margin: 0 !important;
+    display: block !important;
+    transform: none !important; /* Отключаем трансформации */
+    /* Добавляем центрирование для mini логотипа */
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Принудительная фиксация логотипа для зафиксированного сайдбара */
+.sidebar-pinned .sidebar-logo-img {
+    /* Убираем content: url() так как это может конфликтовать с src */
+    width: 44px !important;
+    height: 44px !important;
+    object-fit: contain !important;
+    display: block !important;
+}
+
+/* Отключаем hover эффекты для зафиксированного сайдбара */
+.sidebar-pinned:hover .sidebar-logo {
+    justify-content: center !important;
+    margin: 8px 0 8px 0 !important;
+    width: 100% !important;
+    transition: none !important;
+}
+
+.sidebar-pinned:hover .sidebar-logo-img {
+    width: 44px !important;
+    height: 44px !important;
+    /* Убираем content: url() и background для избежания конфликтов */
+    object-fit: contain !important;
+    display: block !important;
+    transition: none !important;
+    transform: none !important;
+    margin: 0 !important;
+}
+
+/* Скрываем текст логотипа для зафиксированного сайдбара */
+.sidebar-pinned .sidebar-logo-text {
+    display: none !important;
+    opacity: 0 !important;
+    transition: none !important;
+}
+
+.sidebar-pinned:hover .sidebar-logo-text {
+    display: none !important;
+    opacity: 0 !important;
+    transition: none !important;
+}
+
+/* Визуальная подсветка для зафиксированного сайдбара */
+.sidebar-pinned::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-pinned:hover::after {
+    opacity: 1;
+}
+
+/* Селектор меню для зафиксированного сайдбара */
+.sidebar-menu-selector {
+    position: fixed;
+    top: 70px;
+    left: 80px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    z-index: 1001;
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.sidebar-menu-selector.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.sidebar-menu-selector-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    color: #003F7D;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.sidebar-menu-selector-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 4px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.sidebar-menu-selector-item:hover {
+    background: #f0f6ff;
+    color: #003F7D;
+}
+
+.sidebar-menu-selector-item.active {
+    background: #003F7D;
+    color: #fff;
+}
+
+.sidebar-menu-selector-item .material-icons {
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.sidebar-menu-selector-item.active .material-icons {
+    opacity: 1;
+}
+
+/* Стрелка для дропдауна */
+.sidebar-menu-selector::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 24px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #fff;
+}
+
+.sidebar-menu-selector::after {
+    content: '';
+    position: absolute;
+    top: -9px;
+    left: 24px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #e0e0e0;
+}
+
+/* Бейдж для уведомлений в селекторе */
+.menu-item-badge {
+    background: #ff5252;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 10px;
+    padding: 2px 6px;
+    min-width: 16px;
+    height: 16px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    font-weight: 600;
+    animation: badge-pulse 1.2s infinite;
+}
+
+/* Анимация для бейджа */
+@keyframes badge-pulse {
+    0% { 
+        box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.5); 
+    }
+    70% { 
+        box-shadow: 0 0 0 8px rgba(255, 82, 82, 0); 
+    }
+    100% { 
+        box-shadow: 0 0 0 0 rgba(255, 82, 82, 0); 
+    }
+}
+
+/* Адаптация основного контента при зафиксированном сайдбаре */
+body.sidebar-pinned .main-layout {
+    margin-left: 72px;
+}
+
+body.sidebar-pinned .training-layout {
+    margin-left: 72px !important; /* Отступ равен ширине закрепленного сайдбара */
+    width: calc(100vw - 72px) !important; /* Ширина экрана минус ширина закрепленного сайдбара */
+    transition: none !important; /* Отключаем анимации для стабильности */
+}
+
+/* Скрытие меню селектора при клике вне его */
+.sidebar-menu-selector-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background: transparent;
+    display: none;
+}
+
+.sidebar-menu-selector-overlay.show {
+    display: block;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+    .header-title {
+        gap: 8px; /* Уменьшаем расстояние на мобильных */
+    }
+    
+    .pin-button {
+        width: 21px;
+        height: 21px;
+        font-size: 12px;
+    }
+    
+    .sidebar-menu-selector {
+        left: 10px;
+        right: 10px;
+        width: auto;
+        min-width: auto;
+    }
+}
+
+/* Подсказка для кнопки-скрепки */
+.pin-button-tooltip {
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 10px); /* Размещаем справа от кнопки */
+    transform: translateY(-50%); /* Центрируем по вертикали */
+    background: linear-gradient(135deg, #003F7D 0%, #0056A3 100%); /* Синий градиент как в интерфейсе */
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px; /* Скругленные углы как в интерфейсе */
+    font-size: 12px;
+    font-weight: 500; /* Полужирный шрифт */
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1002;
+    box-shadow: 0 4px 12px rgba(0, 63, 125, 0.3); /* Тень в цвете интерфейса */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Тонкая светлая граница */
+}
+
+.pin-button:hover .pin-button-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) scale(1.02); /* Небольшое увеличение при появлении */
+}
+
+.pin-button-tooltip::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -5px; /* Стрелочка слева от подсказки */
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 5px solid #003F7D; /* Цвет стрелочки соответствует фону */
+}
+
+/* Интеграция с существующим header */
+.header-fixed {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.header-fixed .header-title {
+    flex: 0 0 auto;
+}
+
+.header-fixed .header-group {
+    margin-left: auto !important; /* Прижимаем к правому краю в обычном режиме */
+    transition: none !important; /* Отключаем анимации для предотвращения мерцания */
+    position: relative !important; /* Обеспечиваем стабильное позиционирование */
+}
+
+/* Адаптация для режима редактирования */
+.header-editor-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    order: 1; /* Размещаем перед header-group */
+    transition: none !important; /* Отключаем анимации */
+}
+
+/* В режиме редактирования изменяем расположение элементов */
+body.windows-edit-mode .header-fixed {
+    justify-content: space-between; /* Распределяем элементы по краям */
+}
+
+body.windows-edit-mode .header-editor-controls {
+    order: 1; /* header-editor-controls слева */
+    margin-left: auto; /* Прижимаем к центру после header-title */
+    margin-right: 20px; /* Отступ от header-group */
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Убираем скрытие header-group в режиме редактирования */
+body.windows-edit-mode .header-group {
+    display: flex !important; /* Показываем header-group в режиме редактирования */
+    order: 2; /* header-group справа */
+    margin-left: 0 !important; /* Убираем auto margin */
+    transition: none !important; /* Отключаем все анимации */
+    transform: none !important; /* Убираем возможные трансформации */
+}
+
+/* Принудительное позиционирование в обычном режиме */
+body:not(.windows-edit-mode) .header-group {
+    margin-left: auto !important; /* Всегда справа в обычном режиме */
+    order: 3 !important; /* Последний элемент */
+    transition: none !important;
+    transform: none !important;
+}
+
+/* Скрываем header-editor-controls в обычном режиме */
+body:not(.windows-edit-mode) .header-editor-controls {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Скрытие индикатора имени оператора */
+#operator-name-indicator {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* ========================================= */
+/* ПРАВИЛА ДЛЯ РАСШИРЕННОГО РЕЖИМА ФИКСАЦИИ */
+/* ========================================= */
+
+/* Зафиксированный сайдбар в расширенном режиме - точно копируем .collapsible-sidebar.open */
+.sidebar.sidebar-figma.sidebar-pinned-expanded {
+    position: fixed !important;
+    width: 270px !important;
+    min-width: 270px !important;
+    transition: none !important;
+    cursor: default !important;
+}
+
+.sidebar.sidebar-figma.sidebar-pinned-expanded:hover {
+    width: 270px !important;
+    min-width: 270px !important;
+}
+
+/* Показываем лейблы в расширенном режиме - точно как в .collapsible-sidebar.open */
+.sidebar.sidebar-figma.sidebar-pinned-expanded .sidebar-label {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Логотип в расширенном режиме - точно копируем оригинальные правила */
+.sidebar.sidebar-figma.sidebar-pinned-expanded .sidebar-logo {
+    justify-content: center !important;
+    margin: 8px 0 8px 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    transition: margin 0.25s !important;
+    /* Принудительно сбрасываем все возможные отступы и позиционирование */
+    padding: 0 !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+}
+
+.sidebar.sidebar-figma.sidebar-pinned-expanded .sidebar-logo-img {
+    width: 210px !important;
+    height: 45px !important;
+    object-fit: contain !important;
+    transition: width 0.2s, height 0.2s !important;
+    /* ТОЧНО как в оригинале */
+    margin: 0 0 0 0 !important;
+    display: block !important;
+    /* Принудительно сбрасываем ВСЕ возможные смещения */
+    transform: none !important;
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    float: none !important;
+    clear: none !important;
+    text-align: initial !important;
+    box-sizing: content-box !important;
+    /* Убираем любые дополнительные отступы */
+    padding: 0 !important;
+    border: none !important;
+    outline: none !important;
+}
+
+/* Текст логотипа в расширенном режиме - точно как в оригинале */
+.sidebar.sidebar-figma.sidebar-pinned-expanded .sidebar-logo-text {
+    display: none !important;
+    white-space: nowrap !important;
+    font-size: 1.05em !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+    color: #fff !important;
+    margin-left: 10px !important;
+}
+
+/* Меню в расширенном режиме - точно копируем .sidebar-menu-figma */
+.sidebar.sidebar-figma.sidebar-pinned-expanded .sidebar-menu-figma {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    margin-top: 10px !important;
+}
+
+/* Пункты меню - точно копируем .collapsible-sidebar.open .sidebar-menu-figma a */
+.sidebar.sidebar-figma.sidebar-pinned-expanded .sidebar-menu-figma a {
+    color: #fff !important;
+    text-decoration: none !important;
+    border-radius: 12px !important;
+    transition: background 0.2s, color 0.2s, padding 0.2s, width 0.2s !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    font-size: 1.08em !important;
+    position: relative !important;
+    gap: 16px !important;
+    min-width: 0 !important;
+    height: 48px !important;
+    box-sizing: border-box !important;
+    margin: 0 auto 4px auto !important;
+    width: 90% !important;
+    justify-content: flex-start !important;
+    padding: 12px 18px !important;
+    overflow: visible !important;
+}
+
+/* Active и hover состояния - точно копируем оригинал */
+.sidebar.sidebar-figma.sidebar-pinned-expanded .sidebar-menu-figma a.active,
+.sidebar.sidebar-figma.sidebar-pinned-expanded .sidebar-menu-figma a:hover {
+    background: #fff !important;
+    color: #003F7D !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
+}
+
+/* Кнопка выхода и лейблы - сохраняем оригинальное поведение */
+.sidebar.sidebar-figma.sidebar-pinned-expanded .sidebar-exit .sidebar-label {
+    display: block !important;
+    opacity: 1 !important;
+}
+
+/* Отключаем индикатор клика для расширенного режима */
+.sidebar.sidebar-figma.sidebar-pinned-expanded::after {
+    display: none !important;
+}
+
+/* Дополнительные правила для точного позиционирования логотипа */
+.sidebar.sidebar-figma.sidebar-pinned-expanded .sidebar-logo {
+    /* Переопределяем любые возможные флекс-настройки */
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-content: center !important;
+}
+
+/* Убираем возможные конфликты с другими CSS правилами */
+.sidebar.sidebar-figma.sidebar-pinned-expanded .sidebar-logo-img {
+    /* Принудительно сбрасываем все возможные смещения */
+    float: none !important;
+    clear: both !important;
+    vertical-align: middle !important;
+    text-align: center !important;
+}
+
+/* Зафиксированный сайдбар в сжатом режиме (переопределяем для ясности) */
+.sidebar.sidebar-figma.sidebar-pinned-collapsed {
+    position: fixed !important;
+    width: 72px !important;
+    min-width: 72px !important;
+    transition: none !important;
+    cursor: pointer !important;
+}
+
+.sidebar.sidebar-figma.sidebar-pinned-collapsed:hover {
+    width: 72px !important;
+    min-width: 72px !important;
+}
+
+.sidebar.sidebar-figma.sidebar-pinned-collapsed .sidebar-label {
+    display: none !important;
+}
+
+.sidebar.sidebar-figma.sidebar-pinned-collapsed .sidebar-logo {
+    justify-content: center !important;
+    margin: 8px 0 8px 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.sidebar.sidebar-figma.sidebar-pinned-collapsed .sidebar-logo-img {
+    width: 44px !important;
+    height: 44px !important;
+    object-fit: contain !important;
+    transition: none !important;
+}
+
+.sidebar.sidebar-figma.sidebar-pinned-collapsed .sidebar-logo-text {
+    display: none !important;
+}
+
+/* Приоритет для body классов */
+body.sidebar-pinned-expanded .main-layout,
+body.sidebar-pinned-expanded .training-layout {
+    margin-left: 270px !important;
+}
+
+body.sidebar-pinned-collapsed .main-layout,
+body.sidebar-pinned-collapsed .training-layout {
+    margin-left: 72px !important;
+}
+
+/* Специфичное правило для логотипа в расширенном режиме */
+body.sidebar-pinned-expanded .sidebar.sidebar-figma.sidebar-pinned-expanded .sidebar-logo img[src="assets/logo.png"] {
+    margin-left: 0 !important;
+    margin-right: 26px !important;
+    position: relative !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: translateX(0) !important;
+}

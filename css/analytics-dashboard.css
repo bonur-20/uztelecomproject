@@ -1,0 +1,1802 @@
+/* ===== ANALYTICS DASHBOARD STYLES ===== */
+/* Стили для окна аналитики учебного процесса */
+
+.analytics-dashboard-window {
+    /* Наследуем базовые стили от .training-window - они уже настроены в styles.css */
+    min-width: 417px;
+    min-height: 224px;
+}
+
+/* Переопределяем header для соответствия другим окнам */
+.analytics-dashboard-window .window-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 7px 30px;
+    color: #003F7D;
+    border-bottom: 1px solid #e3e3e3;
+    background: #f8f9fa;
+    flex-shrink: 0;
+}
+
+.analytics-dashboard-window .window-title-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    pointer-events: none;
+}
+
+.analytics-dashboard-window .window-title-section .material-icons {
+    font-size: 24px;
+    color: #003F7D;
+}
+
+.analytics-dashboard-window .window-content {
+    flex: 1;
+    padding: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: #333;
+}
+
+/* Добавляем стили скролла как в других окнах */
+.analytics-dashboard-window .window-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.analytics-dashboard-window .window-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.analytics-dashboard-window .window-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.analytics-dashboard-window .window-content::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Контролы выбора периода - очень компактные */
+.analytics-controls {
+    background: #f8f9fa;
+    border-radius: 4px;
+    padding: 6px 8px;
+    margin-bottom: 0;
+    border: 1px solid #e9ecef;
+    flex-shrink: 0;
+}
+
+.date-range-selector {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.date-input-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+}
+
+.date-input-group::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(0, 63, 125, 0.05), rgba(66, 133, 244, 0.05));
+    border-radius: 6px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.date-input-group:hover::before {
+    opacity: 1;
+}
+
+.date-input-group label {
+    font-size: 10px;
+    font-weight: 600;
+    color: #003F7D;
+    min-width: 8px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.date-input-group input[type="date"] {
+    padding: 4px 8px;
+    border: 1.5px solid #e9ecef;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    background: white;
+    color: #333;
+    min-width: 120px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    z-index: 2;
+}
+
+.date-input-group input[type="date"]:focus {
+    outline: none;
+    border-color: #003F7D;
+    box-shadow: 0 0 0 3px rgba(0, 63, 125, 0.1), 0 2px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.date-input-group input[type="date"]:hover {
+    border-color: #4285f4;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+}
+
+/* Стилизация календарной иконки */
+.date-input-group input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23003F7D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center right 8px;
+    background-size: 16px;
+}
+
+.date-input-group input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234285f4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
+}
+
+.analytics-update-btn {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: #003F7D;
+    color: white;
+    border: none;
+    padding: 4px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: auto;
+    height: 24px;
+}
+
+.analytics-update-btn:hover {
+    background: #002a5a;
+    transform: translateY(-1px);
+}
+
+.analytics-update-btn .material-icons {
+    font-size: 12px;
+}
+
+/* Основное содержимое аналитики - независимые контейнеры с равномерным распределением */
+.analytics-content {
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 6px;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Скролл для основного содержимого аналитики - как в окне операторов */
+.analytics-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.analytics-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.analytics-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.analytics-content::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Линейный график (заменяет analytics-bottom-section) */
+.analytics-line-chart-section {
+    background: white;
+    border-radius: 6px;
+    padding: 6px;
+    border: 2px solid #e9ecef;
+    flex: 1;
+    min-height: 140px;
+    max-height: none; /* Убираем ограничение максимальной высоты */
+    width: 100%;
+    max-width: none; /* Убираем ограничение максимальной ширины */
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    /* Адаптируется к размеру родительского контейнера */
+    height: auto;
+}
+
+.analytics-line-chart-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 63, 125, 0.02), rgba(66, 133, 244, 0.02));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    border-radius: 4px;
+}
+
+.analytics-line-chart-section:hover::before {
+    opacity: 1;
+}
+
+.analytics-line-chart-section:hover {
+    border-color: #003F7D;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 63, 125, 0.15);
+}
+
+.analytics-line-chart-section:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 63, 125, 0.2);
+}
+
+.analytics-line-chart-section.loading {
+    animation: chartLoading 1.5s ease-in-out infinite;
+}
+
+@keyframes chartLoading {
+    0%, 100% {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        border-color: #e9ecef;
+    }
+    50% {
+        box-shadow: 0 4px 16px rgba(0, 63, 125, 0.2);
+        border-color: #4285f4;
+    }
+}
+
+/* Дополнительные интерактивные состояния для линейной диаграммы */
+.analytics-line-chart-section.focused {
+    border-color: #1976d2;
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15), 0 6px 20px rgba(0, 63, 125, 0.2);
+    transform: translateY(-3px);
+}
+
+.analytics-line-chart-section.expanded {
+    min-height: 200px;
+    max-height: none; /* Позволяем расширяться до любого размера */
+    z-index: 10;
+    flex-grow: 2; /* Занимает больше места при расширении */
+}
+
+.analytics-line-chart-section.minimized {
+    min-height: 100px;
+    max-height: 120px; /* Ограничиваем только в свернутом состоянии */
+    opacity: 0.8;
+    flex-shrink: 2; /* Уменьшается быстрее других элементов */
+}
+
+.analytics-line-chart-section.minimized:hover {
+    opacity: 1;
+}
+
+/* Индикатор активности в углу */
+.analytics-line-chart-section::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 6px;
+    height: 6px;
+    background: #e9ecef;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 5;
+}
+
+.analytics-line-chart-section.active::after {
+    background: #4285f4;
+    box-shadow: 0 0 8px rgba(66, 133, 244, 0.5);
+    animation: activityIndicator 2s ease-in-out infinite;
+}
+
+@keyframes activityIndicator {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.3);
+        opacity: 0.7;
+    }
+}
+
+/* Состояние ошибки */
+.analytics-line-chart-section.error {
+    border-color: #ea4335;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+}
+
+.analytics-line-chart-section.error::after {
+    background: #ea4335;
+    animation: errorPulse 1s ease-in-out infinite;
+}
+
+@keyframes errorPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* Кнопки управления в заголовке (опционально) */
+.analytics-chart-controls {
+    position: absolute;
+    top: 6px;
+    right: 20px;
+    display: flex;
+    gap: 2px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.analytics-line-chart-section:hover .analytics-chart-controls {
+    opacity: 1;
+}
+
+.analytics-chart-control-btn {
+    width: 16px;
+    height: 16px;
+    border: none;
+    background: rgba(0, 63, 125, 0.1);
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-size: 10px;
+    color: #003F7D;
+}
+
+.analytics-chart-control-btn:hover {
+    background: #003F7D;
+    color: white;
+    transform: scale(1.1);
+}
+
+.analytics-chart-control-btn:active {
+    transform: scale(0.95);
+}
+
+/* Компактный контейнер диаграммы без легенды */
+.analytics-chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0px;
+    background: white;
+    border-radius: 6px;
+    padding: 4px;
+    border: 2px solid #e9ecef;
+    flex-shrink: 0;
+    align-self: center;
+    width: fit-content;
+    min-width: 130px;
+    max-width: 150px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.analytics-chart-info {
+    width: 100%;
+    background: #f8f9fa;
+    color: #003F7D;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    padding: 4px 6px;
+    box-shadow: 0 1px 2px rgba(0,63,125,0.05);
+    letter-spacing: 0.2px;
+}
+
+#analytics-pie-chart .analytics-chart-info {
+    background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(21,87,36,0.08);
+}
+}
+}
+
+.analytics-chart-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 63, 125, 0.02), rgba(66, 133, 244, 0.02));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.analytics-chart-container:hover::before {
+    opacity: 1;
+}
+
+.analytics-chart-container:hover {
+    border-color: #003F7D;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 63, 125, 0.15);
+}
+
+.analytics-chart-container:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 63, 125, 0.2);
+}
+
+.analytics-criteria-table {
+    background: white;
+    border-radius: 6px;
+    padding: 8px;
+    border: 2px solid #e9ecef;
+    overflow-x: auto;
+    overflow-y: auto;
+    height: 159px;
+    max-height: 160px;
+    min-height: 130px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.analytics-criteria-table:hover {
+    border-color: #003F7D;
+    box-shadow: 0 2px 8px rgba(0, 63, 125, 0.1);
+}
+
+/* Скролл для таблицы критериев аналитики - как в окне операторов */
+.analytics-criteria-table::-webkit-scrollbar {
+    width: 6px;
+}
+
+.analytics-criteria-table::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.analytics-criteria-table::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.analytics-criteria-table::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Заголовок диаграммы */
+.analytics-chart-title {
+    font-size: 9px;
+    font-weight: 600;
+    color: #003F7D;
+    text-align: center;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.analytics-chart-container:hover .analytics-chart-title {
+    opacity: 1;
+}
+
+.analytics-chart {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    transition: all 0.3s ease;
+}
+
+.analytics-chart-container:hover .analytics-chart {
+    transform: scale(1.05);
+}
+
+/* Убираем легенду - не используется */
+.analytics-legend {
+    display: none;
+}
+
+.legend-item {
+    display: none;
+}
+
+.legend-color {
+    display: none;
+}
+
+.legend-color-blue {
+    background: #4285f4;
+    box-shadow: 0 0 0 1px rgba(66, 133, 244, 0.3);
+}
+
+.legend-color-red {
+    background: #ea4335;
+    box-shadow: 0 0 0 1px rgba(234, 67, 53, 0.3);
+}
+
+.legend-item:hover .legend-color-blue {
+    background: #1976d2;
+    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.5);
+}
+
+.legend-item:hover .legend-color-red {
+    background: #d32f2f;
+    box-shadow: 0 0 0 2px rgba(234, 67, 53, 0.5);
+}
+
+/* Заголовок диаграммы */
+.analytics-chart-title-small {
+    display: none; /* Не используется */
+}
+
+.analytics-chart-container:hover .analytics-chart-title-small {
+    opacity: 1;
+}
+
+/* Анимация при загрузке */
+.analytics-chart-container.loaded {
+    animation: chartAppear 0.6s ease-out;
+}
+
+@keyframes chartAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Пульсация при обновлении данных */
+.analytics-chart-container.updating {
+    animation: chartPulse 1s ease-in-out infinite;
+}
+
+@keyframes chartPulse {
+    0%, 100% {
+        box-shadow: 0 2px 8px rgba(0, 63, 125, 0.1);
+    }
+    50% {
+        box-shadow: 0 4px 16px rgba(0, 63, 125, 0.25);
+    }
+}
+
+.criteria-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.criteria-table th {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: #003F7D;
+    font-weight: 700;
+    padding: 3px 10px;
+    text-align: left;
+    border-bottom: 2px solid #003F7D;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.criteria-table th:first-child {
+    width: 40px;
+    text-align: center;
+}
+
+.criteria-table th:last-child {
+    width: 60px;
+    text-align: center;
+}
+
+.criteria-table td {
+    padding: 2px 4px;
+    border-bottom: 1px solid #f1f3f4;
+    color: #333;
+    vertical-align: middle;
+    line-height: 2.3;
+}
+
+.criteria-table td:first-child {
+    text-align: center;
+    font-weight: 600;
+    color: #666;
+    background: #f8f9fa;
+    border-right: 1px solid #e9ecef;
+}
+
+.criteria-table td:last-child {
+    text-align: center;
+}
+
+.criteria-table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.criteria-table tbody tr:hover {
+    background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%);
+    transform: translateX(2px);
+    box-shadow: 2px 0 4px rgba(0, 63, 125, 0.1);
+}
+
+.criteria-table tbody tr:nth-child(even) {
+    background: rgba(248, 249, 250, 0.3);
+}
+
+.criteria-table tbody tr:nth-child(even):hover {
+    background: linear-gradient(90deg, #f0f2f5 0%, #ffffff 100%);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #e9ecef;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4285f4 0%, 1.5px solid #1976d2 100%);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.percentage-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    min-width: 35px;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Цветовая градация для процентов */
+.percentage-badge {
+    background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* Стили для разных диапазонов процентов - добавим через JavaScript */
+.percentage-badge.excellent {
+    background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+    color: #0c5460;
+    border: 1px solid #abdde5;
+}
+
+.percentage-badge.good {
+    background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.percentage-badge.average {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    color: #856404;
+    border: 1px solid #fdd835;
+}
+
+.percentage-badge.poor {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    color: #721c24;
+    border: 1px solid #f1aeb5;
+}
+
+.percentage-badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.analytics-chart-title {
+    margin-bottom: 0px;
+    padding: 3px 6px;
+    border-bottom: 1px solid #e9ecef;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 4px 4px 0 0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    height: 22px;
+    display: flex;
+    align-items: center;
+}
+
+.analytics-chart-title::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(0, 63, 125, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.analytics-line-chart-section:hover .analytics-chart-title::before {
+    left: 100%;
+}
+
+.analytics-line-chart-section:hover .analytics-chart-title {
+    background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+    border-bottom-color: #003F7D;
+    transform: translateY(-1px);
+}
+
+.analytics-chart-title h3 {
+    margin: 0;
+    font-size: 10px;
+    font-weight: 600;
+    color: #003F7D;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    line-height: 1;
+}
+
+.analytics-line-chart-section:hover .analytics-chart-title h3 {
+    color: #002a5a;
+    transform: scale(1.02);
+}
+
+.analytics-line-chart-container {
+    width: 100%;
+    height: calc(100% - 28px);
+    position: relative;
+    min-height: 95px;
+    max-height: none; /* Убираем ограничение максимальной высоты */
+    padding: 3px;
+    transition: all 0.3s ease;
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+    /* Адаптируется к высоте родительского элемента */
+    flex: 1;
+}
+
+.analytics-line-chart-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(66, 133, 244, 0.02) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.analytics-line-chart-section:hover .analytics-line-chart-container::before {
+    opacity: 1;
+}
+
+.analytics-line-chart-section:hover .analytics-line-chart-container {
+    transform: scale(1.01);
+    padding: 6px;
+}
+
+/* Добавляем пульсацию при обновлении данных */
+.analytics-line-chart-container.updating {
+    animation: containerPulse 2s ease-in-out infinite;
+}
+
+@keyframes containerPulse {
+    0%, 100% {
+        background: transparent;
+        transform: scale(1);
+    }
+    50% {
+        background: rgba(66, 133, 244, 0.03);
+        transform: scale(1.005);
+    }
+}
+
+/* Эффект появления при загрузке */
+.analytics-line-chart-container.loaded {
+    animation: containerAppear 0.8s ease-out;
+}
+
+@keyframes containerAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+    60% {
+        opacity: 0.8;
+        transform: translateY(-2px) scale(1.01);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Финальная синхронизация размеров контейнера и графика */
+.analytics-line-chart-container.resizing #analytics-line-chart,
+.analytics-line-chart-container.expanded #analytics-line-chart,
+.analytics-line-chart-container.minimized #analytics-line-chart {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100%;
+    max-height: 100%;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Обеспечение полного заполнения контейнера */
+#analytics-line-chart {
+    /* Принудительное заполнение родительского контейнера */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100% !important;
+    height: 100% !important;
+    /* Убираем возможные отступы */
+    margin: 0;
+    padding: 0;
+    border: none;
+    /* Гибкое расширение */
+    flex: 1 1 auto;
+    /* Современная адаптивность */
+    object-fit: fill;
+    object-position: center;
+}
+
+/* Обеспечение правильного позиционирования контейнера */
+.analytics-line-chart-container {
+    position: relative;
+    /* Явное указание размеров */
+    width: 100%;
+    height: 100%;
+    min-height: 120px;
+    /* Убираем возможные переполнения */
+    overflow: hidden;
+    /* Гибкое расширение */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Адаптивность для компактного контейнера диаграммы */
+@media (max-width: 1200px) {
+    .analytics-chart-container {
+        align-self: center;
+        width: 100%;
+        max-width: 140px;
+        min-width: 120px;
+    }
+    
+    .analytics-chart {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .analytics-criteria-table {
+        max-height: 250px;
+    }
+}
+
+@media (max-width: 900px) {
+    .analytics-chart-container {
+        max-width: 130px;
+        padding: 4px;
+    }
+    
+    .analytics-chart {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .analytics-chart-title {
+        font-size: 9px;
+    }
+    
+    .analytics-criteria-table {
+        max-height: 220px;
+        padding: 6px;
+    }
+    
+    .criteria-table th {
+        padding: 6px 8px;
+        font-size: 9px;
+    }
+    
+    .criteria-table td {
+        padding: 4px 8px;
+        font-size: 10px;
+    }
+    
+    .analytics-line-chart-section {
+        min-height: 125px;
+        max-height: 155px;
+        padding: 4px;
+    }
+    
+    .analytics-line-chart-container {
+        min-height: 90px;
+        max-height: 115px;
+        padding: 2px;
+    }
+    
+    .analytics-chart-title {
+        padding: 2px 5px;
+        height: 19px;
+    }
+    
+    .analytics-chart-title h3 {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 768px) {
+    .date-range-selector {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .date-input-group {
+        width: 100%;
+    }
+    
+    .date-input-group input[type="date"] {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .analytics-update-btn {
+        margin-left: 0;
+        align-self: flex-start;
+    }
+}
+
+/* Оптимизация для минимальной ширины окна 417px */
+@media (max-width: 499px) {
+    .analytics-line-chart-section {
+        min-height: 130px;
+        max-height: 160px;
+        padding: 5px;
+    }
+    
+    .analytics-line-chart-container {
+        min-height: 90px;
+        max-height: 120px;
+        padding: 2px;
+    }
+    
+    .analytics-chart-title {
+        padding: 2px 5px;
+        height: 20px;
+    }
+    
+    .analytics-chart-title h3 {
+        font-size: 9px;
+        letter-spacing: 0.2px;
+    }
+    
+    .analytics-chart-controls {
+        top: 4px;
+        right: 15px;
+    }
+    
+    .analytics-chart-control-btn {
+        width: 14px;
+        height: 14px;
+        font-size: 9px;
+    }
+}
+
+/* Точная настройка для минимальной ширины 417px */
+@media (max-width: 417px) {
+    .analytics-line-chart-section {
+        min-height: 120px;
+        max-height: 150px;
+        padding: 4px;
+        max-width: 100%;
+    }
+    
+    .analytics-line-chart-container {
+        min-height: 85px;
+        max-height: 110px;
+        padding: 1px;
+    }
+    
+    .analytics-chart-title {
+        padding: 2px 4px;
+        height: 18px;
+    }
+    
+    .analytics-chart-title h3 {
+        font-size: 8px;
+        letter-spacing: 0.1px;
+    }
+    
+    .analytics-chart-controls {
+        top: 4px;
+        right: 15px;
+    }
+    
+    .analytics-chart-control-btn {
+        width: 14px;
+        height: 14px;
+        font-size: 9px;
+    }
+}
+
+/* Адаптивность для растянутых окон аналитики */
+@media (min-width: 600px) {
+    .analytics-line-chart-section {
+        min-height: 160px;
+        padding: 8px;
+    }
+    
+    .analytics-line-chart-container {
+        min-height: 120px;
+        padding: 4px;
+    }
+    
+    .analytics-chart-title {
+        padding: 2px 8px;
+        height: 24px;
+    }
+    
+    .analytics-chart-title h3 {
+        font-size: 11px;
+    }
+}
+
+@media (min-width: 800px) {
+    .analytics-line-chart-section {
+        min-height: 180px;
+        padding: 10px;
+    }
+    
+    .analytics-line-chart-container {
+        min-height: 140px;
+        padding: 5px;
+    }
+    
+    .analytics-chart-title {
+        padding: 2px 10px;
+        height: 26px;
+    }
+    
+    .analytics-chart-title h3 {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .analytics-line-chart-section {
+        min-height: 200px;
+        padding: 12px;
+    }
+    
+    .analytics-line-chart-container {
+        min-height: 160px;
+        padding: 6px;
+    }
+    
+    .analytics-chart-title {
+        padding: 2px 12px;
+        height: 28px;
+    }
+    
+    .analytics-chart-title h3 {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .analytics-line-chart-section {
+        min-height: 220px;
+        padding: 3px;
+    }
+    
+    .analytics-line-chart-container {
+        min-height: 180px;
+        padding: 8px;
+    }
+    
+    .analytics-chart-title {
+        padding: 2px 4px;
+        height: 26px;
+    }
+    
+    .analytics-chart-title h3 {
+        font-size: 11px;
+        letter-spacing: 0.4px;
+    }
+    
+    /* Увеличиваем кнопки управления для больших экранов */
+    .analytics-chart-control-btn {
+        width: 18px;
+        height: 18px;
+        font-size: 11px;
+    }
+}
+
+/* Специальные стили для больших экранов и растянутых окон */
+@media (min-width: 1400px) {
+    #analytics-line-chart {
+        width: 100%;
+        height: 100%;
+        min-height: 180px;
+        font-size: 16px;
+        /* Премиум качество для больших экранов */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+        image-rendering: high-quality;
+        /* Аппаратное ускорение */
+        transform: translate3d(0, 0, 0) scale(1);
+        backface-visibility: hidden;
+        perspective: 1000px;
+        /* Улучшенная четкость */
+        filter: contrast(1.15) brightness(1.03) saturate(1.1);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    #analytics-line-chart .chart-line {
+        stroke-width: 3.5px;
+        /* Профессиональные векторные линии */
+        shape-rendering: geometricPrecision;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        vector-effect: non-scaling-stroke;
+    }
+    
+    #analytics-line-chart .chart-point {
+        r: 6px;
+        /* Идеальные точки */
+        shape-rendering: geometricPrecision;
+        stroke-width: 1.5px;
+    }
+    
+    #analytics-line-chart .axis-label {
+        font-size: 0.9em;
+        /* Четкие подписи */
+        text-rendering: optimizeLegibility;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+    }
+    
+    #analytics-line-chart .chart-title {
+        font-size: 1.3em;
+        /* Четкий крупный заголовок */
+        text-rendering: optimizeLegibility;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+}
+
+@media (min-width: 1600px) {
+    #analytics-line-chart {
+        width: 100%;
+        height: 100%;
+        min-height: 200px;
+        font-size: 17px;
+        /* Максимальное качество */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+        image-rendering: high-quality;
+        /* Суперчеткость */
+        filter: contrast(1.2) brightness(1.04) saturate(1.15) hue-rotate(0deg);
+        transform: translate3d(0, 0, 0) scale(1);
+        will-change: transform, filter;
+    }
+    
+    #analytics-line-chart .chart-line {
+        stroke-width: 4px;
+        /* Максимально четкие линии */
+        shape-rendering: geometricPrecision;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        vector-effect: non-scaling-stroke;
+    }
+    
+    #analytics-line-chart .chart-point {
+        r: 7px;
+        /* Крупные четкие точки */
+        shape-rendering: geometricPrecision;
+        stroke-width: 2px;
+    }
+}
+
+/* Стили для высокого разрешения (Retina дисплеи) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    #analytics-line-chart {
+        width: 100%;
+        height: 100%;
+        /* Оптимальное качество для Retina */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+        /* Улучшенная четкость текста */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        /* Аппаратное ускорение */
+        transform: translate3d(0, 0, 0);
+        will-change: transform;
+    }
+    
+    #analytics-line-chart svg {
+        /* Векторная четкость на Retina */
+        shape-rendering: geometricPrecision;
+        text-rendering: optimizeLegibility;
+        image-rendering: -webkit-optimize-contrast;
+    }
+    
+    #analytics-line-chart canvas {
+        /* Масштабирование Canvas для Retina */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+        /* Поддержка высокого DPI */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Стили для сверхвысокого разрешения (3x и выше) */
+@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
+    #analytics-line-chart {
+        /* Максимальная четкость */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+        image-rendering: crisp-edges;
+        /* Предотвращение размытия */
+        filter: contrast(1.1) brightness(1.02);
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    
+    #analytics-line-chart svg,
+    #analytics-line-chart canvas {
+        /* Векторная четкость */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+        /* Улучшенный рендеринг */
+        shape-rendering: geometricPrecision;
+        text-rendering: optimizeLegibility;
+    }
+}
+
+/* Адаптивность для планшетов в портретной ориентации */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    #analytics-line-chart {
+        min-height: 110px;
+        font-size: 12px;
+    }
+}
+
+/* Адаптивность для планшетов в ландшафтной ориентации */
+@media (min-width: 1024px) and (max-width: 1366px) and (orientation: landscape) {
+    #analytics-line-chart {
+        min-height: 130px;
+        font-size: 13px;
+    }
+}
+
+/* Обеспечиваем корректное отображение при быстром изменении размера */
+#analytics-line-chart {
+    /* Основные размеры - адаптируется к родительскому контейнеру */
+    width: 100%;
+    height: 100%;
+    min-height: 80px;
+    /* Позиционирование */
+    position: relative;
+    display: block;
+    /* Оптимизация рендеринга */
+    contain: layout style paint;
+    will-change: transform, opacity, filter;
+    /* Предотвращение потери качества */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+    /* Аппаратное ускорение */
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    /* Плавные переходы без потери качества */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Адаптивность к контейнеру */
+    box-sizing: border-box;
+    flex: 1;
+}
+
+/* Специальные стили для анимаций без потери качества */
+#analytics-line-chart.data-updating {
+    animation: dataRefreshHQ 0.8s ease-in-out;
+    /* Сохранение качества во время анимации */
+    image-rendering: -webkit-optimize-contrast;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+}
+
+@keyframes dataRefreshHQ {
+    0% { 
+        opacity: 1; 
+        transform: translate3d(0, 0, 0) scale(1);
+        filter: none;
+    }
+    50% { 
+        opacity: 0.7; 
+        transform: translate3d(0, 0, 0) scale(1.01);
+        filter: brightness(1.1);
+    }
+    100% { 
+        opacity: 1; 
+        transform: translate3d(0, 0, 0) scale(1);
+        filter: none;
+    }
+}
+
+/* Интерактивные состояния с сохранением качества */
+.analytics-line-chart-section.expanded #analytics-line-chart {
+    min-height: 150px;
+    transform: translate3d(0, 0, 0) scale(1.02);
+    /* Сохранение качества при увеличении */
+    image-rendering: -webkit-optimize-contrast;
+    filter: contrast(1.1) brightness(1.02);
+}
+
+.analytics-line-chart-section.minimized #analytics-line-chart {
+    min-height: 60px;
+    transform: translate3d(0, 0, 0) scale(0.98);
+    opacity: 0.9;
+    /* Сохранение качества при уменьшении */
+    image-rendering: -webkit-optimize-contrast;
+}
+
+.analytics-line-chart_section.focused #analytics-line-chart {
+    filter: brightness(1.05) contrast(1.1) saturate(1.1);
+    box-shadow: inset 0 0 10px rgba(0, 63, 125, 0.1);
+    /* Четкость при фокусе */
+    image-rendering: -webkit-optimize-contrast;
+    transform: translate3d(0, 0, 0);
+}
+
+.analytics-line-chart-section:hover #analytics-line-chart {
+    transform: translate3d(0, 0, 0) scale(1.01);
+    /* Сохранение качества при hover */
+    image-rendering: -webkit-optimize-contrast;
+    filter: brightness(1.02) contrast(1.05);
+}
+
+.analytics-line-chart-section.loading #analytics-line-chart {
+    filter: blur(1px) brightness(0.9);
+    opacity: 0.6;
+    /* Плавное размытие без артефактов */
+    image-rendering: -webkit-optimize-contrast;
+    transform: translate3d(0, 0, 0);
+}
+
+/* Улучшенные стили для элементов диаграммы высокого качества */
+#analytics-line-chart svg {
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease;
+    /* Векторная четкость */
+    shape-rendering: geometricPrecision;
+    text-rendering: optimizeLegibility;
+    image-rendering: -webkit-optimize-contrast;
+    /* Поддержка масштабирования без потери качества */
+    vector-effect: non-scaling-stroke;
+}
+
+#analytics-line-chart canvas {
+    width: 100% !important;
+    height: 100% !important;
+    transition: all 0.3s ease;
+    /* Улучшенное качество Canvas */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+    image-rendering: crisp-edges;
+    /* Поддержка Retina дисплеев */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Установка высокого DPI для Canvas */
+#analytics-line-chart canvas {
+    /* Автоматическое масштабирование для высокого DPI */
+    image-rendering: auto;
+}
+
+/* Улучшенные стили для Chart.js */
+#analytics-line-chart .chartjs-render-monitor {
+    animation: none !important;
+    /* Улучшение качества */
+    image-rendering: -webkit-optimize-contrast;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Обеспечиваем правильное масштабирование для разных библиотек */
+#analytics-line-chart > * {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    /* Сохранение качества при масштабировании */
+    image-rendering: high-quality;
+    transform-origin: center center;
+}
+
+/* Адаптивные стили с сохранением качества при масштабировании */
+@media (min-width: 600px) {
+    #analytics-line-chart {
+        width: 100%;
+        height: 100%;
+        min-height: 100px;
+        font-size: 12px;
+        /* Улучшенное качество при увеличении */
+        image-rendering: high-quality;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+
+@media (min-width: 800px) {
+    #analytics-line-chart {
+        width: 100%;
+        height: 100%;
+        min-height: 120px;
+        font-size: 13px;
+        /* Сохранение четкости при больших размерах */
+        image-rendering: -webkit-optimize-contrast;
+        filter: contrast(1.05) brightness(1.01);
+    }
+    
+    #analytics-line-chart .chart-line {
+        stroke-width: 2.5px;
+        /* Улучшенная четкость линий */
+        shape-rendering: geometricPrecision;
+        vector-effect: non-scaling-stroke;
+    }
+    
+    #analytics-line-chart .chart-point {
+        r: 4px;
+        /* Четкие точки */
+        shape-rendering: geometricPrecision;
+    }
+}
+
+@media (min-width: 1000px) {
+    #analytics-line-chart {
+        width: 100%;
+        height: 100%;
+        min-height: 140px;
+        font-size: 14px;
+        /* Максимальная четкость для больших экранов */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+        transform: translate3d(0, 0, 0) scale(1);
+        filter: contrast(1.1) brightness(1.02) saturate(1.05);
+    }
+}
+
+@media (min-width: 1200px) {
+    #analytics-line-chart {
+        width: 100%;
+        height: 100%;
+        min-height: 160px;
+        font-size: 15px;
+        /* Профессиональное качество */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+        image-rendering: high-quality;
+        backface-visibility: hidden;
+        perspective: 1000px;
+    }
+    
+    #analytics-line-chart .chart-line {
+        stroke-width: 3px;
+        /* Четкие векторные линии */
+        shape-rendering: geometricPrecision;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+    
+    #analytics-line-chart .chart-point {
+        r: 5px;
+        /* Идеально круглые точки */
+        shape-rendering: geometricPrecision;
+    }
+}
+
+/* Стили для текста и меток с высоким качеством */
+#analytics-line-chart .chart-text,
+#analytics-line-chart text {
+    font-size: inherit;
+    transition: font-size 0.3s ease;
+    /* Четкий текст */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-variant-numeric: tabular-nums;
+}
+
+#analytics-line-chart .axis-label {
+    font-size: 0.8em;
+    /* Четкие подписи осей */
+    text-rendering: optimizeLegibility;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+#analytics-line-chart .chart-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    /* Четкий заголовок */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+#analytics-line-chart .legend {
+    font-size: 0.9em;
+    /* Четкая легенда */
+    text-rendering: optimizeLegibility;
+    font-weight: 500;
+}
+
+/* Синхронизация размеров диаграммы с контейнером */
+.analytics-line-chart-container:hover #analytics-line-chart {
+    /* Синхронизация с увеличением контейнера */
+    width: 100%;
+    height: 100%;
+    transition: all 0.2s ease;
+}
+
+/* Синхронизация с состояниями контейнера */
+.analytics-line-chart-container.updating #analytics-line-chart {
+    width: 100%;
+    height: 100%;
+}
+
+.analytics-line-chart-container.loaded #analytics-line-chart {
+    width: 100%;
+    height: 100%;
+}
+
+/* Адаптация к размерам контейнера при различных состояниях секции */
+.analytics-line-chart-section.expanded .analytics-line-chart-container #analytics-line-chart {
+    width: 100%;
+    height: 100%;
+    /* Увеличиваем минимальную высоту для expanded состояния */
+    min-height: 150px;
+}
+
+.analytics-line-chart-section.minimized .analytics-line-chart-container #analytics-line-chart {
+    width: 100%;
+    height: 100%;
+    /* Уменьшаем минимальную высоту для minimized состояния */
+    min-height: 60px;
+}
+
+/* Адаптивность диаграммы для малых экранов */
+@media (max-width: 417px) {
+    #analytics-line-chart {
+        width: 100%;
+        height: 100%;
+        min-height: 70px;
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 499px) {
+    #analytics-line-chart {
+        width: 100%;
+        height: 100%;
+        min-height: 75px;
+        font-size: 11px;
+    }
+}
+
+/* Отзывчивые размеры для точек и линий с учетом размеров контейнера */
+@media (max-width: 499px) {
+    #analytics-line-chart .chart-line {
+        stroke-width: 1.5px;
+    }
+    
+    #analytics-line-chart .chart-point {
+        r: 2px;
+    }
+}
+
+/* Интерактивные оси координат */
+#analytics-line-chart .axis-hover {
+    display: none;
+}
+
+/* Всплывающая подсказка для данных на графике */
+.chart-tooltip {
+    position: fixed !important;
+    pointer-events: none;
+    z-index: 10000;
+    background: linear-gradient(135deg, rgba(0, 63, 125, 0.98) 0%, rgba(25, 118, 210, 0.95) 100%);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 8px 12px;
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0, 63, 125, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(-8px) scale(0.95);
+    white-space: nowrap;
+    max-width: 200px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chart-tooltip.active {
+    opacity: 1;
+    transform: translateY(-12px) scale(1);
+    pointer-events: none;
+}
+
+.chart-tooltip strong {
+    color: #ffd600;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.chart-tooltip .tooltip-label {
+    color: #90caf9;
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+.chart-tooltip .tooltip-value {
+    color: #fff;
+    font-weight: 700;
+}
+
+/* Адаптивность для маленьких экранов */
+@media (max-width: 600px) {
+    .chart-tooltip {
+        font-size: 11px;
+        padding: 6px 9px;
+        max-width: 160px;
+    }
+}
+
+/* Анимация появления подсказки */
+@keyframes chartTooltipAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(-4px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-12px) scale(1);
+    }
+}
+
+.chart-tooltip.active {
+    animation: chartTooltipAppear 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Улучшение качества canvas при изменении размера */
+#analytics-line-chart {
+    /* Дополнительная оптимизация качества */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+    image-rendering: crisp-edges;
+    /* Предотвращение размытия при масштабировании */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    /* Обеспечение плавного масштабирования */
+    transition: none;
+    /* Высокое качество для всех браузеров */
+    -ms-interpolation-mode: bicubic;
+    image-rendering: auto;
+}
+
+/* Контейнер для canvas с лучшим позиционированием */
+.analytics-line-chart-container {
+    /* Обеспечиваем правильное позиционирование для tooltip */
+    position: relative;
+    /* Предотвращаем артефакты при ресайзе */
+    contain: layout style paint;
+    /* Оптимизация производительности */
+    will-change: auto;
+}
+
+/* Состояние загрузки с индикатором качества */
+#analytics-line-chart.updating {
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+/* Плавные переходы без потери качества */
+.analytics-line-chart-section.resizing #analytics-line-chart {
+    /* Сохраняем качество во время изменения размера */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+    transform: translateZ(0);
+    will-change: auto;
+}
+
+/* Стили для высокого DPI */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+    #analytics-line-chart {
+        /* Максимальное качество для Retina */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Интерактивные состояния курсора */
+#analytics-line-chart:hover {
+    /* Показываем, что элемент интерактивный */
+    cursor: crosshair;
+}
+
+#analytics-line-chart.interactive {
+    cursor: pointer;
+}

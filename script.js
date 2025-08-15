@@ -1,9 +1,29 @@
+// === Динамический расчет процентов для топ-3 критериев ===
+document.addEventListener('DOMContentLoaded', function() {
+    // Массив всех 11 критериев (примерные значения, заменить на реальные при необходимости)
+    const allCriteria = [92, 88, 75, 70, 68, 65, 60, 58, 55, 50, 45];
+    // Топ-3 критерии (первые три)
+    const topCriteria = allCriteria.slice(0, 3);
+    const total = allCriteria.reduce((sum, val) => sum + val, 0);
+    // Находим все .percentage-badge в таблице
+    const badges = document.querySelectorAll('.criteria-table .percentage-badge');
+    badges.forEach((badge, idx) => {
+        if (idx < topCriteria.length) {
+            const percent = ((topCriteria[idx] / total) * 100).toFixed(1);
+            badge.textContent = percent + '%';
+        }
+    });
+});
 function togglePassword() {
     const passwordInput = document.getElementById('password');
+    const toggleIcon = document.getElementById('toggle-password-icon');
+    
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
+        toggleIcon.src = 'assets/иконки/Visibility.png';
     } else {
         passwordInput.type = 'password';
+        toggleIcon.src = 'assets/иконки/Visibility Lock.png';
     }
 }
 
@@ -144,20 +164,51 @@ const logoImg = document.querySelector('.sidebar-logo-img');
 
 if (sidebar && logoImg) {
     function updateLogo() {
+        // Проверяем, закреплен ли сайдбар
+        const isPinned = sidebar.classList.contains('sidebar-pinned') || 
+                        sidebar.classList.contains('sidebar-pinned-collapsed') || 
+                        sidebar.classList.contains('sidebar-pinned-expanded');
+        
+        if (isPinned) {
+            // Если сайдбар закреплен, не меняем логотип автоматически
+            console.log('🔒 Сайдбар закреплен - логотип не изменяется автоматически');
+            return;
+        }
+        
         if (sidebar.classList.contains('open')) {
             logoImg.src = 'assets/logo.png';
         } else {
-            logoImg.src = 'assets/Лого мини.png';
+            logoImg.src = 'assets/mini.png';
         }
     }
-    sidebar.addEventListener('mouseenter', () => {
-        sidebar.classList.add('open');
-        updateLogo();
-    });
-    sidebar.addEventListener('mouseleave', () => {
-        sidebar.classList.remove('open');
-        updateLogo();
-    });
+    
+    function handleMouseEnter() {
+        // Проверяем, закреплен ли сайдбар
+        const isPinned = sidebar.classList.contains('sidebar-pinned') || 
+                        sidebar.classList.contains('sidebar-pinned-collapsed') || 
+                        sidebar.classList.contains('sidebar-pinned-expanded');
+        
+        if (!isPinned) {
+            sidebar.classList.add('open');
+            updateLogo();
+        }
+    }
+    
+    function handleMouseLeave() {
+        // Проверяем, закреплен ли сайдбар
+        const isPinned = sidebar.classList.contains('sidebar-pinned') || 
+                        sidebar.classList.contains('sidebar-pinned-collapsed') || 
+                        sidebar.classList.contains('sidebar-pinned-expanded');
+        
+        if (!isPinned) {
+            sidebar.classList.remove('open');
+            updateLogo();
+        }
+    }
+    
+    sidebar.addEventListener('mouseenter', handleMouseEnter);
+    sidebar.addEventListener('mouseleave', handleMouseLeave);
+    
     // Инициализация при загрузке
     updateLogo();
 }

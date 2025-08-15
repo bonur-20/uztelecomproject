@@ -1,0 +1,288 @@
+/* ===== SIDEBAR STYLES ===== */
+/* Стили для боковой панели, навигации и связанных элементов */
+
+/* Основной sidebar */
+.sidebar {
+    width: var(--sidebar-width-open);
+    min-width: var(--sidebar-width-open);
+    background: var(--primary-color);
+    color: var(--white);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: var(--z-index-sidebar);
+    box-shadow: var(--shadow-light);
+    padding: 0;
+    transition: width var(--transition-medium), min-width var(--transition-medium);
+}
+
+/* Figma-стиль sidebar */
+.sidebar.sidebar-figma {
+    width: var(--sidebar-width-open);
+    min-width: var(--sidebar-width-open);
+}
+
+/* Логотип sidebar'а */
+.sidebar-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    margin: 32px 0 24px 32px;
+    transition: margin var(--transition-medium);
+}
+
+.sidebar-logo-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.sidebar-logo-text {
+    overflow: hidden;
+    transition: opacity var(--transition-medium);
+}
+
+.sidebar-logo-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.sidebar-logo-sub {
+    font-size: 0.8em;
+    font-weight: 400;
+    letter-spacing: 2px;
+    opacity: 0.7;
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* Меню sidebar'а - Figma стиль */
+.sidebar-menu-figma {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+    flex: 1;
+    padding: 0 16px;
+}
+
+.sidebar-menu-figma a {
+    color: var(--white);
+    text-decoration: none;
+    border-radius: var(--border-radius-large);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 1.08em;
+    position: relative;
+    gap: 16px;
+    min-width: 0;
+    height: 48px;
+    box-sizing: border-box;
+    margin: 0 auto 4px auto;
+    width: 110px; /* Фиксированная ширина для закрытого состояния */
+    justify-content: center;
+    padding: 12px 18px;
+    overflow: visible;
+}
+
+/* Классы для сворачиваемого sidebar'а */
+.collapsible-sidebar:not(.open) .sidebar-label {
+    display: none !important;
+}
+
+.collapsible-sidebar:not(.open) .sidebar-logo-text {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.collapsible-sidebar:not(.open) .sidebar-logo {
+    justify-content: center;
+    margin: 32px 0 24px 0;
+}
+
+.collapsible-sidebar.open .sidebar-menu-figma a {
+    width: 90%;
+    justify-content: flex-start;
+}
+
+.collapsible-sidebar.open .sidebar-logo-text {
+    opacity: 1;
+}
+
+/* Активное и hover состояние пунктов меню */
+.sidebar-menu-figma a.active,
+.sidebar-menu-figma a:hover {
+    background: var(--white);
+    color: var(--primary-color);
+    box-shadow: var(--shadow-light);
+    transform: translateY(-1px);
+}
+
+/* Иконки в sidebar */
+.sidebar-menu-figma a .material-icons {
+    font-size: 1.6em;
+    flex-shrink: 0;
+    transition: color var(--transition-fast);
+}
+
+/* Текст пунктов меню */
+.sidebar-label {
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity var(--transition-medium);
+}
+
+/* Badge для уведомлений */
+.sidebar-badge {
+    background: #ff5252;
+    color: var(--white);
+    border-radius: 50%;
+    font-size: 0.95em;
+    padding: 0;
+    min-width: 20px;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: var(--shadow-light);
+    z-index: 2;
+    font-weight: 600;
+    animation: badgePulse 2s infinite;
+}
+
+/* Кнопка выхода */
+.sidebar-exit {
+    margin-top: auto;
+    margin-bottom: 24px;
+    align-self: center;
+    color: var(--white) !important;
+    border-radius: var(--border-radius-large);
+    width: 110px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+}
+
+.sidebar-exit:hover {
+    background: var(--white);
+    color: #ff5252 !important;
+    box-shadow: var(--shadow-light);
+    transform: translateY(-1px);
+}
+
+.sidebar-exit:hover .material-icons,
+.sidebar-exit:hover svg {
+    color: #ff5252 !important;
+    fill: #ff5252 !important;
+}
+
+.collapsible-sidebar.open .sidebar-exit {
+    width: 90%;
+    justify-content: flex-start;
+}
+
+/* Анимация для badge */
+@keyframes badgePulse {
+    0%, 100% {
+        transform: translateY(-50%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-50%) scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+/* Анимация для появления badge */
+@keyframes badgeAppear {
+    from {
+        transform: translateY(-50%) scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(-50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.sidebar-badge.new {
+    animation: badgeAppear 0.3s ease-out, badgePulse 2s infinite 0.3s;
+}
+
+/* Состояние наведения на sidebar */
+.collapsible-sidebar {
+    transition: width var(--transition-medium);
+}
+
+.collapsible-sidebar:hover {
+    width: var(--sidebar-width-open);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform var(--transition-medium);
+    }
+    
+    .sidebar.mobile-open {
+        transform: translateX(0);
+    }
+    
+    .sidebar-logo {
+        margin: 24px 0 20px 24px;
+    }
+    
+    .sidebar-menu-figma {
+        padding: 0 12px;
+    }
+    
+    .sidebar-menu-figma a {
+        height: 44px;
+        font-size: 1em;
+    }
+}
+
+/* Overlay для мобильных устройств */
+@media (max-width: 768px) {
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 100;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity var(--transition-medium), visibility var(--transition-medium);
+    }
+    
+    .sidebar-overlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+}
