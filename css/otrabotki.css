@@ -1,0 +1,707 @@
+/* Дата "С" прижата вправо */
+#date-from {
+    text-align: right;
+}
+/* Кнопка очистки даты */
+.date-clear-btn {
+    background: none;
+    border: none;
+    padding: 0 0px;
+    margin-left: 0px;
+    cursor: pointer;
+    color: #b0b4c1;
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s;
+}
+.date-clear-btn:hover {
+    color: #2563eb;
+}
+.otrabotki-operator-hours {
+    margin-left: auto;
+    font-size: 15px;
+    color: #2b5a86;
+    font-weight: 600;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    white-space: nowrap;
+}
+/* Всегда синий бордер, как у выбранного состояния */
+.otrabotki-group-dropdown-selected {
+    background: #fff;
+    border: 1.5px solid #2b5a86 !important;
+    border-radius: 6px;
+    padding: 3px 29px 3px 12px;
+    color: #003F7D;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(30,90,168,0.10);
+    transition: border 0.18s, box-shadow 0.18s;
+    position: relative;
+    user-select: none;
+}
+/* Цвет иконки календаря при выбранной дате */
+.date-picker .material-icons {
+    color: #7b7b7b;
+    font-size: 17px;
+    margin-right: 4px;
+    transition: color 0.18s;
+}
+.date-picker.date-selected .material-icons {
+    color: #2b5a86;
+}
+/* Бордер для выбранной даты */
+.date-picker.date-selected {
+    border: 1.5px solid #2b5a86 !important;
+    box-shadow: 0 0 0 2px rgba(43,90,134,0.08);
+    transition: border 0.18s, box-shadow 0.18s;
+}
+/* Эффект выбранной даты для .date-picker input */
+.date-picker input.date-selected {
+    color: #2b5a86;
+    font-weight: 600;
+    font-size: 0.95em;
+    transition: color 0.18s, font-weight 0.18s, font-size 0.18s;
+}
+/* Flex-обёртка для группы и дат */
+.otrabotki-group-row-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+/* Кастомный скроллбар для выпадающего списка групп */
+.otrabotki-group-dropdown-list::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+}
+.otrabotki-group-dropdown-list::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 8px;
+}
+.otrabotki-group-dropdown-list::-webkit-scrollbar-thumb:hover {
+    background: #c1c1c1;
+}
+.otrabotki-group-dropdown-list {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 transparent;
+}
+/* Кастомный dropdown для выбора группы */
+.otrabotki-group-dropdown {
+    position: relative;
+    min-width: 129px;
+    font-size: 0.96em;
+    font-family: inherit;
+}
+.otrabotki-group-dropdown-selected {
+    background: #fff;
+    border: 1.5px solid #bfc9d9;
+    border-radius: 6px;
+    padding: 3px 29px 3px 12px;
+    color: #003F7D;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(30,90,168,0.10);
+    transition: border 0.18s, box-shadow 0.18s;
+    position: relative;
+    user-select: none;
+}
+.otrabotki-group-dropdown-selected:after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    background: url('data:image/svg+xml;utf8,<svg fill="%23003F7D" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat center/contain;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+.otrabotki-group-dropdown-list {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 0px);
+    min-width: 100%;
+    background: #fff;
+    border: 1.5px solid #bfc9d9;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(30,90,168,0.10);
+    z-index: 10010;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 2px 0;
+    display: none;
+}
+.otrabotki-group-dropdown.open .otrabotki-group-dropdown-list {
+    display: block;
+}
+.otrabotki-group-dropdown-item {
+    padding: 6px 12px;
+    color: #003F7D;
+    font-size: 0.96em;
+    font-family: inherit;
+    cursor: pointer;
+    background: #fff;
+    border: none;
+    outline: none;
+    transition: background 0.13s;
+    border-radius: 4px;
+}
+.otrabotki-group-dropdown-item:hover,
+.otrabotki-group-dropdown-item.active {
+    background: #f2f6fb;
+}
+/* Скрыть стандартный select */
+select.otrabotki-group-select {
+    display: none !important;
+}
+/* Кастомный скроллбар для dropdown поиска операторов */
+.otrabotki-operators-dropdown::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+}
+.otrabotki-operators-dropdown::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 8px;
+}
+.otrabotki-operators-dropdown::-webkit-scrollbar-thumb:hover {
+    background: #c1c1c1;
+}
+.otrabotki-operators-dropdown {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 transparent;
+}
+/* Кастомный скроллбар для списка операторов (как в обучении) */
+
+.otrabotki-operators-list::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+}
+.otrabotki-operators-list::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 8px;
+}
+.otrabotki-operators-list::-webkit-scrollbar-thumb:hover {
+    background: #c1c1c1;
+}
+.otrabotki-operators-list {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 transparent;
+}
+/* Максимальная высота и прокрутка для списка операторов */
+.otrabotki-operators-list {
+    /* Список должен растягиваться по высоте левой панели и адаптироваться по ширине */
+    max-width: none;
+    max-height: none;
+    height: auto;
+    overflow-y: auto;
+    padding-right: 2px;
+    min-width: 0; /* позволяем сжиматься вместе с колонкой */
+    flex: 1 1 auto; /* занимать доступное место внутри левой колонки */
+}
+.otrabotki-operator-search-wrap {
+    position: relative;
+    margin-bottom: 0;
+}
+.otrabotki-operator-search {
+    width: 100%;
+    border: 1.5px solid #bfc9d9;
+    border-radius: 8px;
+    background: #fff;
+    padding: 10px 16px 10px 34px;
+    font-size: 1em;
+    color: #222;
+    outline: none;
+    transition: border 0.18s;
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+.otrabotki-operator-search:focus {
+    border: 1.5px solid #003F7D;
+    background: #fff;
+}
+.otrabotki-operator-search-icon {
+    position: absolute;
+    left: 10px;
+    top: 49%;
+    transform: translateY(-50%);
+    color: #bfc9d9;
+    font-size: 22px;
+    pointer-events: none;
+    line-height: 1;
+    height: 22px;
+    width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.otrabotki-operator-search-wrap {
+    position: relative;
+    margin-bottom: 0; 
+}
+.otrabotki-operators-dropdown {
+    position: fixed;
+    left: auto;
+    top: auto;
+    z-index: 50002;
+    background: #fff;
+    border: 1.5px solid #bfc9d9;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(30,90,168,0.13);
+    max-height: 240px;
+    min-width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: none;
+    margin-top: 0;
+    padding: 0;
+    
+}
+.otrabotki-operators-dropdown.active {
+    display: block !important;
+}
+.otrabotki-operators-dropdown-item {
+    padding: 8px 16px;
+    font-size: 1em;
+    color: #222;
+    cursor: pointer;
+    transition: background 0.13s;
+}
+.otrabotki-operators-dropdown-item:hover,
+.otrabotki-operators-dropdown-item.active {
+    background: #f2f6fb;
+}
+/* Левое окно отработки */
+.otrabotki-left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+    padding: 18px 18px 18px 18px;
+    height: 100%;
+    min-height: 0; /* важно для корректной работы прокрутки у вложенного списка */
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(30, 90, 168, 0.04);
+    min-width: 400px;
+    position: relative;
+}
+
+.otrabotki-group-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.otrabotki-date-range {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin-left: 12px;
+    margin-bottom: 0;
+}
+.center-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin-right: 9px;
+}
+
+
+/* Кастомный dropdown для select группы */
+.otrabotki-group-select {
+    font-size: 1em;
+    border: 1.5px solid #bfc9d9 !important;
+    background: #fff;
+    font-weight: 500;
+    color: #003F7D;
+    outline: none;
+    min-width: 130px;
+    border-radius: 8px !important;
+    padding: 10px 36px 10px 14px;
+    box-shadow: 0 4px 16px rgba(30,90,168,0.13);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: border 0.18s, box-shadow 0.18s;
+    cursor: pointer;
+    position: relative;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23003F7D" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 18px 18px;
+}
+.otrabotki-group-select:focus {
+    border: 1.5px solid #003F7D !important;
+    box-shadow: 0 4px 16px rgba(30,90,168,0.13);
+    background: #fff;
+}
+.otrabotki-group-select option {
+    color: #003F7D;
+    background: #fff;
+    font-weight: 400;
+    border-radius: 8px;
+    padding: 10px 14px;
+    transition: background 0.13s;
+}
+.otrabotki-group-select option:checked,
+.otrabotki-group-select option:hover {
+    background: #f2f6fb;
+}
+/* Для Edge/IE */
+.otrabotki-group-select::-ms-expand {
+    display: none;
+}
+/* Для Webkit browsers (Chrome, Safari) */
+.otrabotki-group-select {
+    box-shadow: 0 2px 8px rgba(30,90,168,0.07);
+}
+.otrabotki-group-select:focus {
+    border: 1.5px solid #003F7D !important;
+    box-shadow: 0 4px 16px rgba(30,90,168,0.13);
+    background: #fff;
+}
+.otrabotki-group-select option,
+.otrabotki-group-select optgroup {
+    border-radius: 8px;
+}
+.otrabotki-group-select:focus {
+    border: 1.5px solid #003F7D;
+    box-shadow: 0 4px 16px rgba(30,90,168,0.13);
+    background: #fff;
+}
+.otrabotki-group-select option {
+    color: #003F7D;
+    background: #fff;
+    font-weight: 400;
+    border-radius: 8px;
+    padding: 8px 14px;
+    transition: background 0.13s;
+}
+.otrabotki-group-select option:checked,
+.otrabotki-group-select option:hover {
+    background: #f2f6fb;
+}
+
+.otrabotki-date-range {
+    display: flex;
+    gap: 8px;
+}
+.otrabotki-date-input {
+    padding: 6px 12px;
+    font-size: 1em;
+    background: #f7f8fa;
+    color: #333;
+    outline: none;
+    min-width: 120px;
+    text-align: center;
+}
+.otrabotki-date-input:focus {
+    border-color: #003F7D;
+}
+
+.otrabotki-operator-search {
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    background: #f2f3f7;
+    padding: 8px 12px 8px 40px;
+    font-size: 1em;
+    color: #7b7b7b;
+    outline: none;
+}
+.otrabotki-operator-search:focus {
+    border: 1.5px solid #003F7D;
+    background: #fff;
+}
+
+.otrabotki-operators-list {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding-right: 4px;
+    margin-top: 0px;
+    min-height: 0; /* важен для корректной прокрутки во flex-контейнере */
+}
+
+
+
+.otrabotki-operator-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 6px 10px;
+    margin-bottom: 9px;
+    min-height: 54px;
+    background: #fff;
+    border-radius: 13px;
+    box-shadow: 0 1px 4px rgba(30,90,168,0.04);
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: background 0.16s, border 0.16s, box-shadow 0.16s;
+}
+.otrabotki-operator-item:hover {
+    background: #f3f7fd;
+    box-shadow: 0 2px 8px rgba(30,90,168,0.08);
+}
+.otrabotki-operator-item.selected {
+    border: 1.5px solid #2563eb;
+    background: #eaf3ff;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.10);
+}
+.otrabotki-operator-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #f2f2f2;
+    border: 1.5px solid #e6edf6;
+    box-shadow: 0 1px 4px rgba(30,90,168,0.06);
+    transition: border 0.16s;
+    flex: none;
+}
+.otrabotki-operator-item.selected .otrabotki-operator-avatar {
+    border: 1.5px solid #2563eb;
+}
+.otrabotki-operator-info {
+    flex: 1 1 0%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4px;
+    overflow: visible;
+}
+.otrabotki-operator-name {
+    font-size: 15px;
+    color: #222;
+    font-weight: 600;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    letter-spacing: 0.01em;
+    margin-bottom: 0;
+    line-height: 1.4;
+    word-break: break-word;
+    white-space: normal;
+    overflow: visible;
+    max-width: 260px;
+    width: 100%;
+}
+.otrabotki-operator-time {
+    font-size: 13px;
+    color: #a0a4b0;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    font-weight: 400;
+    margin-left: 12px;
+    white-space: nowrap;
+}
+.otrabotki-operator-time {
+    font-size: 0.98em;
+    color: #8a8fa7;
+    font-weight: 400;
+}
+/* ===== СТИЛИ ДЛЯ СТРАНИЦЫ ОТРАБОТКИ ===== */
+
+/* Основная страница */
+.otrabotki-page {
+    background: #f5f7fa;
+    min-height: 100vh;
+}
+
+/* Заглушка контента */
+.training-placeholder {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    padding: 40px;
+    margin: 0px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.training-placeholder h2 {
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.training-placeholder p {
+    color: #666;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+.placeholder-info {
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto;
+    background: #f8f9ff;
+    padding: 30px;
+    border-radius: 12px;
+    border-left: 4px solid #003F7D;
+}
+
+.placeholder-info p {
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.placeholder-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.placeholder-info li {
+    padding: 8px 0;
+    color: #555;
+    position: relative;
+    padding-left: 25px;
+}
+
+.placeholder-info li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #28a745;
+    font-weight: bold;
+}
+
+.placeholder-info em {
+    color: #667eea;
+    font-style: normal;
+    font-weight: 500;
+    display: block;
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* ===== СТИЛИ ДЛЯ НОВЫХ ОКОН (БУДУЩИЕ) ===== */
+
+/* Отключенный dropdown пользователя */
+.header-dropdown.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.header-dropdown.disabled a {
+    color: #999 !important;
+    cursor: not-allowed;
+}
+
+.header-dropdown.disabled a:hover {
+    background: transparent !important;
+}
+
+/* Базовые стили для окон отработки */
+.otrabotki-window {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    margin: 20px;
+    padding: 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+.otrabotki-window-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+}
+
+.otrabotki-window-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.otrabotki-window-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.otrabotki-window-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-size: 16px;
+}
+
+.otrabotki-window-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.otrabotki-window-content {
+    padding: 20px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .training-placeholder {
+        margin: 10px;
+        padding: 20px;
+    }
+    
+    .training-placeholder h2 {
+        font-size: 1.5em;
+    }
+    
+    .placeholder-info {
+        padding: 20px;
+    }
+    
+    .otrabotki-window {
+        margin: 10px;
+    }
+    
+    .otrabotki-window-header {
+        padding: 10px 15px;
+    }
+    
+    .otrabotki-window-content {
+        padding: 15px;
+        max-height: 400px;
+    }
+}
+
+/* --- Selected operator visual highlight override --- */
+.otrabotki-operators-list .otrabotki-operator-item.selected {
+  background: #fff !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.10), 0 0 0 2px rgba(37,99,235,0.20) inset !important;
+}
+.otrabotki-operators-list .otrabotki-operator-item.selected:hover {
+  background: #fff !important;
+}
+.otrabotki-operators-list .otrabotki-operator-item.selected .otrabotki-operator-hours {
+  color: #2563eb;
+  font-weight: 600;
+}

@@ -1,0 +1,22 @@
+.sidebar-disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+    position: relative;
+}
+.sidebar-disabled:hover::after {
+    content: attr(title);
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #222;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    font-size: 13px;
+    margin-left: 10px;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}

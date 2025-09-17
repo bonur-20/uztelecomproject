@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отработки | UZTELECOM</title>
+    
+    <!-- Подключаем общие стили -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/window-manager.css">
+    <link rel="stylesheet" href="css/sidebar-pin.css">
+    <link rel="stylesheet" href="css/sidebar-disabled.css">
+    <link rel="stylesheet" href="css/otrabotki.css">
+    <link rel="stylesheet" href="css/otrabotki-detail.css">
+    
+    <!-- Подключение Google Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/синее лого.png">
+</head>
+<body>
+    <header class="header-fixed">
+        <div class="header-title">
+            Отработки
+        </div>
+        <!-- Кнопки редактирования (скрыты по умолчанию) -->
+        <div class="header-editor-controls" id="header-editor-controls" style="display: none;">
+            <button class="editor-btn save-btn" id="save-btn">
+                <span class="material-icons">save</span>
+                Сохранить
+            </button>
+            <button class="editor-btn cancel-btn" id="cancel-btn">
+                <span class="material-icons">close</span>
+                Отменить
+            </button>
+            <button class="editor-btn add-remove-btn" id="add-remove-btn">
+                <span class="material-icons">add_box</span>
+                Добавить/Убрать
+            </button>
+            <button class="editor-btn reset-btn" id="reset-windows-btn">
+                <span class="material-icons">refresh</span>
+                Сбросить настройки окон
+            </button>
+            <!-- Выпадающий список для добавления окон -->
+            <div class="window-selector-dropdown" id="window-selector-dropdown">
+                <div class="window-selector-header">
+                    <span class="material-icons">widgets</span>
+                    <span>Доступные окна</span>
+                </div>
+                <div class="window-selector-list">
+                    <!-- Здесь будут новые окна для добавления -->
+                    <div class="window-selector-empty">
+                        <p>Пока нет доступных окон</p>
+                        <p><em>Окна будут добавлены по мере разработки</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-group">
+            <div class="header-user" id="header-user">
+                <span>Рискиев Б.</span>
+                <img src="assets/Аватар/Foto.jpg" alt="user" class="header-user-img">
+                <div class="header-dropdown disabled" id="header-dropdown">
+                    <a href="#" class="disabled"><span class="material-icons">edit</span> Редактор</a>
+                    <a href="#" class="disabled"><span class="material-icons">language</span> Изменить язык</a>
+                </div>
+                <div class="header-dropdown" id="header-dropdown">
+                    <a href="#" id="editor-toggle"><span class="material-icons">edit</span> Редактор</a>
+                    <a href="#"><span class="material-icons">language</span> Изменить язык</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="main-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar sidebar-figma collapsible-sidebar" onmouseenter="this.classList.add('open')" onmouseleave="this.classList.remove('open')">
+            <div class="sidebar-logo">
+                <img src="assets/mini.png" alt="UZTELECOM Logo" class="sidebar-logo-img" id="sidebar-logo-img">
+                <div class="sidebar-logo-text">
+                    <div class="sidebar-logo-title"></div>
+                    <div class="sidebar-logo-sub"></div>
+                </div>
+            </div>
+            <nav class="sidebar-menu-figma">
+                <a class="active"><span class="material-icons">access_time</span> <span class="sidebar-label">Отработки</span></a>
+                <a href="work-transfer.html"><span class="material-icons">calendar_today</span> <span class="sidebar-label">Перенос рабочего дня</span></a>
+                <a href="main.html"><span class="material-icons">school</span> <span class="sidebar-label">Обучение</span></a>
+                <a href="http://192.168.42.172:5001/" target="_blank"><span class="material-icons">checklist</span> <span class="sidebar-label">Лист контроль</span></a>
+                <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">notifications</span> <span class="sidebar-label">Уведомления</span> <span class="sidebar-badge">1</span></a>
+                <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">groups</span> <span class="sidebar-label">Операторы</span></a>
+                <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">report_problem</span> <span class="sidebar-label">Технический сбой</span></a>
+                <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">person_add</span> <span class="sidebar-label">Привлечение к работам</span></a>
+                <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">bar_chart</span> <span class="sidebar-label">Статистика супервайзера</span></a>
+                <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">settings</span> <span class="sidebar-label">Настройки</span></a>
+            </nav>
+            
+            <!-- Кнопки фиксации сайдбара -->
+            <div class="sidebar-pin-controls">
+                <button class="pin-button pin-button-collapsed" id="sidebar-pin-collapsed-btn" title="Зафиксировать в закрытом виде">
+                    <span class="material-icons">push_pin</span>
+                    <span class="sidebar-label">Закрепить закрытым</span>
+                </button>
+                <button class="pin-button pin-button-expanded" id="sidebar-pin-expanded-btn" title="Зафиксировать в открытом виде">
+                    <span class="material-icons">lock</span>
+                    <span class="sidebar-label">Закрепить открытым</span>
+                </button>
+            </div>
+            
+            <a class="sidebar-exit" href="login.html"><span class="material-icons">logout</span> <span class="sidebar-label">Выйти</span></a>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content otrabotki-page">
+            <div class="training-layout">
+                <div class="training-layout__left">
+                    <div class="otrabotki-left-panel">
+                        <div class="otrabotki-group-row-wrap" style="display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+                            <div class="otrabotki-group-row" style="margin-bottom: 0;">
+                                <select class="otrabotki-group-select">
+                                    <option>Группа 1000</option>
+                                    <option>Группа 1009</option>
+                                    <option>Группа 1242</option>
+                                    <option>Группа 1093</option>
+                                    <option>Группа 1170</option>
+                                    <option>Группа ДОП</option>
+                                    <option>Группа БКМ</option>
+                                </select>
+                                <div class="otrabotki-group-dropdown" id="otrabotki-group-dropdown-root">
+                                    <div class="otrabotki-group-dropdown-selected" id="otrabotki-group-dropdown-selected">Группа 1000</div>
+                                    <div class="otrabotki-group-dropdown-list" id="otrabotki-group-dropdown-list">
+                                        <div class="otrabotki-group-dropdown-item">Группа 1000</div>
+                                        <div class="otrabotki-group-dropdown-item">Группа 1009</div>
+                                        <div class="otrabotki-group-dropdown-item">Группа 1242</div>
+                                        <div class="otrabotki-group-dropdown-item">Группа 1093</div>
+                                        <div class="otrabotki-group-dropdown-item">Группа 1170</div>
+                                        <div class="otrabotki-group-dropdown-item">Группа ДОП</div>
+                                        <div class="otrabotki-group-dropdown-item">Группа БКМ</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="otrabotki-date-range">
+                                <div class="center-group">
+                                    <div class="date-column calendar-anchor">
+                                        <div class="date-picker">
+                                            <span class="material-icons">calendar_today</span>
+                                            <input type="text" id="date-from" placeholder="С:" autocomplete="off" aria-label="Дата с" readonly aria-readonly="true" />
+                                            <button type="button" class="date-clear-btn" id="date-from-clear" title="Очистить дату">
+                                                <span class="material-icons">close</span>
+                                            </button>
+                                        </div>
+                                        <div id="calendar-from" class="calendar-popover calendar-hidden" aria-hidden="true"></div>
+                                    </div>
+                                    <div class="date-column calendar-anchor">
+                                        <div class="date-picker">
+                                            <span class="material-icons">calendar_today</span>
+                                            <input type="text" id="date-to" placeholder="По:" autocomplete="off" aria-label="Дата по" readonly aria-readonly="true" />
+                                            <button type="button" class="date-clear-btn" id="date-to-clear" title="Очистить дату">
+                                                <span class="material-icons">close</span>
+                                            </button>
+                                        </div>
+                                        <div id="calendar-to" class="calendar-popover calendar-hidden" aria-hidden="true"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="otrabotki-operator-search-wrap">
+                            <span class="otrabotki-operator-search-icon material-icons">search</span>
+                            <input type="text" class="otrabotki-operator-search" placeholder="Поиск оператора">
+                        </div>
+                        <div class="otrabotki-operators-list">
+                            <!-- Список операторов для левого окна (формируется JS) -->
+                        </div>
+                        
+                        <!-- Модальное окно с подробной информацией -->
+                        <div class="operator-info-modal" id="operator-info-modal">
+                            <div class="operator-info-modal-overlay" id="operator-info-modal-overlay"></div>
+                            <div class="operator-info-modal-content">
+                                <div class="operator-info-modal-header">
+                                    <h3 class="operator-info-modal-title">Подробная информация</h3>
+                                    <button class="operator-info-modal-close" id="operator-info-modal-close">
+                                        <span class="material-icons">close</span>
+                                    </button>
+                                </div>
+                                <div class="operator-info-modal-body">
+                                    <div class="operator-info-details">
+                                        <p>* 05.08.2025 — недоработка 0 минут; перерыв превышен на 1 час 57 минут;</p>
+                                        <p>* 07.08.2025 — недоработка 9 минут; перерыв превышен на 6 часов 16 минут;</p>
+                                        <p>* 08.08.2025 — недоработка 12 часов;</p>
+                                        <p>* 09.08.2025 — недоработка 0 минут; перерыв превышен на 1 час 57 минут;</p>
+                                        <p>* 12.08.2025 — недоработка 9 минут; перерыв превышен на 6 часов 16 минут;</p>
+                                        <p>* 13.08.2025 — недоработка 1 минута; перерыв превышен на 3 часа 47 минут;</p>
+                                        <p>* 14.08.2025 — перерыв превышен, учитываем от 01:30: 17 минут;</p>
+                                        <p>* 16.08.2025 — перерыв превышен, учитываем от 01:30: 16 минут</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="training-layout__right empty">
+                    <!-- Заглушка: показывается, когда оператор не выбран -->
+                    <div class="otrabotki-empty-overlay" role="status" aria-live="polite">
+                        <div class="training-placeholder">
+                            <h2>Выберите оператора</h2>
+                            <div class="placeholder-info">
+                                <p>Чтобы увидеть карточку с деталями и историей, выберите оператора в списке слева.</p>
+                                <ul>
+                                    <li>Найдите нужного оператора через поиск</li>
+                                    <li>Кликните по строке оператора</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Детальная информация об операторе -->
+                    <div class="otrabotki-detail-card">
+                        <div class="otrabotki-detail-header">
+                            <!-- Левая колонка: аватар и информация -->
+                            <div class="otrabotki-detail-left">
+                                <div class="otrabotki-detail-avatar-wrap">
+                                    <img src="http://127.0.0.1:5507/assets/%D0%9E%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D1%8B%20%D1%81%20%D0%A4.%D0%98.%D0%9E/Riskiyev%20Bonur%20Boxodir%20o'g'li%20(0485).jpg" alt="Фото оператора" class="otrabotki-detail-avatar" id="otrabotki-detail-avatar">
+                                </div>
+                                <div class="otrabotki-detail-info">
+                                    <h2 class="otrabotki-detail-name" id="otrabotki-detail-name">Riskiyev Bonur Boxodir o'g'li (0485)</h2>
+                                    <div class="otrabotki-detail-schedule">
+                                        <div class="schedule-row">
+                                            <span class="schedule-label" data-full-text="О (с: 01.08.2025 до: 24.08.2025) и Н (с: 25.08.2025 до: 25.08.2025) и БС (с: 26.08.2025 до: 12.09.2025)">О (с: 01.08.2025 до: 24.08.2025) и Н (с: 25.08.2025 до: 25.08.2025) и БС (с: 26.08.2025 до: 12.09.2025)</span>
+                                        </div>
+                                    </div>
+                                    <div class="otrabotki-detail-contacts">
+                                        <a href="tel:+998977733423" class="otrabotki-detail-phone">
+                                            <span class="material-icons">phone</span>
+                                            <span>+998 97 773 34 23</span>
+                                        </a>
+                                        <span class="otrabotki-detail-group">Группа 1000</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Центральная колонка: счетчик времени -->
+                            <div class="otrabotki-detail-center">
+                                <div class="otrabotki-detail-counter">
+                                    <div class="otrabotki-time-counter">
+                                        <!-- Круговой индикатор прогресса -->
+                                        <div class="time-counter-circle">
+                                            <svg class="progress-ring" width="126" height="126">
+                                                <!-- Фоновый круг -->
+                                                <circle class="progress-ring-circle-bg" cx="63" cy="63" r="56" />
+                                                <!-- Прогресс круг -->
+                                                <circle class="progress-ring-circle" cx="63" cy="63" r="56" />
+                                                <!-- Внутреннее кольцо фон -->
+                                                <circle class="progress-ring-inner-bg" cx="63" cy="63" r="48" />
+                                                <!-- Внутреннее кольцо прогресс -->
+                                                <circle class="progress-ring-inner" cx="63" cy="63" r="48" />
+                                            </svg>
+                                            <!-- Отображение времени в центре -->
+                                            <span class="time-counter-value">02:14:48</span>
+                                        </div>
+                                        <!-- Иконка информации -->
+                                        <div class="time-counter-info">
+                                            <span class="material-icons info-icon">info</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Правая колонка: комментарий и кнопки -->
+                            <div class="otrabotki-detail-right">
+                                <!-- Селекторы даты и времени -->
+                                <div class="otrabotki-datetime-selectors">
+                                    <div class="otrabotki-datetime-group calendar-anchor">
+                                        <label class="otrabotki-datetime-label">Дата:</label>
+                                        <div class="date-picker">
+                                            <span class="material-icons">calendar_today</span>
+                                            <input type="text" class="otrabotki-date-input" placeholder="дд.мм.гггг" autocomplete="off" readonly />
+                                            <button type="button" class="date-clear-btn" title="Очистить дату">
+                                                <span class="material-icons">close</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="otrabotki-datetime-group">
+                                        <label class="otrabotki-datetime-label">Время:</label>
+                                        <div class="date-picker">
+                                            <span class="material-icons">schedule</span>
+                                            <input type="text" class="otrabotki-time-input" placeholder="чч:мм" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="otrabotki-comment-section">
+                                    <div class="otrabotki-comment-input-wrap">
+                                        <div class="otrabotki-attach-file-btn">
+                                            <div class="otrabotki-attach-btn-content">
+                                                <span class="material-icons">attach_file</span>
+                                                <span>Прикрепить файл</span>
+                                            </div>
+                                            <!-- Прикрепленные файлы внутри кнопки -->
+                                            <div class="otrabotki-comment-files" id="otrabotki-comment-files">
+                                        <div class="otrabotki-comment-file">
+                                            <span class="material-icons otrabotki-comment-file-icon">description</span>
+                                            <span class="otrabotki-comment-file-name">Документ_1.pdf</span>
+                                            <button class="otrabotki-comment-file-remove">
+                                                <span class="material-icons">close</span>
+                                            </button>
+                                        </div>
+                                                <div class="otrabotki-comment-file">
+                                                    <span class="material-icons otrabotki-comment-file-icon">description</span>
+                                                    <span class="otrabotki-comment-file-name">Документ_1.pdf</span>
+                                                    <button class="otrabotki-comment-file-remove">
+                                                        <span class="material-icons">close</span>
+                                                    </button>
+                                                </div>
+                                                <div class="otrabotki-comment-file">
+                                                    <span class="material-icons otrabotki-comment-file-icon">image</span>
+                                                    <span class="otrabotki-comment-file-name">Скриншот_экрана.png</span>
+                                                    <button class="otrabotki-comment-file-remove">
+                                                        <span class="material-icons">close</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <textarea class="otrabotki-comment-input" placeholder="Оставьте комментарий...."></textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="otrabotki-actions">
+                                    <button class="otrabotki-action-btn otrabotki-exclude-btn">
+                                        <span class="material-icons" style="font-size: 18px; margin-right: 6px;">block</span>
+                                        <span>Исключить</span>
+                                    </button>
+                                    <button class="otrabotki-action-btn otrabotki-mark-btn">
+                                        <span class="material-icons" style="font-size: 18px; margin-right: 6px;">check_circle</span>
+                                        <span>Отработать</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="otrabotki-history-table-wrap">
+                            <table class="otrabotki-history-table">
+                                <colgroup>
+                                    <col style="width:60px" />
+                                    <col style="width:110px" />
+                                    <col style="width:120px" />
+                                    <col style="width:80px" />
+                                    <col />
+                                    <col style="width:150px" />
+                                    <col style="width:60px" />
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th class="status-column">Статус</th>
+                                        <th class="type-column">Тип</th>
+                                        <th class="table-date-column">Дата</th>
+                                        <th class="time-column">Время</th>
+                                        <th class="comment-column">Комментарий</th>
+                                        <th class="file-column">Прикреплённый файл</th>
+                                        <th class="actions-column" title="Действия"><span class="material-icons" aria-hidden="true" style="font-size:16px; color:#6b7280;">edit</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="completed-row">
+                                        <td class="status-cell">
+                                            <span class="status-icon completed"></span>
+                                        </td>
+                                        <td>Отработка</td>
+                                        <td>20 Авг 2025</td>
+                                        <td>04:00</td>
+                                        <td>-</td>
+                                        <td>
+                                            <a href="#" class="file-link">Скриншот.png</a>
+                                        </td>
+                                        <td>
+                                            <button class="edit-record-btn">
+                                                <span class="material-icons">edit</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="pending-row">
+                                        <td class="status-cell">
+                                            <span class="status-icon pending"></span>
+                                        </td>
+                                        <td>Отработка</td>
+                                        <td>26 Авг 2025</td>
+                                        <td>02:00</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>
+                                            <button class="edit-record-btn">
+                                                <span class="material-icons">edit</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="pending-row">
+                                        <td class="status-cell">
+                                            <span class="status-icon pending"></span>
+                                        </td>
+                                        <td>Отработка</td>
+                                        <td>27 Авг 2025</td>
+                                        <td>02:00</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>
+                                            <button class="edit-record-btn">
+                                                <span class="material-icons">edit</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="missed-row">
+                                        <td class="status-cell">
+                                            <span class="status-icon missed"></span>
+                                        </td>
+                                        <td>Отработка</td>
+                                        <td>21 Авг 2025</td>
+                                        <td>04:00</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>
+                                            <button class="edit-record-btn">
+                                                <span class="material-icons">edit</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="excluded-row">
+                                        <td class="status-cell">
+                                            <span class="status-icon excluded"></span>
+                                        </td>
+                                        <td>Исключено</td>
+                                        <td>17 Авг 2025</td>
+                                        <td>00:30</td>
+                                        <td>Помогал хозяйственным делам (перенос воды)</td>
+                                        <td>
+                                            <a href="#" class="file-link">Скриншот.png</a>
+                                        </td>
+                                        <td>
+                                            <button class="edit-record-btn">
+                                                <span class="material-icons">edit</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="excluded-row">
+                                        <td class="status-cell">
+                                            <span class="status-icon excluded"></span>
+                                        </td>
+                                        <td>Исключено</td>
+                                        <td>05 Авг 2025</td>
+                                        <td>02:00</td>
+                                        <td>Был на обучении ГИС</td>
+                                        <td>
+                                            <a href="#" class="file-link">Скриншот.png</a>
+                                        </td>
+                                        <td>
+                                            <button class="edit-record-btn">
+                                                <span class="material-icons">edit</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="excluded-row">
+                                        <td class="status-cell">
+                                            <span class="status-icon excluded"></span>
+                                        </td>
+                                        <td>Исключено</td>
+                                        <td>03 Авг 2025</td>
+                                        <td>-</td>
+                                        <td>Был на обучении услуги 1170</td>
+                                        <td>
+                                            <a href="#" class="file-link">Скриншот.png</a>
+                                        </td>
+                                        <td>
+                                            <button class="edit-record-btn">
+                                                <span class="material-icons">edit</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="excluded-row">
+                                        <td class="status-cell">
+                                            <span class="status-icon excluded"></span>
+                                        </td>
+                                        <td>Исключено</td>
+                                        <td>01 Авг 2025</td>
+                                        <td>03:00</td>
+                                        <td>Помогал хозяйственным делам (уборка Аквариума)</td>
+                                        <td>
+                                            <a href="#" class="file-link">Скриншот.png</a>
+                                        </td>
+                                        <td>
+                                            <button class="edit-record-btn">
+                                                <span class="material-icons">edit</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    <!-- Вынесенный dropdown -->
+    <div class="otrabotki-operators-dropdown" id="otrabotki-operators-dropdown-root"></div>
+    </div>
+    
+    <!-- Подключаем скрипты -->
+    <link rel="stylesheet" href="css/otrabotki.css">
+    <link rel="stylesheet" href="css/calendar-popover.css">
+    <link rel="stylesheet" href="css/otrabotki-comment-files.css">
+    <link rel="stylesheet" href="css/schedule-tooltip.css">
+    <link rel="stylesheet" href="css/operator-info-modal.css">
+    <script src="script.js"></script>
+    <script src="js/sidebar-pin-manager.js"></script>
+    <script src="js/calendar-popover.js"></script>
+    <script src="js/otrabotki-date-manager.js"></script>
+    <script src="js/otrabotki-file-attachment.js"></script>
+    <!-- Сначала загружаем базовые файлы с данными -->
+    <script src="js/otrabotki.js"></script> <!-- Определяет otrabotkiOperators -->
+    <script src="js/operator-schedules.js"></script> <!-- Использует otrabotkiOperators -->
+    <script src="js/schedule-tooltip.js"></script> <!-- Использует данные после загрузки -->
+    <script src="js/time-counter.js"></script> <!-- Круговой счетчик времени -->
+    <script src="js/operator-info-modal.js"></script> <!-- Модальное окно с информацией -->
+    <script src="js/otrabotki-datetime-manager.js"></script> <!-- Управление датой и временем -->
+    <!-- Затем файлы, зависящие от данных -->
+    <script src="js/otrabotki-detail.js"></script>
+    <script src="js/otrabotki-manager.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализация общих компонентов
+            initCommonComponents();
+            
+            // Здесь будет инициализация новых окон отработок
+            console.log('Отдел отработок загружен - готов к настройке новых окон');
+        });
+        
+        function initCommonComponents() {
+            // Инициализация сайдбара
+            const sidebar = document.querySelector('.sidebar');
+            const logoImg = document.getElementById('sidebar-logo-img');
+            
+            if (sidebar && logoImg) {
+                sidebar.addEventListener('mouseenter', () => {
+                    if (window.isSidebarPinned && window.isSidebarPinned()) return;
+                    logoImg.src = 'assets/logo.png';
+                    sidebar.classList.add('open');
+                    document.body.classList.add('sidebar-open');
+                });
+                
+                sidebar.addEventListener('mouseleave', () => {
+                    if (window.isSidebarPinned && window.isSidebarPinned()) return;
+                    logoImg.src = 'assets/mini.png';
+                    sidebar.classList.remove('open');
+                    document.body.classList.remove('sidebar-open');
+                });
+            }
+            
+            // Инициализация dropdown пользователя (отключен в отработках)
+            const headerUserImg = document.querySelector('.header-user-img');
+            const headerDropdown = document.getElementById('header-dropdown');
+            
+            // В отработках dropdown отключен
+            if (headerUserImg && headerDropdown && !headerDropdown.classList.contains('disabled')) {
+                headerUserImg.addEventListener('click', function(e) {
+                    headerDropdown.classList.toggle('show');
+                    e.stopPropagation();
+                });
+                
+                document.addEventListener('click', function(e) {
+                    if (!headerDropdown.contains(e.target) && e.target !== headerUserImg) {
+                        headerDropdown.classList.remove('show');
+                    }
+                });
+            }
+            
+            // Инициализация режима редактирования
+            const editorToggle = document.getElementById('editor-toggle');
+            const headerEditorControls = document.getElementById('header-editor-controls');
+            
+            if (editorToggle) {
+                editorToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Показываем панель редактирования
+                    if (headerEditorControls) {
+                        headerEditorControls.style.display = 'flex';
+                        setTimeout(() => {
+                            headerEditorControls.classList.add('show');
+                        }, 10);
+                    }
+                    console.log('Режим редактирования активирован - готов к добавлению окон');
+                });
+            }
+        }
+    </script>
+
+    <!-- Календарь перемещен в корень для корректного z-index -->
+    <div id="otrabotki-calendar-detail" class="calendar-popover calendar-hidden" aria-hidden="true"></div>
+    
+    <!-- Time-picker перемещен в корень для корректного z-index -->
+    <div id="otrabotki-time-picker" class="time-picker-popover time-picker-hidden" aria-hidden="true">
+        <div class="time-picker-content">
+            <div class="time-picker-section">
+                <label>Часы:</label>
+                <div class="time-scroll-container" data-type="hours">
+                    <!-- Часы будут добавлены через JS -->
+                </div>
+            </div>
+            <div class="time-picker-section">
+                <label>Минуты:</label>
+                <div class="time-scroll-container" data-type="minutes">
+                    <!-- Минуты будут добавлены через JS -->
+                </div>
+            </div>
+        </div>
+        <div class="time-picker-actions">
+            <button type="button" class="time-picker-btn time-picker-cancel">Отмена</button>
+            <button type="button" class="time-picker-btn time-picker-ok">OK</button>
+        </div>
+    </div>
+
+</body>
+</html>

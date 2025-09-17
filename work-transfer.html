@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перенос рабочего дня | UZTELECOM</title>
+    
+    <!-- Подключаем общие стили -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/window-manager.css">
+    <link rel="stylesheet" href="css/sidebar-pin.css">
+    <link rel="stylesheet" href="css/sidebar-disabled.css">
+    <link rel="stylesheet" href="css/work-transfer.css">
+    
+    <!-- Подключение Google Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/синее лого.png">
+</head>
+<body>
+    <header class="header-fixed">
+        <div class="header-title">
+            Перенос рабочего дня
+        </div>
+        <!-- Кнопки редактирования (скрыты по умолчанию) -->
+        <div class="header-editor-controls" id="header-editor-controls" style="display: none;">
+            <button class="editor-btn save-btn" id="save-btn">
+                <span class="material-icons">save</span>
+                Сохранить
+            </button>
+            <button class="editor-btn cancel-btn" id="cancel-btn">
+                <span class="material-icons">close</span>
+                Отменить
+            </button>
+            <button class="editor-btn add-remove-btn" id="add-remove-btn">
+                <span class="material-icons">add_box</span>
+                Добавить/Убрать
+            </button>
+            <button class="editor-btn reset-btn" id="reset-windows-btn">
+                <span class="material-icons">refresh</span>
+                Сбросить настройки окон
+            </button>
+            <!-- Выпадающий список для добавления окон -->
+            <div class="window-selector-dropdown" id="window-selector-dropdown">
+                <div class="window-selector-header">
+                    <span class="material-icons">widgets</span>
+                    <span>Доступные окна</span>
+                </div>
+                <div class="window-selector-list">
+                    <!-- Здесь будут новые окна для добавления -->
+                    <div class="window-selector-empty">
+                        <p>Пока нет доступных окон</p>
+                        <p><em>Окна будут добавлены по мере разработки</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-group">
+            <div class="header-user" id="header-user">
+                <span>Рискиев Б.</span>
+                <img src="assets/Аватар/Foto.jpg" alt="user" class="header-user-img">
+                <div class="header-dropdown" id="header-dropdown">
+                    <a href="#" id="editor-toggle"><span class="material-icons">edit</span> Редактор</a>
+                    <a href="#"><span class="material-icons">language</span> Изменить язык</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="main-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar sidebar-figma collapsible-sidebar" onmouseenter="this.classList.add('open')" onmouseleave="this.classList.remove('open')">
+            <div class="sidebar-logo">
+                <img src="assets/mini.png" alt="UZTELECOM Logo" class="sidebar-logo-img" id="sidebar-logo-img">
+                <div class="sidebar-logo-text">
+                    <div class="sidebar-logo-title"></div>
+                    <div class="sidebar-logo-sub"></div>
+                </div>
+            </div>
+            <nav class="sidebar-menu-figma">
+                <a href="otrabotki.html"><span class="material-icons">access_time</span> <span class="sidebar-label">Отработки</span></a>
+                <a class="active"><span class="material-icons">calendar_today</span> <span class="sidebar-label">Перенос рабочего дня</span></a>
+                <a href="main.html"><span class="material-icons">school</span> <span class="sidebar-label">Обучение</span></a>
+                <a href="http://192.168.42.172:5001/" target="_blank"><span class="material-icons">checklist</span> <span class="sidebar-label">Лист контроль</span></a>
+                <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">notifications</span> <span class="sidebar-label">Уведомления</span> <span class="sidebar-badge">1</span></a>
+                <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">groups</span> <span class="sidebar-label">Операторы</span></a>
+                <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">report_problem</span> <span class="sidebar-label">Технический сбой</span></a>
+                <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">person_add</span> <span class="sidebar-label">Привлечение к работам</span></a>
+                <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">bar_chart</span> <span class="sidebar-label">Статистика супервайзера</span></a>
+                <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">settings</span> <span class="sidebar-label">Настройки</span></a>
+            </nav>
+            
+            <!-- Кнопки фиксации сайдбара -->
+            <div class="sidebar-pin-controls">
+                <button class="pin-button pin-button-collapsed" id="sidebar-pin-collapsed-btn" title="Зафиксировать в закрытом виде">
+                    <span class="material-icons">push_pin</span>
+                    <span class="sidebar-label">Закрепить закрытым</span>
+                </button>
+                <button class="pin-button pin-button-expanded" id="sidebar-pin-expanded-btn" title="Зафиксировать в открытом виде">
+                    <span class="material-icons">lock</span>
+                    <span class="sidebar-label">Закрепить открытым</span>
+                </button>
+            </div>
+            
+            <a class="sidebar-exit" href="login.html"><span class="material-icons">logout</span> <span class="sidebar-label">Выйти</span></a>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content work-transfer-page">
+                <div class="training-layout">
+
+                    <!-- Карточка центра -->
+                    <section class="card work-transfer-card" role="region" aria-label="Перенос рабочего дня">
+                        <!-- Верхняя панель операций -->
+                        <div class="card-header">
+                            <div class="left-group">
+                                <div class="user-avatar" data-placeholder="assets/Аватар/placeholder.png" data-placeholder-creative="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='%231E88E5'/><stop offset='1' stop-color='%2342A5F5'/></linearGradient></defs><circle cx='80' cy='80' r='78' fill='url(%23g)'/><circle cx='80' cy='62' r='28' fill='%23FAFAFA'/><path d='M26 148c6-26 33-42 54-42s48 16 54 42' fill='%23FAFAFA'/><circle cx='80' cy='80' r='78' fill='none' stroke='%23FFFFFF' stroke-opacity='.45' stroke-width='2'/></svg>" data-use-creative="false">
+                                    <img src="assets/Аватар/placeholder.png" alt="Аватар" onerror="this.onerror=null;this.src=this.closest('.user-avatar').getAttribute('data-placeholder-creative')" />
+                                </div>
+                                <div class="search-field">
+                                    <div class="search-title">Выберите оператора</div>
+                                    <div class="search-input">
+                                        <span class="material-icons search-icon">search</span>
+                         <input type="text"
+                             id="global-search"
+                             name="operator-search"
+                             placeholder="Поиск оператора"
+                             aria-label="Поиск сотрудника"
+                             autocomplete="off"
+                             autocorrect="off"
+                             autocapitalize="off"
+                             spellcheck="false"
+                             inputmode="search" />
+                                    </div>
+                                    <div id="global-search-suggestions" class="search-suggestions hidden" role="listbox" aria-label="Подсказки сотрудников"></div>
+                                    <div class="search-meta">
+                                        <span class="reason-label">Причина:</span>
+                                        <div class="reason-text hidden"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="center-group">
+                                <div class="date-column calendar-anchor">
+                                    <div class="date-label">С выбранной даты:</div>
+                                    <div class="date-picker">
+                                        <span class="material-icons">calendar_today</span>
+                                        <input type="text" id="date-from" placeholder="" autocomplete="off" aria-label="Дата с" readonly aria-readonly="true" />
+                                    </div>
+                                    <div id="calendar-from" class="calendar-popover calendar-hidden" aria-hidden="true"></div>
+                                </div>
+                                <div class="center-arrow">&#8594;</div>
+                                <div class="date-column calendar-anchor">
+                                    <div class="date-label">На выбранную дату:</div>
+                                    <div class="date-picker">
+                                        <span class="material-icons">calendar_today</span>
+                                        <input type="text" id="date-to" placeholder="" autocomplete="off" aria-label="Дата по" readonly aria-readonly="true" />
+                                    </div>
+                                    <div id="calendar-to" class="calendar-popover calendar-hidden" aria-hidden="true"></div>
+                                </div>
+                            </div>
+
+                            <div class="right-group">
+                                <div class="comment-field">
+                                    <textarea id="global-comment" placeholder="Оставьте комментарий..." aria-label="Комментарий"></textarea>
+                                </div>
+                                <div class="actions">
+                                    <div class="attach-wrap">
+                                        <label class="attach-label" for="file-input">Прикрепить файл</label>
+                                        <span class="material-icons attach-pen" aria-hidden="true">attach_file</span>
+                                        <input id="file-input" type="file" accept="image/*" style="display:none" />
+                                    </div>
+                                    <div id="attachments-preview" class="attachments-preview" aria-live="polite"></div>
+                                    <button id="save-global" class="btn btn-primary outline">Сохранить <span class="material-icons">check</span></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Список записей -->
+                        <div class="list-wrapper" id="list-wrapper" role="list">
+                            <!-- Строки будут отрисованы JS -->
+                        </div>
+                    </section>
+
+                </div>
+        </main>
+    </div>
+    
+    <!-- Подключаем скрипты -->
+    <script src="script.js"></script>
+    <script src="js/sidebar-pin-manager.js"></script>
+    <script src="js/work-transfer-manager.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализация общих компонентов
+            initCommonComponents();
+            
+            // Здесь будет инициализация новых окон переноса рабочего дня
+            console.log('Отдел переноса рабочего дня загружен - готов к настройке новых окон');
+        });
+        
+        function initCommonComponents() {
+            // Инициализация сайдбара
+            const sidebar = document.querySelector('.sidebar');
+            const logoImg = document.getElementById('sidebar-logo-img');
+            
+            if (sidebar && logoImg) {
+                sidebar.addEventListener('mouseenter', () => {
+                    if (window.isSidebarPinned && window.isSidebarPinned()) return;
+                    logoImg.src = 'assets/logo.png';
+                    sidebar.classList.add('open');
+                    document.body.classList.add('sidebar-open');
+                });
+                
+                sidebar.addEventListener('mouseleave', () => {
+                    if (window.isSidebarPinned && window.isSidebarPinned()) return;
+                    logoImg.src = 'assets/mini.png';
+                    sidebar.classList.remove('open');
+                    document.body.classList.remove('sidebar-open');
+                });
+            }
+            
+            // Инициализация dropdown пользователя
+            const headerUser = document.getElementById('header-user');
+            const headerDropdown = document.getElementById('header-dropdown');
+            if (headerUser && headerDropdown) {
+                // Тоггл по клику на область пользователя (кроме кликов внутри самого меню)
+                headerUser.addEventListener('click', function(e) {
+                    if (headerDropdown.contains(e.target)) return; // не переоткрываем при клике внутри меню
+                    headerDropdown.classList.toggle('show');
+                    e.stopPropagation();
+                });
+                // Закрытие по клику вне области пользователя/меню
+                document.addEventListener('click', function(e) {
+                    if (!headerUser.contains(e.target)) {
+                        headerDropdown.classList.remove('show');
+                    }
+                });
+                // Закрытие по Esc
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') headerDropdown.classList.remove('show');
+                });
+            }
+            
+            // Инициализация режима редактирования
+            const editorToggle = document.getElementById('editor-toggle');
+            const headerEditorControls = document.getElementById('header-editor-controls');
+            
+            if (editorToggle) {
+                editorToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Показываем панель редактирования
+                    if (headerEditorControls) {
+                        headerEditorControls.style.display = 'flex';
+                        setTimeout(() => {
+                            headerEditorControls.classList.add('show');
+                        }, 10);
+                    }
+                    console.log('Режим редактирования активирован - готов к добавлению окон');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

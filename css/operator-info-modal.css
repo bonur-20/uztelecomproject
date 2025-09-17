@@ -1,0 +1,211 @@
+/* Стили для модального окна с информацией об операторе */
+.operator-info-modal {
+    border-radius: 16px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.operator-info-modal.show {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.operator-info-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(248, 250, 252, 0.98);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 15px;
+    overflow-y: auto;
+    border-radius: 18px;
+}
+
+.operator-info-modal-content {
+    position: relative;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(30, 90, 168, 0.04);
+    width: 100%;
+    max-width: 100%;
+    max-height: 91vh;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(-15px) scale(0.95);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.operator-info-modal.show .operator-info-modal-content {
+    transform: translateY(0) scale(1);
+}
+
+.operator-info-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 23px 14px;
+    border-bottom: 1px solid #e5e7eb;
+    background: #fff;
+    flex-shrink: 0;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+}
+
+.operator-info-modal-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e5aa8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.operator-info-modal-title::before {
+    content: "ℹ️";
+    font-size: 20px;
+}
+
+.operator-info-modal-close {
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #6b7280;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.operator-info-modal-close:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(239, 68, 68, 0.2);
+}
+
+.operator-info-modal-close .material-icons {
+    font-size: 20px;
+}
+
+/* Кастомный скроллбар для модального окна */
+.operator-info-modal-body::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+}
+.operator-info-modal-body::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 8px;
+}
+.operator-info-modal-body::-webkit-scrollbar-thumb:hover {
+    background: #c1c1c1;
+}
+.operator-info-modal-body {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 transparent;
+}
+
+.operator-info-modal-body {
+    padding: 6px 8px;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.operator-info-details {
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.operator-info-details p {
+    margin: 8px 6px 8px 6px;
+    padding: 6px 10px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #374151;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    opacity: 0;
+    animation: fadeInUp 0.3s ease forwards;
+}
+
+.operator-info-details p:last-child {
+    border-bottom: none;
+    margin-bottom: 8px;
+}
+
+.operator-info-details p:hover {
+    background-color: #f1f5f9;
+    transform: translateX(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.operator-info-details p:nth-child(odd) {
+    background-color: #f8fafc;
+}
+
+.operator-info-details p:nth-child(odd):hover {
+    background-color: #e2e8f0;
+    transform: translateX(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Задержки анимации для каждого элемента */
+.operator-info-details p:nth-child(1) { animation-delay: 0.05s; }
+.operator-info-details p:nth-child(2) { animation-delay: 0.1s; }
+.operator-info-details p:nth-child(3) { animation-delay: 0.15s; }
+.operator-info-details p:nth-child(4) { animation-delay: 0.2s; }
+.operator-info-details p:nth-child(5) { animation-delay: 0.25s; }
+.operator-info-details p:nth-child(6) { animation-delay: 0.3s; }
+.operator-info-details p:nth-child(7) { animation-delay: 0.35s; }
+.operator-info-details p:nth-child(8) { animation-delay: 0.4s; }
+
+/* Анимация появления */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .operator-info-modal-content {
+        width: 95%;
+        margin: 20px;
+    }
+    
+    .operator-info-modal-header {
+        padding: 16px 20px;
+    }
+    
+    .operator-info-modal-body {
+        padding: 20px;
+    }
+    
+    .operator-info-modal-title {
+        font-size: 16px;
+    }
+}

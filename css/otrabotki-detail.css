@@ -1,0 +1,1464 @@
+/* Стили для правой части с учетом открытия/закрытия сайдбара */
+.training-layout__right {
+    height: calc(100vh - 87px); /* Фиксированная высота с учетом заголовка и небольшого отступа */
+    transition: max-width 0.3s, width 0.3s; /* Плавный переход при изменении размеров */
+    overflow-y: auto; /* Добавляем вертикальную прокрутку */
+    overflow-x: hidden; /* Предотвращаем горизонтальную прокрутку */
+    box-sizing: border-box; /* Учитываем padding в расчете ширины */
+}
+
+/* Стили для левой части (помещаем здесь, чтобы не требовать отдельного training-layout.css) */
+.training-layout__left {
+    flex: 1 1 22%;
+    min-width: 320px;
+    background: #fff;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 87px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    transition: max-width 0.3s, width 0.3s, flex-basis 0.3s;
+}
+
+/* Когда сайдбар закрыт - правая часть шире */
+body:not(.sidebar-open) .training-layout__right {
+    /* Полагаемся на flex: занимает оставшееся пространство (примерно 65%) */
+    flex: 1 1 65%;
+    padding-right: 0px; /* Добавляем отступ справа */
+}
+
+/* Когда сайдбар открыт - правая часть уже */
+body.sidebar-open .training-layout__right {
+    flex: 1 1 65%;
+    padding-right: 0px; /* Добавляем отступ справа */
+}
+
+/* Стили для детальной информации об операторе в правой части */
+.otrabotki-detail-card {
+    background-color: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(30, 90, 168, 0.04);
+    padding: 15px 20px 20px 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Предотвращаем переполнение содержимого */
+    min-height: 0; /* Важно для правильной работы flex-контейнера с прокруткой */
+    width: 100%; /* Занимаем всю доступную ширину родительского контейнера */
+    transition: width 0.3s; /* Плавный переход при изменении ширины */
+}
+
+/* Принудительный флекс-лейаут для карточки деталей, чтобы избежать переопределений inline-стилей */
+.otrabotki-detail-card { display: flex !important; }
+
+/* Стили для верхней части с информацией об операторе */
+.otrabotki-detail-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eaedf0;
+    gap: 20px;
+    width: 100%;
+    flex-wrap: wrap; /* Разрешаем перенос элементов, если не помещаются */
+    min-width: 0; /* Важно для корректной работы с flex */
+}
+
+/* Левая колонка: аватар и информация */
+.otrabotki-detail-left {
+    display: flex;
+    gap: 15px;
+    flex: 2;
+    min-width: 0;
+    align-items: center; /* Выравнивание элементов по центру вертикально */
+}
+
+.otrabotki-detail-avatar-wrap {
+    flex: none;
+    border-radius: 12px;
+    width: 108px;
+    height: 145px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.otrabotki-detail-avatar-wrap:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(11,75,132,0.2);
+}
+
+.otrabotki-detail-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+    background: #ffffff; /* белая подложка под фото */
+    padding: 0px; /* пространство между фото и рамкой */
+    border: 1px solid #aaabad; /* тёмно-синяя рамка */
+    box-shadow: 0 6px 18px rgba(11,75,132,0.12); /* более выразительная тень */
+    transition: transform 0.3s ease;
+}
+
+.otrabotki-detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+    flex: 1;
+    text-align: center; /* Центрируем весь текст */
+    justify-content: center; /* Центрируем элементы по вертикали */
+    /* Убираем overflow: hidden, чтобы не обрезать всплывающие подсказки */
+    overflow: visible;
+    position: relative; /* Для правильного позиционирования вложенных абсолютных элементов */
+}
+
+.otrabotki-detail-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2b5a86;
+    margin: 0;
+    line-height: 1.3;
+    height: calc(1.3em * 2); /* Фиксированная высота на две строки */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Ограничение в две строки */
+    line-clamp: 2; /* Стандартное свойство для совместимости */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Многоточие для обрезанного текста */
+    word-wrap: break-word; /* Позволяем переносить слова */
+    overflow-wrap: break-word; /* Современное свойство для переноса длинных слов */
+}
+
+.otrabotki-detail-schedule {
+    margin-bottom: 0px;
+    position: relative;
+    overflow: visible;
+    z-index: 10; /* Обеспечиваем корректный z-index для всплывающей подсказки */
+}
+
+.schedule-row {
+    margin-bottom: 10px;
+    position: relative;
+    overflow: visible;
+}
+
+.schedule-label {
+    font-size: 14px;
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 350px;
+    display: inline-block;
+    position: relative;
+    cursor: help;
+}
+
+/* Стиль для всплывающей подсказки при наведении */
+.schedule-label:hover::after {
+    content: attr(data-full-text);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    margin-top: 5px;
+    background: #2b5a86;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    z-index: 999999;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    width: max-content;
+    max-width: 400px;
+    white-space: normal;
+    pointer-events: none; /* Чтобы всплывающая подсказка не мешала взаимодействию */
+    animation: tooltip-fade-in 0.2s ease;
+}
+
+/* Анимация появления всплывающей подсказки */
+@keyframes tooltip-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.otrabotki-detail-contacts {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Распределение элементов по краям */
+    width: 100%; /* Полная ширина для распределения по краям */
+    flex-wrap: wrap;
+}
+
+.otrabotki-detail-phone {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Выравнивание по левому краю */
+    color: #2b5a86;
+    text-decoration: none;
+    font-size: 14px;
+    margin-left: 25px; /* Отступ слева 10px */
+}
+
+.otrabotki-detail-phone .material-icons {
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+.otrabotki-detail-group {
+    color: #666;
+    font-size: 14px;
+    margin-right: 25px; /* Отступ справа 10px */
+    text-align: right; /* Выравнивание текста по правому краю */
+}
+
+/* Центральная колонка: счетчик времени */
+.otrabotki-detail-center {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Изменено с flex-start на center для вертикального центрирования */
+    flex: 1;
+}
+
+/* Стили для счетчика времени */
+.otrabotki-detail-counter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 0; /* Добавляем отступы сверху и снизу для лучшего вертикального позиционирования */
+}
+
+.otrabotki-time-counter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* Стили для кругового индикатора */
+.time-counter-circle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 126px;
+    height: 126px;
+}
+
+/* Стили для SVG кругов */
+.progress-ring {
+    transform: rotate(-90deg);
+}
+
+.progress-ring-circle-bg {
+    fill: transparent;
+    stroke: #f1f5f9;
+    stroke-width: 8px;
+}
+
+.progress-ring-circle {
+    fill: transparent;
+    stroke: #3b82f6;
+    stroke-width: 8px;
+    stroke-dasharray: 351.68; /* 2πr = 2 × 3.14 × 56 */
+    stroke-dashoffset: 351.68; /* Полностью пустой по умолчанию */
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+/* Стили для внутреннего фонового кольца */
+.progress-ring-inner-bg {
+    fill: transparent;
+    stroke: #e5e7eb;
+    stroke-width: 3px;
+}
+
+/* Стили для внутреннего кольца прогресса */
+.progress-ring-inner {
+    fill: transparent;
+    stroke: #60a5fa; /* Немного светлее основного кольца */
+    stroke-width: 3px;
+    stroke-dasharray: 301.44; /* 2πr = 2 × 3.14 × 48 */
+    stroke-dashoffset: 301.44; /* Полностью пустой по умолчанию */
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+.time-counter-value {
+    position: absolute;
+    font-size: 20px;
+    font-weight: 600;
+    color: #2b5a86;
+}
+
+.time-counter-info {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+    background: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.info-icon {
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* Правая колонка: комментарий и кнопки */
+.otrabotki-detail-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 2;
+    min-height: 150px;
+}
+
+/* Стили для селекторов даты и времени */
+.otrabotki-datetime-selectors {
+    display: flex;
+    flex-direction: row;
+    gap: 65px;
+    margin-bottom: 0px;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    min-width: 280px;
+    height: auto;
+    padding: 0;
+    transform: scaleY(0.9);
+}
+
+.otrabotki-datetime-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    min-width: auto;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.otrabotki-datetime-label {
+    font-size: 0.9em;
+    font-weight: 500;
+    color: #4f5966;
+    margin: 0;
+    white-space: nowrap;
+    min-width: 40px;
+}
+
+/* Стили для date-picker внутри selectors (наследуем от основного .date-picker) */
+.otrabotki-datetime-selectors .date-picker {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #bfc9d9;
+    border-radius: 4px;
+    padding: 2px 4px 2px 5px;
+    font-size: 0.9em;
+    color: #4f5966;
+    font-weight: 500;
+    box-shadow: none;
+    transition: border 0.18s, box-shadow 0.18s;
+    cursor: pointer;
+    min-width: 80px;
+    max-width: 90px;
+    position: relative;
+    height: 23px;
+    gap: 4px;
+}
+
+.otrabotki-datetime-selectors .date-picker:focus-within {
+    border: 1.5px solid #003F7D;
+    box-shadow: 0 4px 16px rgba(30,90,168,0.13);
+}
+
+.otrabotki-datetime-selectors .date-picker .material-icons {
+    color: #7b7b7b;
+    font-size: 14px;
+    margin-right: 0px;
+    flex-shrink: 0;
+}
+
+.otrabotki-datetime-selectors .date-picker input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 0.9em;
+    color: #4f5966;
+    width: 100%;
+    font-weight: 500;
+    padding: 0;
+    cursor: pointer;
+    flex: 1;
+    min-width: 50px;
+    max-width: 65px;
+}
+
+/* Специфичные стили для селектора даты - увеличиваем ширину */
+.otrabotki-datetime-group:first-child .date-picker {
+    min-width: 110px;
+    max-width: 130px;
+}
+
+.otrabotki-datetime-group:first-child .date-picker input {
+    min-width: 70px;
+    max-width: 70px;
+}
+
+/* Специфичные стили для селектора времени - уменьшаем ширину на 20% */
+.otrabotki-datetime-group:last-child .date-picker {
+    min-width: 64px;  /* 80px - 20% = 64px */
+    max-width: 72px;  /* 90px - 20% = 72px */
+}
+
+.otrabotki-datetime-group:last-child .date-picker input {
+    min-width: 40px;  /* 50px - 20% = 40px */
+    max-width: 52px;  /* 65px - 20% = 52px */
+}
+
+/* Специальные стили для time input */
+.otrabotki-time-input {
+    cursor: pointer;
+}
+
+.otrabotki-time-input::-webkit-calendar-picker-indicator {
+    display: none; /* Скрываем стандартный индикатор времени */
+}
+
+/* Кнопка очистки даты */
+.otrabotki-datetime-selectors .date-clear-btn {
+    background: none;
+    border: none;
+    color: #7b7b7b;
+    cursor: pointer;
+    padding: 0;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+}
+
+.otrabotki-datetime-selectors .date-clear-btn:hover {
+    background-color: rgba(123, 123, 123, 0.1);
+}
+
+.otrabotki-datetime-selectors .date-clear-btn .material-icons {
+    font-size: 10px;
+}
+
+/* Стили для выбранной даты */
+.otrabotki-datetime-selectors .date-picker.date-selected {
+    border-color: #003F7D;
+    background: rgba(0, 63, 125, 0.02);
+}
+
+.otrabotki-datetime-selectors .date-picker.date-selected .material-icons {
+    color: #003F7D;
+}
+
+/* Специфичное позиционирование для календаря в otrabotki-detail */
+#otrabotki-calendar-detail.calendar-popover {
+    position: fixed;
+    z-index: 1000;
+    display: none;
+}
+
+/* Показать календарь когда не скрыт */
+#otrabotki-calendar-detail.calendar-popover:not(.calendar-hidden) {
+    display: block !important;
+}
+
+/* Стили для time picker popover - независимый элемент с высоким z-index */
+.time-picker-popover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    background: #fff;
+    border: 1px solid #e6edf6;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(15, 30, 60, 0.12);
+    z-index: 10000; /* Очень высокий z-index чтобы не перекрывали другие окна */
+    user-select: none;
+    padding: 15px;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.time-picker-popover.time-picker-hidden {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+}
+
+.time-picker-content {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.time-picker-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.time-picker-section label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #4f5966;
+    text-align: center;
+}
+
+.time-scroll-container {
+    height: 120px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow-y: auto;
+    background: #f9fafb;
+}
+
+.time-scroll-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.time-scroll-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.time-scroll-container::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 2px;
+}
+
+.time-option {
+    padding: 8px 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #4f5966;
+    transition: background-color 0.2s;
+}
+
+.time-option:hover {
+    background-color: rgba(0, 63, 125, 0.08);
+}
+
+.time-option.selected {
+    background-color: #003F7D;
+    color: white;
+    font-weight: 500;
+}
+
+.time-picker-actions {
+    display: flex;
+    gap: 18px;
+    justify-content: flex-end;
+}
+
+.time-picker-btn {
+    padding: 6px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: white;
+    color: #4f5966;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.time-picker-btn:hover {
+    background-color: #f9fafb;
+}
+
+.time-picker-btn.time-picker-ok {
+    background-color: #003F7D;
+    color: white;
+    border-color: #003F7D;
+}
+
+.time-picker-btn.time-picker-ok:hover {
+    background-color: #002851;
+}
+
+/* Специальные стили для Firefox */
+@-moz-document url-prefix() {
+    .otrabotki-datetime-input[type="date"],
+    .otrabotki-datetime-input[type="time"] {
+        padding: 8px 10px;
+        appearance: none;
+        -moz-appearance: none;
+    }
+}
+
+/* Стили для темной темы (если понадобится) */
+@media (prefers-color-scheme: dark) {
+    .otrabotki-datetime-input {
+        background-color: #1f2937;
+        border-color: #374151;
+        color: #f9fafb;
+    }
+    
+    .otrabotki-datetime-input:focus {
+        border-color: #3b82f6;
+    }
+    
+    .otrabotki-datetime-label {
+        color: #f9fafb;
+    }
+}
+
+/* Анимация для появления селекторов */
+.otrabotki-datetime-selectors {
+    animation: slideInFromTop 0.3s ease-out;
+}
+
+@keyframes slideInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Адаптивные стили для селекторов */
+@media (max-width: 768px) {
+    .otrabotki-datetime-selectors {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .otrabotki-datetime-group {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .otrabotki-datetime-label {
+        min-width: 40px;
+    }
+    
+    .otrabotki-datetime-group:first-child .date-picker {
+        min-width: 120px;
+        max-width: 140px;
+    }
+    
+    .otrabotki-datetime-group:last-child .date-picker {
+        min-width: 80px;
+        max-width: 90px;
+    }
+}
+
+/* Дополнительные стили для небольших экранов */
+@media (max-width: 480px) {
+    .otrabotki-datetime-selectors {
+        margin-bottom: 15px;
+    }
+    
+    .otrabotki-datetime-input {
+        padding: 12px;
+        font-size: 16px; /* Предотвращает зум на iOS */
+    }
+}
+
+/* Стили для секции комментария */
+.otrabotki-comment-section {
+    margin-left: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.otrabotki-comment-input-wrap {
+    display: flex;
+    flex-direction: column;
+    background-color: #f9fafb;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 0;
+    min-height: 80px;
+    max-height: 80px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.otrabotki-comment-input-wrap:focus-within {
+    border-color: #003F7D;
+    box-shadow: 0 2px 12px rgba(11,75,132,0.1);
+}
+
+.otrabotki-comment-input {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    padding: 5px 12px 5px 12px;
+    font-size: 14px;
+    outline: none;
+    resize: none;
+    min-height: 62px;
+    font-family: inherit;
+    line-height: 1.5;
+    color: #374151;
+    border-radius: 0 0 12px 12px;
+}
+
+.otrabotki-comment-input::placeholder {
+    color: #9ca3af;
+}
+
+/* Кастомный скроллбар для поля ввода комментария (как в списке операторов) */
+.otrabotki-comment-input::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+}
+
+.otrabotki-comment-input::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 8px;
+}
+
+.otrabotki-comment-input::-webkit-scrollbar-thumb:hover {
+    background: #c1c1c1;
+}
+
+.otrabotki-comment-input {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 transparent;
+}
+
+.otrabotki-attach-file-btn {
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    border: none;
+    color: #6b7280;
+    font-size: 14px;
+    cursor: default;
+    padding: 3px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    border-radius: 12px 12px 0 0;
+    transition: all 0.2s ease;
+    gap: 12px;
+    align-items: center;
+}
+
+.otrabotki-attach-btn-content {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    cursor: pointer;
+    padding: 2px 0px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.otrabotki-attach-btn-content:hover {
+    background-color: rgba(0, 63, 125, 0.05);
+}
+
+.otrabotki-comment-files {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    flex-wrap: nowrap;
+    flex: 1;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-height: 21px;
+    min-width: 0;
+    width: 100%;
+}
+
+.otrabotki-comment-files::-webkit-scrollbar {
+    height: 0px;
+}
+
+.otrabotki-comment-files::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.otrabotki-comment-files::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+.otrabotki-comment-files::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+}
+
+.otrabotki-comment-file {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px;
+    background-color: rgba(0, 63, 125, 0.08);
+    border-radius: 4px;
+    font-size: 11px;
+    border: 1px solid rgba(0, 63, 125, 0.15);
+    min-width: 0;
+    max-width: 80px;
+}
+
+.otrabotki-comment-file-icon {
+    font-size: 12px !important;
+    color: #6b7280;
+    flex-shrink: 0;
+}
+
+.otrabotki-comment-file-name {
+    font-size: 10px;
+    color: #4f5966;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
+}
+
+.otrabotki-comment-file-remove {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 0;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.otrabotki-comment-file-remove:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.otrabotki-comment-file-remove .material-icons {
+    font-size: 10px;
+}
+
+.otrabotki-attach-file-btn:hover {
+    background-color: rgba(43, 90, 134, 0.08);
+}
+
+.otrabotki-attach-file-btn .material-icons {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+/* Стили для кнопок действий */
+.otrabotki-actions {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin-top: auto;
+    padding: 0px 0;
+}
+
+.otrabotki-action-btn {
+    padding: 2px 6px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    border: 2px solid;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.otrabotki-action-btn .material-icons {
+    font-size: 16px !important;
+}
+
+.otrabotki-exclude-btn {
+    background-color: #ffffff;
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.otrabotki-exclude-btn:hover {
+    background-color: #fef2f2;
+    border-color: #dc2626;
+    color: #dc2626;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+.otrabotki-mark-btn {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+}
+
+.otrabotki-mark-btn:hover {
+    background-color: #2563eb;
+    border-color: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.otrabotki-action-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.otrabotki-mark-btn:hover {
+    background-color: #254e75;
+}
+
+/* Стили для заголовка истории */
+.otrabotki-history-header {
+    margin-bottom: 15px;
+}
+
+.otrabotki-history-title-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.otrabotki-attached-file-section {
+    display: flex;
+    align-items: center;
+}
+
+.section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.file-control-actions {
+    margin-left: 15px;
+}
+
+.file-edit-btn {
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 2px;
+}
+
+.otrabotki-history-title {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* Кастомный скроллбар для таблицы истории */
+.otrabotki-history-table-wrap::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background: transparent;
+}
+.otrabotki-history-table-wrap::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 8px;
+}
+.otrabotki-history-table-wrap::-webkit-scrollbar-thumb:hover {
+    background: #c1c1c1;
+}
+.otrabotki-history-table-wrap {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 transparent;
+}
+
+/* Стили для таблицы истории отработок */
+.otrabotki-history-table-wrap {
+    overflow-x: auto;
+    overflow-y: auto;
+    flex: 1;
+    max-height: calc(100vh - 315px); /* Фиксированная максимальная высота с учетом верхней части карточки */
+    width: 100%;
+    min-width: 0; /* Критично для корректной работы flex-контейнеров */
+    transition: all 0.3s; /* Плавный переход при изменении размеров */
+}
+
+.otrabotki-history-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: auto; /* Автоматическое определение ширины колонок */
+    min-width: 680px; /* Минимальная ширина таблицы, чтобы избежать сжатия колонок */
+    box-shadow: 0 2px 10px rgba(11,75,132,0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.otrabotki-history-table th, 
+.otrabotki-history-table td {
+    padding: 10px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eaedf0;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.otrabotki-history-table th {
+    font-weight: 600;
+    color: #374151;
+    background-color: #f5f7fa;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-right: 1px solid #e6eaf0; /* разделители между заголовками */
+}
+
+/* Центрируем текст только в заголовке, не затрагивая ячейки тела */
+.otrabotki-history-table thead th {
+    text-align: center;
+}
+
+/* Центрируем все ячейки тела таблицы, кроме колонок "Комментарий" и "Файл" */
+.otrabotki-history-table tbody td {
+    text-align: center;
+}
+
+/* Исключения: комментарий и прикреплённый файл — выравнивание влево */
+.otrabotki-history-table tbody td.comment-column,
+.otrabotki-history-table tbody td.file-column,
+/* Резервный вариант по индексу колонки (5 — комментарий, 6 — файл) */
+.otrabotki-history-table tbody td:nth-child(5),
+.otrabotki-history-table tbody td:nth-child(6) {
+    text-align: left;
+}
+
+/* Убираем правый бордер у последнего заголовка */
+.otrabotki-history-table thead th:last-child {
+    border-right: none;
+}
+
+/* Скругляем углы у верхних ячеек заголовка таблицы */
+.otrabotki-history-table thead th:first-child {
+    border-top-left-radius: 8px;
+}
+.otrabotki-history-table thead th:last-child {
+    border-top-right-radius: 8px;
+}
+
+/* Улучшенные стили для строк таблицы */
+.otrabotki-history-table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.otrabotki-history-table tbody tr:hover {
+    background-color: rgba(43, 90, 134, 0.05);
+}
+
+.otrabotki-history-table tbody tr:hover td {
+    box-shadow: inset 0 0 0 1px rgba(43, 90, 134, 0.1);
+}
+
+.status-column {
+    width: 60px;
+}
+
+.type-column {
+    width: 100px;
+}
+
+.date-column {
+    width: 120px;
+}
+
+/* Заголовок колонки Дата в таблице истории — отдельный класс, чтобы не конфликтовать с .date-column из других блоков */
+.table-date-column {
+    width: 120px; /* синхронизировано с colgroup */
+    background-color: #f5f7fa; /* фикс того же фона, что и остальные th */
+}
+
+.time-column {
+    width: 80px;
+}
+
+.comment-column {
+    min-width: 200px;
+}
+
+.file-column {
+    width: 150px;
+}
+
+.actions-column {
+    width: 60px;
+}
+
+/* Стили для статусов */
+.status-icon {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Анимация при наведении на статус */
+tr:hover .status-icon {
+    transform: scale(1.15);
+}
+
+/* Выполнено (зеленый) */
+.status-icon.completed {
+    background-color: #16a34a;
+    position: relative;
+}
+
+.status-icon.completed::after {
+    content: "check";
+    font-family: 'Material Icons';
+    position: absolute;
+    color: white;
+    font-size: 15px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* В ожидании (оранжевый) */
+.status-icon.pending {
+    background-color: #f59e0b;
+    position: relative;
+}
+
+.status-icon.pending::after {
+    content: "schedule";
+    font-family: 'Material Icons';
+    position: absolute;
+    color: white;
+    font-size: 15px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Пропущено (красный) */
+.status-icon.missed {
+    background-color: #ef4444;
+    position: relative;
+}
+
+.status-icon.missed::after {
+    content: "close";
+    font-family: 'Material Icons';
+    position: absolute;
+    color: white;
+    font-size: 15px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Исключено (синий) */
+.status-icon.excluded {
+    background-color: #3b82f6;
+    position: relative;
+}
+
+.status-icon.excluded::after {
+    content: "block";
+    font-family: 'Material Icons';
+    position: absolute;
+    color: white;
+    font-size: 15px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Эффект свечения при наведении на статусы */
+tr:hover .status-icon.completed {
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+tr:hover .status-icon.pending {
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+}
+
+tr:hover .status-icon.missed {
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
+
+tr:hover .status-icon.excluded {
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+/* Стили для строк таблицы */
+.completed-row {
+    background-color: rgba(16, 185, 129, 0.05);
+    transition: all 0.2s ease;
+}
+
+.completed-row:hover {
+    background-color: rgba(16, 185, 129, 0.1);
+}
+
+.pending-row {
+    background-color: rgba(245, 158, 11, 0.05);
+    transition: all 0.2s ease;
+}
+
+.pending-row:hover {
+    background-color: rgba(245, 158, 11, 0.1);
+}
+
+.missed-row {
+    background-color: rgba(239, 68, 68, 0.05);
+    transition: all 0.2s ease;
+}
+
+.missed-row:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+.excluded-row {
+    background-color: rgba(59, 130, 246, 0.05);
+    transition: all 0.2s ease;
+}
+
+.excluded-row:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Ссылки на файлы в таблице */
+.file-link {
+    color: #2b5a86;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    background-color: rgba(43, 90, 134, 0.05);
+}
+
+.file-link:hover {
+    background-color: rgba(43, 90, 134, 0.1);
+    text-decoration: underline;
+}
+
+/* Кнопка редактирования записи */
+.edit-record-btn {
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.edit-record-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #003F7D;
+}
+
+.edit-record-btn .material-icons {
+    font-size: 18px;
+}
+
+/* Специальные стили для различных состояний сайдбара */
+/* Когда сайдбар закрыт - у нас больше места */
+body:not(.sidebar-open) .otrabotki-detail-card {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Когда сайдбар открыт - места меньше, адаптируем компоненты */
+body.sidebar-open .otrabotki-detail-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 18px 15px; /* Оптимизируем отступы для экономии места */
+}
+
+/* Корректировка размера таблицы в зависимости от состояния сайдбара */
+body.sidebar-open .otrabotki-history-table-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+/* Корректировка отступов в таблице при узкой ширине */
+body.sidebar-open .otrabotki-history-table th,
+body.sidebar-open .otrabotki-history-table td {
+    padding: 10px 8px; /* Уменьшаем отступы для экономии места */
+    font-size: 13px; /* Немного уменьшаем размер шрифта */
+}
+
+/* Оптимизация заголовка при открытом сайдбаре */
+body.sidebar-open .otrabotki-detail-header {
+    gap: 15px; /* Уменьшаем отступы между блоками */
+}
+
+/* Оптимизация информационного блока при открытом сайдбаре */
+body.sidebar-open .otrabotki-detail-info {
+    max-width: calc(100% - 110px); /* Учитываем ширину аватара + отступ */
+}
+
+/* Оптимизация комментариев при открытом сайдбаре */
+/* body.sidebar-open .otrabotki-comment-input-wrap {
+    padding: 8px 12px;
+} */
+
+body.sidebar-open .otrabotki-attach-file-btn span:not(.material-icons) {
+    display: none; /* Скрываем текст, оставляем только иконку */
+}
+
+body.sidebar-open .otrabotki-attach-file-btn {
+    padding: 6px;
+}
+
+/* Медиа-запрос для адаптивного дизайна на маленьких экранах */
+@media (max-width: 1200px) {
+    .otrabotki-detail-header {
+        flex-direction: column;
+    }
+    
+    .otrabotki-detail-left,
+    .otrabotki-detail-center {
+        width: 100%;
+    }
+    
+    /* otrabotki-detail-right остается неизменным при открытии sidebar */
+    
+    .otrabotki-detail-center {
+        justify-content: center; /* Изменено для центрирования даже на мобильных устройствах */
+        margin: 0px 0;
+    }
+    
+    .otrabotki-actions {
+        justify-content: flex-start;
+    }
+}
+
+/* Дополнительные медиа-запросы для мобильных устройств */
+@media (max-width: 768px) {
+    .otrabotki-detail-card {
+        padding: 15px 10px;
+    }
+    
+    .otrabotki-history-table th,
+    .otrabotki-history-table td {
+        padding: 8px 6px;
+        font-size: 13px;
+    }
+}
+
+/* --- Empty state for detail card: show in-card placeholder when no operator is selected --- */
+.otrabotki-detail-card.empty { display: flex; }
+.otrabotki-detail-card .otrabotki-empty-placeholder { display: none; }
+.otrabotki-detail-card.empty .otrabotki-detail-header,
+.otrabotki-detail-card.empty .otrabotki-history-table-wrap { display: none !important; }
+.otrabotki-detail-card.empty .otrabotki-empty-placeholder { display: block; }
+.otrabotki-detail-card .otrabotki-empty-placeholder.training-placeholder { margin: 10px 0; padding: 24px; }
+/* Overlay placeholder covering the right panel when no operator is selected */
+.training-layout__right { position: relative; }
+.training-layout__right .otrabotki-empty-overlay {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  z-index: 5;
+}
+.training-layout__right.empty .otrabotki-empty-overlay { display: flex; }
+.training-layout__right.empty .otrabotki-detail-card { visibility: hidden; }
+.training-layout__right.empty .otrabotki-detail-card * { pointer-events: none; }
+/* --- Refined design for right-panel empty overlay placeholder --- */
+.training-layout__right .otrabotki-empty-overlay { background: #fff;
+border-radius: 18px; }
+.training-layout__right .otrabotki-empty-overlay .training-placeholder {
+  max-width: 720px;
+  border-radius: 18px;
+  width: 100%;
+  background: transparent; /* rely on inner card */
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+.training-layout__right .otrabotki-empty-overlay .training-placeholder h2 {
+  margin: 0 0 18px 0;
+  font-size: 34px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #0b3f7d;
+}
+.training-layout__right .otrabotki-empty-overlay .training-placeholder .placeholder-info {
+  background: #f8fbff;
+  padding: 24px 28px;
+  border-radius: 14px;
+  border-left: 6px solid #0b3f7d;
+  box-shadow: 0 10px 24px rgba(11,75,132,0.08);
+}
+.training-layout__right .otrabotki-empty-overlay .training-placeholder .placeholder-info p {
+  margin: 0 0 16px 0;
+  color: #4f5966;
+}
+.training-layout__right .otrabotki-empty-overlay .training-placeholder .placeholder-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+.training-layout__right .otrabotki-empty-overlay .training-placeholder .placeholder-info li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  align-items: start;
+  gap: 10px;
+  padding: 8px 0;
+  color: #4f5966;
+}
+/* Override default check bullet with Material Icons */
+.training-layout__right .otrabotki-empty-overlay .training-placeholder .placeholder-info li:before {
+  content: 'check_circle';
+  font-family: 'Material Icons';
+  color: #16a34a; /* green */
+  font-size: 21px;
+  line-height: 1;
+  position: relative;
+  top: 2px;
+}
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .training-layout__right .otrabotki-empty-overlay .training-placeholder { max-width: 92%; }
+  .training-layout__right .otrabotki-empty-overlay .training-placeholder h2 { font-size: 26px; margin-bottom: 14px; }
+  .training-layout__right .otrabotki-empty-overlay .training-placeholder .placeholder-info { padding: 18px 16px; border-left-width: 5px; }
+}

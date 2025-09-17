@@ -2,13 +2,41 @@
 /* Стили для основной тренировочной области, карточек и layout'а */
 
 /* Основная тренировочная область */
+
 .training-layout {
+    display: flex;
+    gap: 24px;
     flex: 1;
     padding: var(--header-height) 0 0 var(--sidebar-width-closed);
     background: var(--background-color);
     overflow: hidden;
     position: relative;
     transition: padding-left var(--transition-medium);
+}
+
+.training-layout__left {
+    /* Делаем левую колонку гибкой, как правую */
+    flex: 1 1 35%; /* рос/сжатие разрешены, базис ~35% */
+    min-width: 320px;
+    background: #fff;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 87px); /* как у правой части */
+    overflow-y: auto;           /* прокрутка по вертикали при нехватке места */
+    overflow-x: hidden;
+    box-sizing: border-box;
+    transition: max-width 0.3s, width 0.3s, flex-basis 0.3s; /* плавное изменение размеров */
+}
+
+.training-layout__right {
+    flex: 1 1 65%;
+    max-width: 65%;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Когда sidebar открыт */
@@ -300,6 +328,15 @@ input:checked + .slider:before {
 @media (max-width: 768px) {
     .training-layout {
         padding: var(--header-height) 0 0 0;
+        flex-direction: column;
+    }
+    .training-layout__left,
+    .training-layout__right {
+        flex: 1 1 100%;
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+        min-height: 0;
     }
     
     .training-header {

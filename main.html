@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="css/window-manager.css">
     <link rel="stylesheet" href="css/sidebar-pin.css">
+    <link rel="stylesheet" href="css/sidebar-disabled.css">
     <link rel="stylesheet" href="css/appeals.css">
     <link rel="stylesheet" href="css/file-attachment.css">
     <link rel="stylesheet" href="css/comment-file-attachment.css">
@@ -82,8 +83,8 @@
                     </ul>
                 </div>
                 <div class="header-user" id="header-user">
-                    <img src="assets/Аватар/Foto.jpg" alt="user" class="header-user-img">
                     <span>Рискиев Б.</span>
+                    <img src="assets/Аватар/Foto.jpg" alt="user" class="header-user-img">
                     <div class="header-dropdown" id="header-dropdown">
                         <a href="#" id="editor-toggle"><span class="material-icons">edit</span> Редактор</a>
                         <a href="#"><span class="material-icons">language</span> Изменить язык</a>
@@ -102,15 +103,16 @@
                     </div>
                 </div>
                 <nav class="sidebar-menu-figma">
-                    <a class="active"><span class="material-icons">school</span> <span class="sidebar-label">Обучение</span></a>
-                    <a href="http://192.168.42.172:5001/" target="_blank"><span class="material-icons">checklist</span> <span class="sidebar-label">Лист контроль</span></a>
-                    <a><span class="material-icons">notifications</span> <span class="sidebar-label">Уведомления</span> <span class="sidebar-badge">1</span></a>
-                    <a><span class="material-icons">groups</span> <span class="sidebar-label">Операторы</span></a>
-                    <a><span class="material-icons">assignment</span> <span class="sidebar-label">Отработки</span></a>
-                    <a><span class="material-icons">report_problem</span> <span class="sidebar-label">Технический сбой</span></a>
-                    <a><span class="material-icons">person_add</span> <span class="sidebar-label">Привлечение к работам</span></a>
-                    <a><span class="material-icons">bar_chart</span> <span class="sidebar-label">Статистика супервайзера</span></a>
-                    <a><span class="material-icons">settings</span> <span class="sidebar-label">Настройки</span></a>
+                        <a href="otrabotki.html"><span class="material-icons">access_time</span> <span class="sidebar-label">Отработки</span></a>
+                        <a href="work-transfer.html"><span class="material-icons">calendar_today</span> <span class="sidebar-label">Перенос рабочего дня</span></a>
+                        <a class="active"><span class="material-icons">school</span> <span class="sidebar-label">Обучение</span></a>
+                        <a href="http://192.168.42.172:5001/" target="_blank"><span class="material-icons">checklist</span> <span class="sidebar-label">Лист контроль</span></a>
+                        <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">notifications</span> <span class="sidebar-label">Уведомления</span> <span class="sidebar-badge">1</span></a>
+                        <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">groups</span> <span class="sidebar-label">Операторы</span></a>
+                        <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">report_problem</span> <span class="sidebar-label">Технический сбой</span></a>
+                        <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">person_add</span> <span class="sidebar-label">Привлечение к работам</span></a>
+                        <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">bar_chart</span> <span class="sidebar-label">Статистика супервайзера</span></a>
+                        <a class="sidebar-disabled" title="Появится в следующих обновлениях"><span class="material-icons">settings</span> <span class="sidebar-label">Настройки</span></a>
                 </nav>
                 
                 <!-- Кнопки фиксации сайдбара - размещены в самом низу -->
