@@ -2206,8 +2206,8 @@ body.sidebar-open .training-window.maximized {
 }
 
 .comment-input:focus {
-    border-color: #2196f3;
-    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+    border-color: #003F7D;
+    box-shadow: 0 0 0 3px rgba(0, 63, 125, 0.1);
 }
 
 .comment-form-actions {

@@ -81,7 +81,7 @@
 
 .training-layout {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: flex-start; /* Изменяем на flex-start для лучшего позиционирования окон */
     align-items: flex-start; /* Изменяем на flex-start */
     gap: 20px;

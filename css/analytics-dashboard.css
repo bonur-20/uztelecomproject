@@ -444,8 +444,7 @@
     font-weight: 700;
     box-shadow: 0 2px 6px rgba(21,87,36,0.08);
 }
-}
-}
+
 
 .analytics-chart-container::before {
     content: '';

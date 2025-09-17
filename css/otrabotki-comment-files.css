@@ -1,0 +1,142 @@
+/* Стили для отображения списка прикрепленных файлов в комментариях */
+.otrabotki-comment-files {
+    margin-top: 0px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: flex-start;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-width: 300px;
+    max-height: 20px;
+    min-width: 0;
+}
+
+.otrabotki-comment-file {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px;
+    background-color: rgba(0, 63, 125, 0.08);
+    border-radius: 4px;
+    font-size: 11px;
+    border: 1px solid rgba(0, 63, 125, 0.15);
+    min-width: 0;
+    max-width: 80px;
+    transition: all 0.2s ease;
+}
+
+.otrabotki-comment-file:hover {
+    background-color: #e9eef4;
+    border-color: #ccd5e0;
+}
+
+.otrabotki-comment-file-icon {
+    font-size: 12px !important;
+    color: #6b7280;
+    flex-shrink: 0;
+}
+
+.otrabotki-comment-file-name {
+    font-size: 10px;
+    color: #4f5966;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
+}
+
+.otrabotki-comment-file-remove {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 0;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.otrabotki-comment-file-remove:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.otrabotki-comment-file-remove .material-icons {
+    font-size: 10px;
+}
+
+/* Стили для вертикального скроллбара */
+.otrabotki-comment-files::-webkit-scrollbar {
+    width: 4px;
+}
+
+.otrabotki-comment-files::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+}
+
+.otrabotki-comment-files::-webkit-scrollbar-thumb {
+    background: rgba(0, 63, 125, 0.3);
+    border-radius: 2px;
+}
+
+.otrabotki-comment-files::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 63, 125, 0.5);
+}
+
+/* Стили для улучшения вида ссылок на файлы в таблице */
+.file-link {
+    display: inline-flex;
+    align-items: center;
+    color: #003F7D;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+    transition: all 0.2s ease;
+    background-color: rgba(0, 63, 125, 0.05);
+}
+
+.file-link:hover {
+    background-color: rgba(0, 63, 125, 0.1);
+}
+
+.file-link::before {
+    content: "attachment";
+    font-family: 'Material Icons';
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+/* Анимация для статусов */
+.status-icon {
+    transition: transform 0.3s ease;
+}
+
+tr:hover .status-icon {
+    transform: scale(1.15);
+}
+
+/* Улучшение стиля кнопок в таблице */
+.edit-record-btn {
+    background: transparent;
+    border: none;
+    color: #777;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.edit-record-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #003F7D;
+}

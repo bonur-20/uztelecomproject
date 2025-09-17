@@ -1,0 +1,904 @@
+/* Кастомный скроллбар для .list-wrapper (как в отработке) */
+.list-wrapper::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+}
+.list-wrapper::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 8px;
+}
+.list-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #bfc5ce;
+}
+.list-wrapper {
+    scrollbar-width: thin;
+    scrollbar-color: #d1d5db transparent;
+}
+/* Кастомный скроллбар для списка операторов (перенос рабочего дня) */
+.work-transfer-operators-list::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+}
+.work-transfer-operators-list::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 8px;
+}
+.work-transfer-operators-list::-webkit-scrollbar-thumb:hover {
+    background: #bfc5ce;
+}
+.work-transfer-operators-list {
+    scrollbar-width: thin;
+    scrollbar-color: #d1d5db transparent;
+}
+/* ===== СТИЛИ ДЛЯ СТРАНИЦЫ ПЕРЕНОСА РАБОЧЕГО ДНЯ ===== */
+
+/* Основная страница */
+.work-transfer-page {
+    background: #f5f7fa;
+    min-height: 100vh;
+}
+
+/* Заглушка контента */
+.training-placeholder {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    padding: 40px;
+    margin: 20px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.training-placeholder h2 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.training-placeholder p {
+    color: #666;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+.placeholder-info {
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto;
+    background: #f8f9ff;
+    padding: 30px;
+    border-radius: 12px;
+    border-left: 4px solid #667eea;
+}
+
+.placeholder-info p {
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.placeholder-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.placeholder-info li {
+    padding: 8px 0;
+    color: #555;
+    position: relative;
+    padding-left: 25px;
+}
+
+.placeholder-info li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #28a745;
+    font-weight: bold;
+}
+
+.placeholder-info em {
+    color: #667eea;
+    font-style: normal;
+    font-weight: 500;
+    display: block;
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* ===== СТИЛИ ДЛЯ НОВЫХ ОКОН (БУДУЩИЕ) ===== */
+
+/* Отключенный dropdown пользователя */
+.header-dropdown.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.header-dropdown.disabled a {
+    color: #999 !important;
+    cursor: not-allowed;
+}
+
+.header-dropdown.disabled a:hover {
+    background: transparent !important;
+}
+
+/* Базовые стили для окон переноса рабочего дня */
+.work-transfer-window {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    margin: 20px;
+    padding: 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+.work-transfer-window-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+}
+
+.work-transfer-window-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.work-transfer-window-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.work-transfer-window-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-size: 16px;
+}
+
+.work-transfer-window-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.work-transfer-window-content {
+    padding: 20px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+/* ===== КАРТОЧКА И СПИСОК ПЕРЕНОСОВ ===== */
+.work-transfer-card {
+    width: min(1860px, 100%);
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(11,75,132,0.06);
+    padding: 10px;
+    overflow: hidden;
+}
+
+.card-header {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    padding: 7px 8px;
+}
+
+.card-header .left-group {
+    display: flex;
+    align-items: center;
+    gap: 27px;
+    flex: 1 1 420px;
+}
+
+.user-avatar img {
+    width: 106px;
+    height: 142px;
+    border-radius: 12px;
+    object-fit: cover;
+    background: #ffffff; /* белая подложка под фото */
+    padding: 0px; /* пространство между фото и рамкой */
+    border: 1px solid #aaabad; /* тёмно-синяя рамка, можно подправить */
+    box-shadow: 0 6px 18px rgba(11,75,132,0.12); /* более выразительная тень */
+}
+
+.search-field input {
+    padding: 3px 16px;
+    border-radius: 22px;
+    border: 1px solid #e6edf6;
+    width: 100%;
+    font-size: 14px;
+}
+
+.search-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* центрируем заголовок и поле */
+}
+
+.search-title {
+    font-size: 14px;
+    color: #2b5a86;
+    margin-bottom: 3px;
+    font-weight: 600;
+}
+
+.search-input {
+    position: relative; /* чтобы абсолютная иконка позиционировалась внутри */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    padding: 3px 12px;
+    border-radius: 5px;
+    border: 1px solid #e6edf6;
+}
+
+.search-input:focus-within {
+    border-color: #003F7D;
+    box-shadow: 0 0 0 3px rgba(0, 63, 125, 0.1);
+}
+
+/* Подсказки для поля оператора */
+.search-suggestions {
+    margin-top: 6px;
+    width: 100%;
+    max-height: 230px;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #e6edf6;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(11,75,132,0.08);
+    z-index: 4000; /* выше календаря и окон */
+}
+.search-suggestions.hidden { display: none; }
+.search-suggestion-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #10243a;
+}
+.search-suggestion-item:hover,
+.search-suggestion-item.active {
+    background: #f7fbff;
+}
+.search-suggestion-item.empty {
+    color: #7b8898;
+    cursor: default;
+}
+
+.search-input .search-icon {
+    position: absolute; /* принудительно внутри .search-input */
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9aa7b6;
+    font-size: 20px;
+    z-index: 1;
+}
+
+.search-input input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 420px;
+    padding-left: 40px; /* отступ слева, чтобы текст не накладывался на иконку */
+}
+
+/* === Calendar Popover (top-level) === */
+.calendar-popover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px; /* compact */
+    background: #fff;
+    border: 1px solid #e6edf6;
+    border-radius: 16px;
+    box-shadow: 0 10px 24px rgba(15, 30, 60, 0.14);
+    padding: 10px 12px 12px;
+    z-index: 2000;
+    user-select: none;
+}
+
+.calendar-header {
+    display: grid;
+    grid-template-columns: 28px 1fr 28px;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    width: 28px;
+    color: #2b5a86;
+    font-size: 18px;
+    line-height: 1;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.calendar-nav:hover { background: #f5f7fa; }
+
+.calendar-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #2b5a86;
+    line-height: 1.2;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    padding: 4px 4px 0;
+    color: #9aa7b2;
+    font-weight: 600;
+    text-align: center;
+    font-size: 12px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    padding: 6px 4px 4px;
+}
+
+.calendar-day {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #173b63;
+    font-size: 14px;
+    cursor: pointer;
+}
+.calendar-day:hover { background: #f2f6fb; }
+.calendar-day.muted { color: #b7c3cd; }
+.calendar-day.selected { outline: 2px solid #2b5a86; }
+.calendar-day.today { box-shadow: inset 0 0 0 2px rgba(43,90,134,.25); }
+
+.calendar-hidden { display: none !important; }
+
+/* container for positioning context */
+.calendar-anchor { position: relative; }
+
+.search-meta {
+    margin-top: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* центрируем содержимое по горизонтали */
+    text-align: center; /* выравнивание текста внутри */
+}
+
+.reason-label {
+    font-size: 14px;
+    color: #2b5a86;
+    font-weight: 600;
+    margin: 0;
+}
+
+.reason-text {
+    color: #6b7788;
+    font-size: 13px;
+    margin-top: 6px;
+    line-height: 18px;
+    min-height: 18px; /* резервируем место под одну строку, чтобы не прыгала вёрстка */
+    max-width: 420px; /* ограничиваем ширину, чтобы текст не растягивал блок */
+}
+
+/* Не скрывать блок полностью: пусть занимает место, но текст невидим */
+.search-meta .reason-text.hidden {
+    display: block !important; /* переопределяем глобальный .hidden { display:none } */
+    visibility: hidden;        /* скрываем содержимое, не меняя поток */
+}
+
+.date-column {
+    display:flex;
+    flex-direction: column;
+    align-items:center; /* центрируем содержимое по горизонтали */
+    gap:8px;
+    text-align: center;
+}
+
+.date-column .date-label {
+    font-size:13px;
+    color:#2b5a86;
+    font-weight:600;
+    width: 100%;
+}
+
+.center-arrow {
+    display: flex;
+    align-items: center;   /* вертикальное центрирование */
+    justify-content: center; /* горизонтальное центрирование */
+    font-size: 28px; /* увеличено на ~30% */
+    color: #cdd9ea;
+    margin: 0 11px;
+    line-height: 1;
+    width: 38px; /* фиксированная ширина, чтобы стрелка была точно посередине */
+    transform: translateY(12%); /* опустить стрeлку на 10% вниз */
+}
+
+.attach-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 3px 10px;
+    border-radius: 8px;
+    border: 1px solid #e6edf6;
+    background: #fff;
+    box-shadow: none;
+    cursor: pointer;
+    user-select: none;
+    transition: background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .05s ease;
+}
+
+.attach-wrap:hover {
+    background: #f7fbff;
+    border-color: #d8e7f6;
+    box-shadow: none;
+}
+
+.attach-wrap:active {
+    transform: none;
+    box-shadow: none;
+}
+
+.attach-wrap:focus-within {
+    outline: 1px solid #bcdcff;
+    outline-offset: 1px;
+}
+
+.attach-pen {
+    color: #2b5a86;
+    transition: color .2s ease;
+}
+
+/* Override Material Icons default (24px) for the attach icon */
+.material-icons.attach-pen {
+    font-size: 18px !important;
+    line-height: 1;
+}
+
+/* Save button icon to 18px */
+#save-global .material-icons {
+    font-size: 18px !important;
+    line-height: 1;
+}
+
+.attach-wrap:hover .attach-pen {
+    color: #1f4e7a;
+}
+
+.file-name {
+    margin-left: 6px;
+    font-size: 12px;
+    color: #6b7788;
+    max-width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.btn.outline { background: transparent; border: 1px solid #2b5a86; color: #2b5a86; padding: 2px 11px; border-radius: 6px; }
+
+.comment-field textarea { width: 380px; min-height: 74px; }
+
+.center-group {
+    flex: 1 1 520px;
+    display: flex;
+    justify-content: center;
+}
+
+.date-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.date-group label {
+    font-size: 12px;
+    color: #6b7788;
+    margin-right: 6px;
+}
+
+.date-picker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid #e6edf6;
+    background: #fff;
+    width: 177px; /* принудительное уменьшение ширины */
+}
+
+.date-picker:focus-within {
+    border-color: #003F7D;
+    box-shadow: 0 0 0 3px rgba(0, 63, 125, 0.1);
+}
+
+.date-picker .material-icons {
+    color: #6b7788;
+}
+
+.date-picker input {
+    border: none;
+    outline: none;
+    font-size: 13px;
+    width: 100%;
+    caret-color: transparent; /* не показывать курсор для readonly */
+    cursor: pointer; /* указывает, что кликаем для выбора */
+}
+
+.arrow {
+    font-size: 18px;
+    color: #cbd7e6;
+    margin: 0 6px;
+}
+
+.right-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.comment-field textarea {
+    width: 330px;
+    min-height: 106px;
+    border-radius: 10px;
+    border: 1px solid #e6edf6;
+    padding: 10px 12px;
+    resize: vertical;
+}
+
+.comment-field textarea:focus {
+    border-color: #003F7D;
+    box-shadow: 0 0 0 3px rgba(0, 63, 125, 0.1);
+    outline: none;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* уменьшенный разрыв между элементами */
+    align-items: center; /* центрируем все внутренние элементы по горизонтали */
+}
+
+/* Превью прикреплённых файлов */
+.attachments-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 6px 0 6px 0;
+    min-height: 42px; /* держим место даже когда нет файлов */
+    justify-content: center; /* центрируем чипы внутри превью */
+}
+
+.attachment-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    max-width: 100px;
+    padding: 5px 5px;
+    border-radius: 8px;
+    border: 1px solid #e6edf6;
+    background: #fff;
+    color: #2b5a86;
+    box-shadow: 0 1px 2px rgba(11,75,132,0.06);
+}
+
+/* Make the paperclip icon in the preview 18px */
+.attachments-preview .material-icons {
+    font-size: 18px !important;
+    line-height: 1;
+}
+
+.attachment-chip .name {
+    font-size: 12px;
+    flex: 1 1 auto;
+    min-width: 0; /* важно для ellipsis внутри flex */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.attachment-chip .remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #e6edf6;
+    background: #f7fbff;
+    color: #1f4e7a;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.attachment-chip .remove:hover {
+    background: #e8f3ff;
+    border-color: #d8e7f6;
+}
+
+.attach-label {
+    font-size: 13px;
+    color: #2b5a86;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+}
+
+.btn {
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: linear-gradient(180deg,#50a7ff,#0b6fc0);
+    color: #fff;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Save button: apply the same feel as attach-wrap */
+#save-global {
+    border: 1px solid #e6edf6 !important;
+    background: #fff !important;
+    color: #2b5a86 !important;
+    box-shadow: none !important;
+    transition: background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .05s ease;
+}
+#save-global:hover {
+    background: #f7fbff !important;
+    border-color: #d8e7f6 !important;
+    box-shadow: none !important;
+}
+#save-global:active {
+    transform: none;
+    box-shadow: none !important;
+}
+#save-global:focus-visible {
+    outline: 1px solid #bcdcff;
+    outline-offset: 1px;
+}
+
+.list-wrapper {
+    margin-top: 4px;
+    min-height: 645px; /* оставляем место даже без данных */
+    max-height: 686px;
+    overflow-y: auto;
+}
+
+/* Плейсхолдеры пустых строк */
+.list-row.placeholder:hover { background: transparent; }
+.skeleton {
+    display: inline-block;
+    height: 12px;
+    background: #f1f5fa;
+    border-radius: 6px;
+}
+.skeleton.avatar { width: 48px; height: 48px; border-radius: 50%; }
+
+
+/* Сетка (5 колонок): Оператор | Дата | Комментарий | Файл | Статус */
+.list-grid { display: grid; align-items: center; column-gap: 14px; --list-gap: 14px; }
+/* Шаблон для шапки и строк одинаковый, чтобы обеспечить пиксельное совпадение */
+.list-header.list-grid,
+.list-row.list-grid {
+    grid-template-columns:
+        minmax(340px, 2.2fr)  /* Оператор (аватар + ФИО) */
+        minmax(300px, 1.4fr)  /* Дата (с, стрелка, по) */
+        minmax(363px, 2.0fr)  /* Комментарий */
+        minmax(220px, 1.3fr)  /* Прикреплённый файл */
+        minmax(125px, 0.7fr)  /* Дата фиксации */
+        minmax(127px, 0.6fr)    /* Кем зафиксирован */
+        95px                /* Статус (кнопка редактировать + иконка) — -30% ширины */
+}
+
+/* При открытом сайдбаре уменьшаем минимальные ширины, чтобы убрать горизонтальный скролл */
+body.sidebar-open .list-header.list-grid,
+body.sidebar-open .list-row.list-grid {
+    grid-template-columns:
+        minmax(260px, 2fr)   /* Оператор */
+        minmax(220px, 1.2fr) /* Дата */
+        minmax(240px, 1.6fr) /* Комментарий */
+        minmax(160px, 1fr)   /* Файл */
+        minmax(110px, 0.7fr) /* Дата фиксации */
+        minmax(130px, 0.8fr) /* Кем зафиксирован */
+        84px;                /* Статус */
+}
+
+.list-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #fff;
+    padding: 8px 12px;
+    color: #6b7788;
+    font-size: 13px;
+    font-weight: bold;
+    border-bottom: 1px solid #eef3f6;
+}
+/* Растягиваем элементы шапки по высоте строки, чтобы разделители были одинаковыми */
+.list-header.list-grid { align-items: stretch; }
+.list-header .col-attach { display: inline-flex; gap: 6px; align-items: center; justify-content: center; justify-self: stretch; }
+.list-header .col-date,
+.list-header .col-comment,
+.list-header .col-attach,
+.list-header .col-status { text-align: center; }
+.list-header .col-date,
+.list-header .col-comment { justify-content: center; }
+.list-header .col-fixdate,
+.list-header .col-fixedby,
+.list-header .col-status { text-align: center; }
+/* Центрируем заголовок первой колонки "Оператор" */
+.list-header .col-operator { text-align: center; }
+.list-header .sortable { cursor: pointer; user-select: none; display: inline-flex; gap: 4px; align-items: center; justify-content: center; }
+.list-header .sort-icon { font-size: 16px; color: #6b7788; }
+
+/* Разделители только в заголовке (между столбцами) */
+.list-header > div { position: relative; display: flex; align-items: center; }
+.list-header > div + div::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--list-gap) / -2); /* половина от column-gap */
+    top: -8px;   /* тянем на полную высоту с учётом padding шапки */
+    bottom: -9px; /* чуть ниже, чтобы касаться нижней разделяющей линии */
+    width: 1px;
+    background: #eef3f6;
+    pointer-events: none;
+}
+
+/* Нормализуем высоту разделителей: вешаем линию на предыдущую ячейку */
+.list-header > div + div::before { content: none; }
+.list-header > div:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: calc(var(--list-gap) / -2);
+    top: -8px;
+    bottom: -9px;
+    width: 1px;
+    background: #eef3f6;
+    pointer-events: none;
+}
+
+.list-row { /* строки как грид с тем же шаблоном что и шапка */
+    display: grid;
+    align-items: center;
+    column-gap: 14px;
+    padding: 8px;
+    border-bottom: 1px solid #eef3f6;
+}
+.list-row:hover { background: #fbfdff; }
+
+/* Разрешаем элементам ужиматься внутри грид-колонок */
+.list-row > div { min-width: 0; }
+
+/* Оператор: аватар + ФИО в одну ячейку */
+.cell-operator { display: grid; grid-template-columns: 48px 1fr; align-items: center; gap: 12px; }
+.cell-operator img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+.cell-operator .name { font-weight: 600; font-size: 15px; color: #10243a; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+/* Дата: календарь — датаС — стрелка — календарь — датаПо */
+.cell-date { display: inline-grid; grid-auto-flow: column; align-items: center; gap: 8px; justify-content: center; color: #4f5966; font-size: 13px; }
+
+/* Комментарий */
+.cell-comment { color: #6b7788; font-size: 13px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; padding-left: 7px; }
+
+/* Вложение */
+.cell-attachment { font-size: 13px; color: #6b7788; text-align: left; white-space: normal; display: inline-flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.cell-attachment .att-item { display: inline-flex; align-items: center; gap: 6px; margin: 0; }
+.cell-attachment a { max-width: 200px; display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: middle; }
+/* Make attachment icons in table 18px */
+.cell-attachment .material-icons { font-size: 18px !important; line-height: 1; }
+/* Уменьшаем доступную ширину для ссылок при открытом сайдбаре */
+body.sidebar-open .cell-attachment a { max-width: 140px; }
+
+/* Новые ячейки: дата фиксации и кем зафиксировано */
+.cell-fixedat { text-align: center; color: #4f5966; font-size: 13px; }
+.cell-fixedby { color: #10243a; font-size: 13px; text-align: center; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+/* Статус: кнопка Редактировать + иконка статуса */
+.cell-status { display: inline-grid; grid-auto-flow: column; align-items: center; justify-content: center; gap: 8px; }
+.cell-status .edit-btn {
+    border: 1px solid #e6edf6 !important;
+    background: #fff !important;
+    color: #2b5a86 !important;
+    border-radius: 10px;
+    padding: 6px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .05s ease;
+}
+.cell-status .edit-btn:hover { background: #f7fbff !important; border-color: #d8e7f6 !important; }
+.cell-status .edit-btn:focus-visible { outline: 1px solid #bcdcff; outline-offset: 1px; }
+.cell-status .edit-btn .material-icons { font-size: 18px !important; line-height: 1; color: #2b5a86 !important; }
+.cell-status .status { display: inline-flex; }
+
+/* удалены старые правила .row-* и flex-override, чтобы не ломать сетку */
+
+@media (max-width: 900px) {
+    .card-header { flex-direction: column; align-items: stretch; }
+    .center-group { justify-content: flex-start; }
+    .comment-field textarea { width: 100%; }
+    .right-group { align-items: flex-end; }
+    .work-transfer-card { padding: 12px; }
+    .row-name { min-width: 160px; }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .training-placeholder {
+        margin: 10px;
+        padding: 20px;
+    }
+    
+    .training-placeholder h2 {
+        font-size: 1.5em;
+    }
+    
+    .placeholder-info {
+        padding: 20px;
+    }
+    
+    .work-transfer-window {
+        margin: 10px;
+    }
+    
+    .work-transfer-window-header {
+        padding: 10px 15px;
+    }
+    
+    .work-transfer-window-content {
+        padding: 15px;
+        max-height: 400px;
+    }
+}
+
+/* Calendar Popover adjustments */
+.date-column.calendar-anchor { position: relative; }
+.date-column.calendar-anchor .calendar-popover { top: 56px; left: 0; }
+
+/* Adjust popover for small screens */
+@media (max-width: 420px) {
+  .calendar-popover { width: 320px; }
+}
